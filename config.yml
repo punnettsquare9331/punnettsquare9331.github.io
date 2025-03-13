@@ -1,4 +1,4 @@
-baseURL: "https://pascalmichaillat.org/hugo-website/" 
+baseURL: "https://punnettsquare9331.github.io/" 
 title: Puneet Velidi
 theme: PaperMod
 
@@ -44,7 +44,7 @@ params:
     profileMode:
           enabled: true
           title: Puneet Velidi
-          subtitle: "I am a graduate student at the University of Victoria in Statistics, co-supervised by Prof. Farouk Nathoo & Prof. Michelle Miranda. I am interested in statistics and neuroscience. I also work as a software engineer and statistical consultant."
+          subtitle: "I am a graduate student at the University of Victoria in Statistics, co-supervised by Prof. Farouk Nathoo & Prof. Michelle Miranda. I am interested in statistics and neuroscience. I also work as a software engineer and statistical consultant"
           imageUrl: "picture.jpeg"
           imageWidth: 160
           imageHeight: 160
