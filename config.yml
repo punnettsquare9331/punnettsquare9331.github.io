@@ -54,7 +54,7 @@ params:
 
     socialIcons:
         - name: CV
-          url: cv.pdf
+          url: cv2.pdf
         - name: Email
           url: https://mailto:puneet.velidi@gmail.com
         - name: Office Hours
