@@ -1,90 +1,17 @@
-baseURL: "https://punnettsquare9331.github.io/" 
-title: Puneet Velidi
+baseURL: "https://punnettsquare9331.github.io/"
+languageCode: "en-us"
+title: "Puneet Velidi"
 theme: PaperMod
-
-enableInlineShortcodes: true
 enableRobotsTXT: true
-
-taxonomies:
-    tag: tags
-
-menu:
-    main:
-        - name: Papers
-          url: papers/
-          weight: 2
-        - name: Blog
-          url: https://punnettsquare9331.substack.com/
-          weight: 6
+disableKinds:
+  - taxonomy
+  - term
 
 params:
-    description: "I am a graduate student in statistics and software engineer."
-    author: Puneet Velidi
-    # googleAnalyticsID: "G-XXXXX"
-    DateFormat: "January 2006"
-    defaultTheme: dark
-    hideFooter: false
-    disableThemeToggle: true
-    ShowShareButtons: false
-    ShowReadingTime: false
-    disableSpecial1stPost: true
-    disableAnchoredHeadings: true
-    ShowPostNavLinks: false
-    ShowBreadCrumbs: false
-    ShowCodeCopyButtons: true
-    ShowAllPagesInArchive: false
-    MainSections: ["books","courses","papers","data"]
-    ShowToc: false
-    disableScrollToTop: true
-    TocOpen: true
-    ShowWordCount: false
-    UseHugoToc: true
-    comments: false
-    math: true
-    profileMode:
-          enabled: true
-          title: Puneet Velidi
-          subtitle: "I am a graduate student at the University of Victoria in Statistics, co-supervised by Prof. Farouk Nathoo & Prof. Michelle Miranda. I am interested in Bayesian statistics and neuroscience with experience in fMRI analysis. I also work as a software engineer and statistical consultant."
-          imageUrl: "picture.jpeg"
-          imageWidth: 160
-          imageHeight: 160
-          buttons:
-            - name: Blog
-              url: https://punnettsquare9331.substack.com/
-
-    socialIcons:
-        - name: CV
-          url: cv2.pdf
-        - name: Email
-          url: https://mailto:puneet.velidi@gmail.com
-        - name: Office Hours
-          url: https://calendar.app.google/6fDTDmGb97Tt79xQ9
-        - name: Google Scholar
-          url: https://scholar.google.com/citations?user=P8T43OMAAAAJ
-        - name: GitHub
-          url: https://github.com/punnettsquare9331
-        - name: Substack
-          url: https://punnettsquare9331.substack.com/
-        - name: Twitter
-          url: https://x.com/NEET02625422
-    assets:
-        disableScrollBarStyle: true
-    cover:
-        hiddenInList: false
-        hiddenInSingle: true
-    label:
-      text: "Puneet Velidi"
-      icon: favicon.ico
-      iconHeight: 18
+  description: "Puneet Velidi is a statistician, computational researcher, and software builder working across Bayesian methods, neuroimaging, spatial biology, and scientific machine learning."
+  author: "Puneet Velidi"
 
 markup:
-    goldmark:
-        renderer:
-            unsafe: true
-    highlight:
-        guessSyntax: true
-        style: autumn 
-    tableOfContents:
-        endLevel: 2
-        ordered: false
-        startLevel: 2
+  goldmark:
+    renderer:
+      unsafe: true

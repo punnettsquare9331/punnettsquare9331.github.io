@@ -1,0 +1,264 @@
+{{ define "main" }}
+<div id="top"></div>
+
+<section class="hero section-shell" aria-labelledby="hero-title">
+  <div class="hero-copy reveal">
+    <p class="eyebrow"><span></span> Statistician · Researcher · Builder</p>
+    <h1 id="hero-title">Puneet<br><em>Velidi.</em></h1>
+    <p class="hero-deck">I build statistical methods and software to make sense of living systems—from neural manifolds and brain networks to spatial biology and protein design.</p>
+    <div class="hero-actions">
+      <a class="button button-solid" href="{{ "documents/puneet-velidi-cv.pdf" | relURL }}" target="_blank">Full CV <span>↗</span></a>
+      <a class="button button-ghost" href="{{ "documents/puneet-velidi-resume.pdf" | relURL }}" target="_blank">Short résumé <span>↓</span></a>
+    </div>
+  </div>
+
+  <div class="hero-visual reveal" data-delay="1">
+    <div class="portrait-frame">
+      <img src="{{ "images/puneet-velidi.jpg" | relURL }}" alt="Puneet Velidi outdoors at a summer event" width="2048" height="1536">
+      <div class="portrait-label">
+        <span>Currently</span>
+        <strong>MSc Statistics<br>University of Victoria</strong>
+      </div>
+    </div>
+    <div class="orbit-note" aria-hidden="true">Bayes<br>×<br>Brains</div>
+  </div>
+
+  <div class="hero-index" aria-label="Selected highlights">
+    <div><strong>08</strong><span>Research<br>papers</span></div>
+    <div><strong>04</strong><span>Research<br>domains</span></div>
+    <div><strong>02</strong><span>Hackathon<br>podiums</span></div>
+    <div><strong>19</strong><span>Cities on<br>the map</span></div>
+  </div>
+</section>
+
+<section class="ticker" aria-label="Research interests">
+  <div class="ticker-track">
+    <span>Bayesian statistics</span><i>◆</i><span>Neuroimaging</span><i>◆</i><span>Scientific machine learning</span><i>◆</i><span>Computational biology</span><i>◆</i><span>Bayesian statistics</span><i>◆</i><span>Neuroimaging</span><i>◆</i><span>Scientific machine learning</span><i>◆</i><span>Computational biology</span><i>◆</i>
+  </div>
+</section>
+
+<section class="work section-shell" id="work" aria-labelledby="work-title">
+  <header class="section-heading reveal">
+    <div>
+      <p class="eyebrow"><span></span> Selected work</p>
+      <h2 id="work-title">Questions worth<br><em>getting lost in.</em></h2>
+    </div>
+    <p>Methods, models, and products spanning statistical theory, biomedical data, and ambitious prototypes.</p>
+  </header>
+
+  <div class="project-grid">
+    <article class="project-card project-featured reveal">
+      <a href="https://www.biorxiv.org/content/10.64898/2026.07.24.740595v1" target="_blank" rel="noopener" aria-label="Read Neural manifold connectomics on bioRxiv">
+        <div class="project-topline"><span>01 · Neuroimaging</span><span>Preprint ↗</span></div>
+        <div class="project-graphic brain-graphic" aria-hidden="true">
+          <span class="node n1"></span><span class="node n2"></span><span class="node n3"></span><span class="node n4"></span><span class="node n5"></span><span class="node n6"></span><span class="node n7"></span>
+          <i class="edge e1"></i><i class="edge e2"></i><i class="edge e3"></i><i class="edge e4"></i><i class="edge e5"></i><i class="edge e6"></i><i class="edge e7"></i>
+          <b>RV</b>
+        </div>
+        <div class="project-copy">
+          <h3>Neural manifold<br>connectomics</h3>
+          <p>Revealing multiple regimes of functional connectivity by fingerprinting whole-brain dynamics beyond pairwise correlation.</p>
+          <ul><li>fMRI</li><li>manifolds</li><li>connectomics</li></ul>
+        </div>
+      </a>
+      <a class="project-code" href="https://github.com/punnettsquare9331/fingerprintrv" target="_blank" rel="noopener">Explore FingerprintRV on GitHub ↗</a>
+    </article>
+
+    <article class="project-card reveal" data-delay="1">
+      <a href="https://arxiv.org/abs/2607.26090" target="_blank" rel="noopener">
+        <div class="project-topline"><span>02 · Shape ML</span><span>arXiv ↗</span></div>
+        <div class="project-graphic contour-graphic" aria-hidden="true">
+          <span></span><span></span><span></span><b>ƒ(θ)</b>
+        </div>
+        <div class="project-copy">
+          <h3>Shape as an<br>inductive bias</h3>
+          <p>Fourier-tokenized tumor contours meet transformer encoders for interpretable glioma grading.</p>
+          <ul><li>transformers</li><li>shape FDA</li></ul>
+        </div>
+      </a>
+      <span class="project-code project-private">Private research repository</span>
+    </article>
+
+    <article class="project-card reveal" data-delay="2">
+      <a href="https://www.biorxiv.org/content/10.64898/2026.08.10.743911v1" target="_blank" rel="noopener">
+        <div class="project-topline"><span>03 · Spatial biology</span><span>bioRxiv ↗</span></div>
+        <div class="project-graphic spatial-graphic" aria-hidden="true">
+          <div class="spot-field"></div><b>Σ(s)</b>
+        </div>
+        <div class="project-copy">
+          <h3>Covariance is<br>not stationary</h3>
+          <p>A new view of spatially varying genes that treats changing covariance as biological signal.</p>
+          <ul><li>spatial omics</li><li>covariance</li></ul>
+        </div>
+      </a>
+    </article>
+
+    <article class="project-card reveal">
+      <div class="project-topline"><span>04 · Survival</span><span>In preparation</span></div>
+      <div class="project-graphic survival-graphic" aria-hidden="true">
+        <div class="step-line"></div><span>C</span><b>S(t|x)</b>
+      </div>
+      <div class="project-copy">
+        <h3>SPARTACCUS</h3>
+        <p>Semiparametric Bayesian proportional hazards modeling when a covariate is right-censored.</p>
+        <ul><li>Bayes</li><li>Huntington’s</li></ul>
+      </div>
+    </article>
+  </div>
+
+  <div class="software-list reveal" aria-label="Software and product projects">
+    <div class="software-intro">
+      <p class="eyebrow"><span></span> Software & ventures</p>
+      <p>Research tools and products built to make complicated workflows feel direct.</p>
+    </div>
+    <a href="https://github.com/punnettsquare9331/fingerprintrv" target="_blank" rel="noopener"><span>FingerprintRV</span><small>Parcelwise neuroimaging connectivity</small><b>Python ↗</b></a>
+    <a href="https://github.com/punnettsquare9331/leo" target="_blank" rel="noopener"><span>Leo</span><small>An open notebook for DuckDB + MotherDuck</small><b>TypeScript ↗</b></a>
+    <div class="software-private"><span>FDAFill</span><small>AI-assisted regulatory filing workspace</small><b>Private build</b></div>
+    <div class="software-private"><span>Exark</span><small>Hybrid-drone physics + feasibility simulation</small><b>Private build</b></div>
+    <a href="https://github.com/punnettsquare9331/tracer" target="_blank" rel="noopener"><span>Tracer</span><small>Conversational contact-tracing prototype</small><b>Python ↗</b></a>
+    <div class="software-private"><span>ChimeraML</span><small>Combinatorial nanobody design with protein ML ensembles</small><b>Venture · 2025—</b></div>
+  </div>
+</section>
+
+<section class="papers section-shell" id="papers" aria-labelledby="papers-title">
+  <header class="section-heading reveal">
+    <div>
+      <p class="eyebrow"><span></span> Publications</p>
+      <h2 id="papers-title">The work,<br><em>in print.</em></h2>
+    </div>
+    <p>From objective Bayes factors to whole-brain network control. <a href="https://scholar.google.com/citations?user=P8T43OMAAAAJ" target="_blank" rel="noopener">Google Scholar ↗</a></p>
+  </header>
+
+  <div class="paper-list reveal">
+    <a class="paper-row" href="https://www.biorxiv.org/content/10.64898/2026.08.10.743911v1" target="_blank" rel="noopener">
+      <span class="paper-year">2026</span><span class="paper-title">Covariance Nonstationarity is Evident in Spatial Transcriptomics and Provides a New Categorization of Spatially Varying Genes</span><span class="paper-status">Submitted</span><span class="paper-arrow">↗</span>
+    </a>
+    <a class="paper-row" href="https://arxiv.org/abs/2607.26090" target="_blank" rel="noopener">
+      <span class="paper-year">2026</span><span class="paper-title">Shape Analysis as an Inductive Bias for Glioma Grading from Tumor Contours</span><span class="paper-status">Submitted</span><span class="paper-arrow">↗</span>
+    </a>
+    <a class="paper-row" href="https://www.biorxiv.org/content/10.64898/2026.07.24.740595v1" target="_blank" rel="noopener">
+      <span class="paper-year">2026</span><span class="paper-title">Neural manifold connectomics reveals multiregime functional connectivity</span><span class="paper-status">Under review</span><span class="paper-arrow">↗</span>
+    </a>
+    <a class="paper-row" href="https://www.medrxiv.org/content/10.64898/2026.07.03.26357051v1" target="_blank" rel="noopener">
+      <span class="paper-year">2026</span><span class="paper-title">Transcranial Photobiomodulation on Language and Cognitive Performance in Down Syndrome</span><span class="paper-status">Under review</span><span class="paper-arrow">↗</span>
+    </a>
+    <div class="paper-row">
+      <span class="paper-year">2026</span><span class="paper-title">SPARTACCUS: Semiparametric Bayesian Proportional Hazards Model with a Censored Covariate in Huntington’s Disease</span><span class="paper-status">In preparation</span><span class="paper-arrow">—</span>
+    </div>
+    <div class="paper-row">
+      <span class="paper-year">2026</span><span class="paper-title">Volumetric Changes Induced by Transcranial Photobiomodulation Therapy in Major Depressive Disorder</span><span class="paper-status">Submitted</span><span class="paper-arrow">—</span>
+    </div>
+    <a class="paper-row" href="https://arxiv.org/abs/2510.10358" target="_blank" rel="noopener">
+      <span class="paper-year">2025</span><span class="paper-title">Generalized Jeffreys’s Approximate Objective Bayes Factor: Model Selection Consistency, Finite-Sample Accuracy, and the Statistical Evidence in 71,126 Clinical Trial Findings</span><span class="paper-status">Under revision</span><span class="paper-arrow">↗</span>
+    </a>
+    <a class="paper-row" href="https://www.biologicalpsychiatrycnni.org/article/S2451-9022(24)00139-3/abstract" target="_blank" rel="noopener">
+      <span class="paper-year">2024</span><span class="paper-title">Altered structural connectivity and functional brain dynamics in individuals with heavy alcohol use elucidated via network control theory</span><span class="paper-status">Published</span><span class="paper-arrow">↗</span>
+    </a>
+  </div>
+</section>
+
+<section class="talks" id="talks" aria-labelledby="talks-title">
+  <div class="section-shell talks-inner">
+    <header class="section-heading light reveal">
+      <div>
+        <p class="eyebrow"><span></span> Talks & sessions</p>
+        <h2 id="talks-title">Ideas travel<br><em>better out loud.</em></h2>
+      </div>
+      <p>Invited seminars, sessions, and discussions across statistics, neuroscience, and computational biology.</p>
+    </header>
+
+    <a class="featured-talk reveal" href="https://moore.pims.math.ca/lecture/video/applications-protein-folding-models-immunotherapeutic-research" target="_blank" rel="noopener">
+      <div class="play-disc" aria-hidden="true"><span>▶</span></div>
+      <div>
+        <p>Featured recording · UBC Math Biology · Jan 2026</p>
+        <h3>Applications of Protein Folding Models in Immunotherapeutic Research</h3>
+      </div>
+      <span class="watch-link">Watch talk ↗</span>
+    </a>
+
+    <div class="talk-list reveal">
+      <a href="https://www.icsa.org/wp-content/uploads/2025/08/2025-ICSA-Bulletin-July-Issue-Final.pdf" target="_blank" rel="noopener"><time>Aug · 2026</time><strong>Brain Fingerprinting of Principal-Component Derived fMRI BOLD Functional Connectivity</strong><span>ICSA–Canada · Invited chair & speaker ↗</span></a>
+      <a href="https://www.cmstatistics.org/EcoSta2026/" target="_blank" rel="noopener"><time>Aug · 2026</time><strong>A Bayesian Semiparametric Model for Survival Analysis with a Right-Censored Covariate</strong><span>EcoSta, Kyoto · Co-author of invited talk ↗</span></a>
+      <a href="https://www.stat.ubc.ca/events/reassessing-statistical-evidence-clinical-trials-extended-approximate-objective-bayes" target="_blank" rel="noopener"><time>Oct · 2025</time><strong>70,000 Leagues Under the Sea of p-Values</strong><span>UBC Statistics · Invited seminar ↗</span></a>
+      <a href="https://maudmenteninstitute.org/" target="_blank" rel="noopener"><time>Oct · 2025</time><strong>70,000 Leagues Under the Sea of p-Values</strong><span>Maud Menten Institute · Invited seminar ↗</span></a>
+      <a href="https://www.wnar.org/meetings" target="_blank" rel="noopener"><time>Jun · 2025</time><strong>Statistical Methods for Censored Covariates</strong><span>WNAR / IMS · Co-author of invited discussant remarks ↗</span></a>
+      <a href="https://onlineacademiccommunity.uvic.ca/cabssem/event/puneet-validi/" target="_blank" rel="noopener"><time>Mar · 2025</time><strong>Network Control Theory in Neuroscience: Characterizing the Brain’s Energy Landscape</strong><span>UVic Cognition & Brain Sciences · Invited seminar ↗</span></a>
+      <a href="https://maudmenteninstitute.org/" target="_blank" rel="noopener"><time>Feb · 2025</time><strong>Network Control Theory in Neuroscience: Characterizing the Brain’s Energy Landscape</strong><span>Maud Menten Institute · Seminar ↗</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="world section-shell" id="world" aria-labelledby="world-title">
+  <div class="world-copy reveal">
+    <p class="eyebrow"><span></span> Field notes</p>
+    <h2 id="world-title">Research has<br><em>taken me places.</em></h2>
+    <p>Labs, talks, conferences, workshops, and builds across North America, Europe, and Asia. Drag the globe to explore the trail.</p>
+    <div class="place-focus" aria-live="polite">
+      <span data-place-count>01 / 19</span>
+      <strong data-place-name>Victoria, BC</strong>
+      <small data-place-note>Graduate research · University of Victoria</small>
+    </div>
+    <div class="globe-controls">
+      <button type="button" data-globe-prev aria-label="Previous place">←</button>
+      <button type="button" data-globe-pause aria-pressed="false">Pause rotation</button>
+      <button type="button" data-globe-next aria-label="Next place">→</button>
+    </div>
+  </div>
+
+  <div class="globe-wrap reveal" data-delay="1">
+    <canvas id="travel-globe" width="720" height="720" aria-label="Interactive globe marking 19 cities connected to Puneet Velidi’s research, work, talks, and travel"></canvas>
+    <noscript><p>Places include Victoria, Ithaca, Boston, New York, Bentonville, Washington, Vancouver, Birmingham, Banff, Amsterdam, Winnipeg, Montreal, Kyoto, Hamilton, Whistler, Edmonton, Bordeaux, Seoul, and San Francisco.</p></noscript>
+  </div>
+</section>
+
+<section class="about section-shell" id="about" aria-labelledby="about-title">
+  <header class="section-heading reveal">
+    <div>
+      <p class="eyebrow"><span></span> About</p>
+      <h2 id="about-title">Methods with rigor.<br><em>Tools with taste.</em></h2>
+    </div>
+    <p>I’m a thesis-based MSc student in Statistics at the University of Victoria, co-supervised by Farouk Nathoo and Michelle Miranda.</p>
+  </header>
+
+  <div class="about-grid">
+    <div class="about-statement reveal">
+      <p>My work moves between statistical methodology and scientific application: censored covariates, spatial transcriptomics, neural manifolds, shape analysis, and computational immunotherapy.</p>
+      <p>Before graduate school, I worked across research at Harvard Medical School / MGH and Weill Cornell Medicine, and engineering at Walmart Global Tech.</p>
+    </div>
+
+    <div class="timeline reveal" data-delay="1">
+      <div><time>2025—Now</time><strong>University of Victoria</strong><span>MSc Statistics · Nathoo Lab</span></div>
+      <div><time>2025</time><strong>University of Birmingham</strong><span>Visiting Researcher · AMICO Lab</span></div>
+      <div><time>2024</time><strong>Harvard Medical School + MGH</strong><span>Postbaccalaureate Researcher</span></div>
+      <div><time>2023—24</time><strong>Walmart Global Tech</strong><span>Software Engineer II</span></div>
+      <div><time>2018—22</time><strong>Cornell University</strong><span>BA Statistics & Economics</span></div>
+    </div>
+  </div>
+
+  <div class="recognition reveal">
+    <div class="recognition-lead">
+      <span>Selected recognition</span>
+      <strong>$30K+</strong>
+      <small>in research, fellowship, and competition support</small>
+    </div>
+    <div><time>2026</time><strong>Critical Ops</strong><span>1st place · 166 participants</span></div>
+    <div><time>2026</time><strong>SCSP AI+ Expo</strong><span>2nd place · $5,000 USD</span></div>
+    <div><time>2026</time><strong>Stanford RNA 3D Folding</strong><span>Silver medal · Top 3%</span></div>
+    <div><time>2025</time><strong>Labs4 TRL^ Fellowship</strong><span>$15,000 CAD</span></div>
+  </div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="contact-inner section-shell reveal">
+    <p class="eyebrow"><span></span> Start a conversation</p>
+    <h2 id="contact-title">Have a hard problem?<br><em>I like those.</em></h2>
+    <a href="mailto:puneet.velidi@gmail.com">puneet.velidi@gmail.com <span>↗</span></a>
+    <div class="contact-links">
+      <a href="{{ "documents/puneet-velidi-cv.pdf" | relURL }}" target="_blank">Full CV ↗</a>
+      <a href="{{ "documents/puneet-velidi-resume.pdf" | relURL }}" target="_blank">Short résumé ↗</a>
+      <a href="https://calendar.app.google/6fDTDmGb97Tt79xQ9" target="_blank" rel="noopener">Book time ↗</a>
+      <a href="https://punnettsquare9331.substack.com/" target="_blank" rel="noopener">Writing ↗</a>
+    </div>
+  </div>
+</section>
+{{ end }}
