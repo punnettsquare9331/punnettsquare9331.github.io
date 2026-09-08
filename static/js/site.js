@@ -1,4 +1,4 @@
-(() => {
+(async () => {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const reveals = document.querySelectorAll(".reveal");
@@ -40,12 +40,12 @@
   if (!context) return;
 
   const places = [
+    { name: "Washington, DC", lat: 38.9072, lon: -77.0369, note: "Based in Washington, DC · current" },
     { name: "Victoria, BC", lat: 48.4284, lon: -123.3656, note: "Graduate research · University of Victoria" },
     { name: "Vancouver, BC", lat: 49.2827, lon: -123.1207, note: "ChimeraML · UBC invited seminar" },
     { name: "Ithaca, NY", lat: 42.443, lon: -76.5019, note: "Statistics & Economics · Cornell University" },
     { name: "New York, NY", lat: 40.7128, lon: -74.006, note: "AI/ML · Memorial Sloan Kettering" },
     { name: "Boston, MA", lat: 42.3601, lon: -71.0589, note: "Research · Harvard Medical School & MGH" },
-    { name: "Washington, DC", lat: 38.9072, lon: -77.0369, note: "Critical Ops + SCSP AI Expo" },
     { name: "Bentonville, AR", lat: 36.3729, lon: -94.2088, note: "Software engineering · Walmart Global Tech" },
     { name: "San Francisco, CA", lat: 37.7749, lon: -122.4194, note: "Y Combinator interview · 2026" },
     { name: "Montreal, QC", lat: 45.5019, lon: -73.5674, note: "ICSA–Canada + OHBM" },
@@ -61,38 +61,29 @@
     { name: "Seoul, KR", lat: 37.5665, lon: 126.978, note: "OHBM Annual Meeting · 2024" }
   ];
 
-  const landPolygons = [
-    [[-168,72],[-145,70],[-130,58],[-124,50],[-128,42],[-117,31],[-106,23],[-97,18],[-88,20],[-82,25],[-79,34],[-68,44],[-58,51],[-54,61],[-64,72],[-95,82],[-130,76]],
-    [[-81,12],[-72,11],[-62,5],[-52,-2],[-45,-14],[-52,-31],[-63,-50],[-73,-54],[-76,-32],[-80,-12]],
-    [[-73,83],[-22,82],[-18,71],[-43,59],[-58,61]],
-    [[-11,36],[-3,43],[12,46],[28,43],[40,48],[57,54],[78,58],[99,73],[140,72],[170,61],[180,52],[160,43],[146,36],[128,22],[112,6],[98,10],[82,22],[70,22],[58,27],[45,30],[35,31],[29,37],[18,39],[7,36]],
-    [[-17,35],[4,37],[18,32],[32,31],[43,12],[51,2],[42,-13],[33,-29],[18,-35],[5,-34],[-7,-23],[-15,-2]],
-    [[112,-11],[129,-12],[144,-20],[153,-28],[146,-39],[128,-35],[114,-25]],
-    [[95,5],[110,-2],[118,-8],[107,-9],[99,-5]],
-    [[130,34],[142,44],[146,39],[138,32]],
-    [[-10,50],[2,58],[20,60],[29,55],[22,47],[8,44]],
-    [[47,-13],[51,-17],[49,-26],[44,-20]]
-  ];
-
-  const pointInPolygon = (lon, lat, polygon) => {
-    let inside = false;
-    for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
-      const [xi, yi] = polygon[i];
-      const [xj, yj] = polygon[j];
-      const intersects = yi > lat !== yj > lat && lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi;
-      if (intersects) inside = !inside;
-    }
-    return inside;
-  };
-
-  const landPoints = [];
-  for (let lat = -58; lat <= 82; lat += 3.2) {
-    for (let lon = -178; lon <= 178; lon += 3.2) {
-      if (landPolygons.some((polygon) => pointInPolygon(lon, lat, polygon))) {
-        landPoints.push([lon, lat]);
-      }
-    }
+  const d3 = window.d3;
+  const topojson = window.topojson;
+  if (!d3 || !topojson) {
+    canvas.setAttribute("aria-label", "Geographic globe unavailable; location list remains accessible with the controls.");
+    return;
   }
+
+  let topology;
+  try {
+    const response = await fetch("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json");
+    if (!response.ok) throw new Error("World atlas unavailable");
+    topology = await response.json();
+  } catch {
+    canvas.setAttribute("aria-label", "Geographic globe data unavailable; location list remains accessible with the controls.");
+    return;
+  }
+
+  const land = topojson.feature(topology, topology.objects.land);
+  const borders = topojson.mesh(topology, topology.objects.countries, (a, b) => a !== b);
+  const sphere = { type: "Sphere" };
+  const graticule = d3.geoGraticule10();
+  const projection = d3.geoOrthographic().clipAngle(90).precision(0.35);
+  const path = d3.geoPath(projection, context);
 
   const count = document.querySelector("[data-place-count]");
   const placeName = document.querySelector("[data-place-name]");
@@ -106,127 +97,95 @@
   let radius = 280;
   let centerX = 360;
   let centerY = 360;
-  let rotation = (123.3656 * Math.PI) / 180;
+  let rotation = [77.0369, -30, 0];
   let targetRotation = null;
   let paused = reducedMotion;
   let activePlace = 0;
   let dragging = false;
   let dragged = false;
   let pointerX = 0;
+  let pointerY = 0;
   let lastFrame = performance.now();
-  const tilt = -0.17;
-  const rad = Math.PI / 180;
+
+  const normalizeLongitude = (value) => ((value + 540) % 360) - 180;
 
   const resize = () => {
     const rect = canvas.getBoundingClientRect();
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    width = Math.max(300, rect.width);
+    width = Math.max(280, rect.width);
     height = width;
-    radius = width * 0.405;
+    radius = width * 0.42;
     centerX = width / 2;
     centerY = height / 2;
     canvas.width = Math.round(width * dpr);
     canvas.height = Math.round(height * dpr);
     context.setTransform(dpr, 0, 0, dpr, 0, 0);
+    projection.translate([centerX, centerY]).scale(radius);
   };
 
-  const project = (lat, lon) => {
-    const latitude = lat * rad;
-    const longitude = lon * rad + rotation;
-    const cosLat = Math.cos(latitude);
-    const x = cosLat * Math.sin(longitude);
-    const y = -Math.sin(latitude);
-    const z = cosLat * Math.cos(longitude);
-    const yTilt = y * Math.cos(tilt) - z * Math.sin(tilt);
-    const zTilt = y * Math.sin(tilt) + z * Math.cos(tilt);
-    return { x: centerX + x * radius, y: centerY + yTilt * radius, z: zTilt };
-  };
+  const geographicCenter = () => [-rotation[0], -rotation[1]];
+  const visible = (place) => d3.geoDistance([place.lon, place.lat], geographicCenter()) < Math.PI / 2;
 
-  const line = (points, stroke, lineWidth, dash = []) => {
+  const strokeGeometry = (geometry, strokeStyle, lineWidth) => {
     context.beginPath();
-    let drawing = false;
-    points.forEach(([lat, lon]) => {
-      const point = project(lat, lon);
-      if (point.z <= 0.02) {
-        drawing = false;
-        return;
-      }
-      if (!drawing) context.moveTo(point.x, point.y);
-      else context.lineTo(point.x, point.y);
-      drawing = true;
-    });
-    context.setLineDash(dash);
-    context.strokeStyle = stroke;
+    path(geometry);
+    context.strokeStyle = strokeStyle;
     context.lineWidth = lineWidth;
     context.stroke();
-    context.setLineDash([]);
+  };
+
+  const fillGeometry = (geometry, fillStyle) => {
+    context.beginPath();
+    path(geometry);
+    context.fillStyle = fillStyle;
+    context.fill();
   };
 
   const draw = (now) => {
     const elapsed = Math.min(50, now - lastFrame);
     lastFrame = now;
-    if (targetRotation !== null) {
-      let difference = targetRotation - rotation;
-      difference = Math.atan2(Math.sin(difference), Math.cos(difference));
-      rotation += difference * Math.min(1, elapsed * 0.006);
-      if (Math.abs(difference) < 0.002) targetRotation = null;
+
+    if (targetRotation) {
+      const longitudeDelta = normalizeLongitude(targetRotation[0] - rotation[0]);
+      const latitudeDelta = targetRotation[1] - rotation[1];
+      rotation[0] += longitudeDelta * Math.min(1, elapsed * 0.007);
+      rotation[1] += latitudeDelta * Math.min(1, elapsed * 0.007);
+      if (Math.abs(longitudeDelta) < 0.04 && Math.abs(latitudeDelta) < 0.04) targetRotation = null;
     } else if (!paused && !dragging) {
-      rotation += elapsed * 0.000045;
+      rotation[0] = normalizeLongitude(rotation[0] + elapsed * 0.0022);
     }
 
+    projection.rotate(rotation);
     context.clearRect(0, 0, width, height);
 
-    context.save();
-    context.beginPath();
-    context.arc(centerX, centerY, radius, 0, Math.PI * 2);
-    context.fillStyle = "#17385f";
-    context.fill();
-    context.clip();
-
-    for (let lat = -60; lat <= 60; lat += 30) {
-      const points = [];
-      for (let lon = -180; lon <= 180; lon += 3) points.push([lat, lon]);
-      line(points, "rgba(255,255,255,.13)", 0.75);
-    }
-    for (let lon = -150; lon <= 180; lon += 30) {
-      const points = [];
-      for (let lat = -88; lat <= 88; lat += 2) points.push([lat, lon]);
-      line(points, "rgba(255,255,255,.11)", 0.75);
-    }
-
-    landPoints.forEach(([lon, lat]) => {
-      const point = project(lat, lon);
-      if (point.z <= 0.015) return;
-      context.beginPath();
-      context.arc(point.x, point.y, 1.05 + point.z * 0.6, 0, Math.PI * 2);
-      context.fillStyle = `rgba(255,255,255,${0.22 + point.z * 0.5})`;
-      context.fill();
-    });
+    fillGeometry(sphere, "#f9faf9");
+    strokeGeometry(graticule, "rgba(23,56,95,.16)", 0.65);
+    fillGeometry(land, "#dce4e8");
+    strokeGeometry(land, "rgba(23,56,95,.72)", 0.85);
+    strokeGeometry(borders, "rgba(23,56,95,.29)", 0.45);
 
     places.forEach((place, index) => {
-      const point = project(place.lat, place.lon);
-      if (point.z <= 0.04) return;
+      if (!visible(place)) return;
+      const point = projection([place.lon, place.lat]);
+      if (!point) return;
       const active = index === activePlace;
       if (active) {
         context.beginPath();
-        context.arc(point.x, point.y, 12, 0, Math.PI * 2);
-        context.strokeStyle = "rgba(168,132,67,.72)";
-        context.lineWidth = 1;
+        context.arc(point[0], point[1], 10, 0, Math.PI * 2);
+        context.strokeStyle = "rgba(53,76,98,.42)";
+        context.lineWidth = 1.2;
         context.stroke();
       }
       context.beginPath();
-      context.arc(point.x, point.y, active ? 4.5 : 2.7, 0, Math.PI * 2);
-      context.fillStyle = active ? "#d2b16c" : "#a85a64";
+      context.arc(point[0], point[1], active ? 4.3 : 2.6, 0, Math.PI * 2);
+      context.fillStyle = active ? "#354c62" : "#7b8995";
       context.fill();
+      context.strokeStyle = "#ffffff";
+      context.lineWidth = 1;
+      context.stroke();
     });
-    context.restore();
 
-    context.beginPath();
-    context.arc(centerX, centerY, radius, 0, Math.PI * 2);
-    context.strokeStyle = "rgba(16,40,66,.92)";
-    context.lineWidth = 1.2;
-    context.stroke();
-
+    strokeGeometry(sphere, "#17385f", 1.1);
     requestAnimationFrame(draw);
   };
 
@@ -236,7 +195,7 @@
     if (count) count.textContent = `${String(activePlace + 1).padStart(2, "0")} / ${places.length}`;
     if (placeName) placeName.textContent = place.name;
     if (placeNote) placeNote.textContent = place.note;
-    if (shouldRotate) targetRotation = -place.lon * rad;
+    if (shouldRotate) targetRotation = [-place.lon, -Math.max(-55, Math.min(55, place.lat)), 0];
   };
 
   prevButton?.addEventListener("click", () => setActivePlace(activePlace - 1));
@@ -247,19 +206,36 @@
     pauseButton.textContent = paused ? "Resume" : "Pause";
   });
 
+  canvas.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      setActivePlace(activePlace - 1);
+    } else if (event.key === "ArrowRight") {
+      event.preventDefault();
+      setActivePlace(activePlace + 1);
+    } else if (event.key === " ") {
+      event.preventDefault();
+      pauseButton?.click();
+    }
+  });
+
   canvas.addEventListener("pointerdown", (event) => {
     dragging = true;
     dragged = false;
     pointerX = event.clientX;
+    pointerY = event.clientY;
     targetRotation = null;
     canvas.setPointerCapture(event.pointerId);
   });
   canvas.addEventListener("pointermove", (event) => {
     if (!dragging) return;
-    const delta = event.clientX - pointerX;
-    if (Math.abs(delta) > 1) dragged = true;
-    rotation += delta * 0.008;
+    const deltaX = event.clientX - pointerX;
+    const deltaY = event.clientY - pointerY;
+    if (Math.abs(deltaX) + Math.abs(deltaY) > 1) dragged = true;
+    rotation[0] = normalizeLongitude(rotation[0] + deltaX * 0.35);
+    rotation[1] = Math.max(-70, Math.min(70, rotation[1] - deltaY * 0.25));
     pointerX = event.clientX;
+    pointerY = event.clientY;
   });
   const releasePointer = (event) => {
     if (!dragging) return;
@@ -268,17 +244,19 @@
   };
   canvas.addEventListener("pointerup", releasePointer);
   canvas.addEventListener("pointercancel", releasePointer);
+
   canvas.addEventListener("click", (event) => {
     if (dragged) return;
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
     let nearest = -1;
-    let nearestDistance = 22;
+    let nearestDistance = 18;
     places.forEach((place, index) => {
-      const point = project(place.lat, place.lon);
-      if (point.z <= 0.04) return;
-      const distance = Math.hypot(point.x - x, point.y - y);
+      if (!visible(place)) return;
+      const point = projection([place.lon, place.lat]);
+      if (!point) return;
+      const distance = Math.hypot(point[0] - x, point[1] - y);
       if (distance < nearestDistance) {
         nearest = index;
         nearestDistance = distance;
@@ -288,8 +266,7 @@
   });
 
   if ("ResizeObserver" in window) {
-    const resizeObserver = new ResizeObserver(resize);
-    resizeObserver.observe(canvas);
+    new ResizeObserver(resize).observe(canvas);
   } else {
     window.addEventListener("resize", resize, { passive: true });
   }

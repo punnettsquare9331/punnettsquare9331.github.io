@@ -19,11 +19,14 @@
 
   <aside class="profile-aside reveal" data-delay="1">
     <figure class="profile-photo">
-      <img src="{{ "images/puneet-velidi.jpg" | relURL }}" alt="Puneet Velidi" width="2048" height="1536">
-      <figcaption>Puneet Velidi · Victoria, BC</figcaption>
+      <div class="profile-photo-frame">
+        <img src="{{ "images/puneet-velidi.jpg" | relURL }}" alt="Puneet Velidi" width="2048" height="1536">
+      </div>
+      <figcaption>Puneet Velidi · Washington, DC</figcaption>
     </figure>
     <dl class="profile-facts">
       <div><dt>Affiliation</dt><dd>Department of Mathematics & Statistics, University of Victoria</dd></div>
+      <div><dt>Based in</dt><dd>Washington, DC</dd></div>
       <div><dt>Research</dt><dd>Bayesian methods, neuroimaging, spatial statistics, scientific machine learning</dd></div>
       <div><dt>Links</dt><dd><a href="https://github.com/punnettsquare9331" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/puneet-velidi" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://x.com/velidictorian" target="_blank" rel="noopener">X</a></dd></div>
     </dl>
@@ -100,6 +103,10 @@
       </li>
       <li>
         <span class="pub-year">2026</span>
+        <div><cite>Transcranial Photobiomodulation in Bipolar Disorder: A Case Series on Executive Skills and fMRI BOLD Signal</cite><p>Submitted · available on request</p></div>
+      </li>
+      <li>
+        <span class="pub-year">2026</span>
         <div><cite>SPARTACCUS: Semiparametric Bayesian Proportional Hazards Model with a Censored Covariate in Huntington’s Disease</cite><p>Manuscript in preparation</p></div>
       </li>
       <li>
@@ -171,8 +178,8 @@
         <p class="atlas-label">Interactive research atlas · 19 locations</p>
         <div class="place-focus" aria-live="polite">
           <span data-place-count>01 / 19</span>
-          <strong data-place-name>Victoria, BC</strong>
-          <small data-place-note>Graduate research · University of Victoria</small>
+          <strong data-place-name>Washington, DC</strong>
+          <small data-place-note>Based in Washington, DC · current</small>
         </div>
         <div class="globe-controls">
           <button type="button" data-globe-prev aria-label="Previous place">← Previous</button>
@@ -181,8 +188,9 @@
         </div>
       </div>
       <div class="globe-wrap">
-        <canvas id="travel-globe" width="720" height="720" aria-label="Interactive globe marking 19 cities connected to Puneet Velidi’s research, work, talks, and travel"></canvas>
-        <noscript><p>Places include Victoria, Ithaca, Boston, New York, Bentonville, Washington, Vancouver, Birmingham, Banff, Amsterdam, Winnipeg, Montreal, Kyoto, Hamilton, Whistler, Edmonton, Bordeaux, Seoul, and San Francisco.</p></noscript>
+        <canvas id="travel-globe" width="720" height="720" tabindex="0" aria-label="Interactive geographic globe marking 19 cities connected to Puneet Velidi’s research, work, talks, and travel" aria-describedby="globe-instructions"></canvas>
+        <p class="sr-only" id="globe-instructions">Drag to rotate the globe. Use the left and right arrow keys to move between locations and the space bar to pause rotation.</p>
+        <noscript><p>Places include Washington, Victoria, Ithaca, Boston, New York, Bentonville, Vancouver, Birmingham, Banff, Amsterdam, Winnipeg, Montreal, Kyoto, Hamilton, Whistler, Edmonton, Bordeaux, Seoul, and San Francisco.</p></noscript>
       </div>
     </div>
   </div>
