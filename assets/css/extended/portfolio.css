@@ -459,6 +459,10 @@ img {
   margin-bottom: 0;
 }
 
+.bibliography-lead {
+  justify-content: flex-end;
+}
+
 .text-link {
   flex: none;
   padding-bottom: 2px;

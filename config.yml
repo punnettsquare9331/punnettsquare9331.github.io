@@ -8,7 +8,7 @@ disableKinds:
   - term
 
 params:
-  description: "Puneet Velidi is a statistician, computational researcher, and software builder working across Bayesian methods, neuroimaging, spatial biology, and scientific machine learning."
+  description: "Puneet Velidi — MSc in Statistics, University of Victoria. Thesis: Methods for Censored Covariates, Spatial Transcriptomic Data and Neural Manifolds."
   author: "Puneet Velidi"
 
 markup:
