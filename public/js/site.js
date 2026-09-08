@@ -18,26 +18,6 @@
     reveals.forEach((element) => revealObserver.observe(element));
   }
 
-  const header = document.querySelector("[data-header]");
-  let lastScrollY = window.scrollY;
-  let headerTicking = false;
-  const updateHeader = () => {
-    const current = window.scrollY;
-    header?.classList.toggle("is-scrolled", current > 32);
-    header?.classList.toggle("is-hidden", current > lastScrollY && current > 260);
-    lastScrollY = current;
-    headerTicking = false;
-  };
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (headerTicking) return;
-      headerTicking = true;
-      requestAnimationFrame(updateHeader);
-    },
-    { passive: true }
-  );
-
   const navToggle = document.querySelector("[data-nav-toggle]");
   const nav = document.querySelector("[data-nav]");
   const closeNav = () => {
@@ -199,19 +179,19 @@
     context.save();
     context.beginPath();
     context.arc(centerX, centerY, radius, 0, Math.PI * 2);
-    context.fillStyle = "#151515";
+    context.fillStyle = "#17385f";
     context.fill();
     context.clip();
 
     for (let lat = -60; lat <= 60; lat += 30) {
       const points = [];
       for (let lon = -180; lon <= 180; lon += 3) points.push([lat, lon]);
-      line(points, "rgba(242,239,231,.14)", 0.75);
+      line(points, "rgba(255,255,255,.13)", 0.75);
     }
     for (let lon = -150; lon <= 180; lon += 30) {
       const points = [];
       for (let lat = -88; lat <= 88; lat += 2) points.push([lat, lon]);
-      line(points, "rgba(242,239,231,.12)", 0.75);
+      line(points, "rgba(255,255,255,.11)", 0.75);
     }
 
     landPoints.forEach(([lon, lat]) => {
@@ -219,7 +199,7 @@
       if (point.z <= 0.015) return;
       context.beginPath();
       context.arc(point.x, point.y, 1.05 + point.z * 0.6, 0, Math.PI * 2);
-      context.fillStyle = `rgba(242,239,231,${0.24 + point.z * 0.54})`;
+      context.fillStyle = `rgba(255,255,255,${0.22 + point.z * 0.5})`;
       context.fill();
     });
 
@@ -230,20 +210,20 @@
       if (active) {
         context.beginPath();
         context.arc(point.x, point.y, 12, 0, Math.PI * 2);
-        context.strokeStyle = "rgba(216,244,91,.6)";
+        context.strokeStyle = "rgba(168,132,67,.72)";
         context.lineWidth = 1;
         context.stroke();
       }
       context.beginPath();
       context.arc(point.x, point.y, active ? 4.5 : 2.7, 0, Math.PI * 2);
-      context.fillStyle = active ? "#d8f45b" : "#e84b2c";
+      context.fillStyle = active ? "#d2b16c" : "#a85a64";
       context.fill();
     });
     context.restore();
 
     context.beginPath();
     context.arc(centerX, centerY, radius, 0, Math.PI * 2);
-    context.strokeStyle = "rgba(21,21,21,.92)";
+    context.strokeStyle = "rgba(16,40,66,.92)";
     context.lineWidth = 1.2;
     context.stroke();
 
@@ -264,7 +244,7 @@
   pauseButton?.addEventListener("click", () => {
     paused = !paused;
     pauseButton.setAttribute("aria-pressed", String(paused));
-    pauseButton.textContent = paused ? "Resume rotation" : "Pause rotation";
+    pauseButton.textContent = paused ? "Resume" : "Pause";
   });
 
   canvas.addEventListener("pointerdown", (event) => {

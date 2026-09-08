@@ -1,7 +1,7 @@
 <header class="site-header" data-header>
-  <a class="monogram" href="{{ "" | relURL }}" aria-label="Puneet Velidi, home">
-    <span>PV</span>
-    <i aria-hidden="true"></i>
+  <a class="wordmark" href="{{ "" | relURL }}" aria-label="Puneet Velidi, home">
+    <strong>Puneet Velidi</strong>
+    <span>Statistics · University of Victoria</span>
   </a>
 
   <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
@@ -10,14 +10,12 @@
   </button>
 
   <nav class="site-nav" id="site-nav" aria-label="Primary" data-nav>
-    <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#work">Work</a>
-    <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#papers">Papers</a>
+    <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#research">Research</a>
+    <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#publications">Publications</a>
+    <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#software">Software</a>
     <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#talks">Talks</a>
-    <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#world">World</a>
-    <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#about">About</a>
+    <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#travel">Travel</a>
   </nav>
 
-  <a class="header-contact" href="mailto:puneet.velidi@gmail.com">
-    <span>Let’s talk</span><span aria-hidden="true">↗</span>
-  </a>
+  <a class="header-cv" href="{{ "documents/puneet-velidi-cv.pdf" | relURL }}" target="_blank">CV · PDF</a>
 </header>
