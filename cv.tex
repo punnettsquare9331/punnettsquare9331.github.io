@@ -1,0 +1,387 @@
+%-------------------------
+% Puneet Velidi -- Curriculum Vitae
+%-------------------------
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{xltabular}  % tabularx X-columns that CAN break across pages   % REQUIRED for \toprule/\midrule/\bottomrule/\addlinespace
+\input{glyphtounicode}
+
+%----------HEADER / FOOTER----------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[R]{\scriptsize Velidi \textbar\ \thepage}
+\setlength{\headsep}{0.2in}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.25in}
+\addtolength{\topmargin}{-0.8in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure generated pdf is machine readable / ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+% Clean list for publications / talks / posters.
+% Sets \small ONCE for the whole list -- replaces the old \small{\item{{...}}}
+% pattern, which left braces unbalanced and leaked \small out of the list.
+\newenvironment{cvlist}
+  {\begin{itemize}[leftmargin=0.15in, label={}, itemsep=2pt, parsep=0pt, topsep=2pt]\small}
+  {\end{itemize}}
+
+% Status tag for manuscripts
+\newcommand{\status}[1]{\textbf{#1}}
+
+% Joint-first-author marker. Math dagger is used deliberately: the text
+% dagger (\textdagger) renders fine but has no glyph-to-unicode mapping,
+% so it vanishes from the PDF text layer and breaks ATS parsing.
+\newcommand{\jfa}{\textsuperscript{$\dagger$}}
+
+%-------------------------------------------
+%%%%%%  CV STARTS HERE  %%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Puneet Velidi} \\ \vspace{1pt}
+    \small +1 (703) 606 7213 $|$ \href{mailto:puneet.velidi@gmail.com}{\underline{puneet.velidi@gmail.com}} $|$
+    \href{https://linkedin.com/in/puneet-velidi}{\underline{linkedin.com/in/puneet-velidi}}
+      $|$   \href{https://punnettsquare9331.github.io/}{\underline{punnettsquare9331.github.io}}
+\end{center}
+
+%-----------EDUCATION-----------
+\vspace{-10pt}
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {University of Victoria}{Victoria, BC}
+      {MSc in Statistics (thesis-based, fully-funded)}
+      {Jan. 2025 -- (anticipated) Dec. 2026}
+        \footnotesize \item Co-supervisors: Prof. Farouk Nathoo \& Prof. Michelle Miranda
+        \vspace{-5pt}
+       \item Thesis: \textit{Methods for Censored Covariates, Spatial Transcriptomic Data and Neural Manifolds}
+       \normalsize
+
+    \resumeSubheading
+      {Cornell University}{Ithaca, NY}
+      {BA in Statistics \& Economics}
+      {Sep. 2018 -- Dec. 2022}
+  \resumeSubHeadingListEnd
+
+%-----------PUBLICATIONS-----------
+\section{Publications \normalfont\footnotesize (\jfa indicates joint first authorship)}
+
+\begin{cvlist}
+\item \textbf{Puneet Velidi}, Maryclare Griffin, Juxin Liu, Brian Richardson, Jing Qian, Roland Matsouaka, Sujit Ghosh, Tanya Garcia, Farouk Nathoo.
+\textit{SPARTACCUS: Semiparametric Bayesian Proportional Hazards Model with a Censored Covariate in Huntington's Disease.}
+\status{In Preparation}, 2026.
+
+\item \textbf{Puneet Velidi}, Zhengxiao Wei, Farouk Nathoo.
+\textit{Covariance Nonstationarity is Evident in Spatial Transcriptomics and Provides a New Categorization of Spatially Varying Genes.}
+\status{Submitted for publication}, 2026. \href{https://www.biorxiv.org/content/10.64898/2026.08.10.743911v1}{\underline{bioRxiv}}
+
+\item \textbf{Puneet Velidi}, Michelle Miranda, Farouk Nathoo, Ashery Mbilinyi, C\'edric Beaulac.
+\textit{Shape Analysis as an Inductive Bias for Glioma Grading from Tumor Contours.}
+\status{Submitted for publication}, 2026.
+\href{https://arxiv.org/abs/2607.26090}{\underline{arXiv}}
+
+\item \textbf{Puneet Velidi}, Enrico Amico, Farouk Nathoo, Michelle Miranda.
+\textit{Neural manifold connectomics reveals multiregime functional connectivity.}
+\status{Under review}, 2026. \href{https://www.biorxiv.org/content/10.64898/2026.07.24.740595v1}{\underline{bioRxiv}}
+
+\item Fabio Luchese, \textbf{Puneet Velidi}, \ldots, Paolo Cassano.
+\textit{Transcranial Photobiomodulation on Language and Cognitive Performance in Down Syndrome: A Pilot Randomized Sham-Controlled Trial.}
+\status{Under review}, 2026.
+\href{https://www.medrxiv.org/content/10.64898/2026.07.03.26357051v1}{\underline{medRxiv}}
+
+\item B. Ferreras, \ldots, \textbf{P. Velidi}, et al., P. Cassano.
+\textit{Transcranial Photobiomodulation in Bipolar Disorder: A Case Series on Executive Skills and fMRI BOLD Signal.}
+\status{Submitted for publication}, 2026. \textit{Available upon request.}
+
+\item Guillermo Gonzalez-Garibay, \textbf{Puneet Velidi}, Akila Weerasekera, Nikos Makris, Carlos Lohmann, Katherine Anne Collins, Naomi Gaggi, Dan Vlad Iosifescu, Paolo Cassano.
+\textit{Volumetric Changes Induced by Transcranial Photobiomodulation Therapy in Major Depressive Disorder: An Exploratory Neuroimaging Study.}
+\status{Submitted for publication}, 2026. \textit{Available upon request.}
+
+\item \textbf{Puneet Velidi}\jfa, Zhengxiao Wei\jfa, Shreena N. Kalaria, Yimeng Liu, C\'eline M. Laumont, Brad H. Nelson, Farouk S. Nathoo.
+\textit{Generalized Jeffreys's Approximate Objective Bayes Factor: Model Selection Consistency, Finite Sample Accuracy, and the Statistical Evidence in 71{,}126 Clinical Trial Findings.}
+\status{Under revision}, 2025. \href{https://arxiv.org/abs/2510.10358}{\underline{arXiv}}
+
+\item S. Parker Singleton\jfa, \textbf{Puneet Velidi}\jfa, Louisa Schilling, Andrea I. Luppi, Keith Jamison, Linden Parkes, Amy Kuceyeski.
+\textit{Altered structural connectivity and functional brain dynamics in individuals with heavy alcohol use elucidated via network control theory.}
+\textbf{Biological Psychiatry: Cognitive Neuroscience and Neuroimaging}, 2024.
+\href{https://www.biologicalpsychiatrycnni.org/article/S2451-9022(24)00139-3/abstract}{\underline{Link}}
+\end{cvlist}
+
+%-----------AWARDS-----------
+\section{Scholarships, Awards, Recognitions}
+\small
+\renewcommand{\arraystretch}{1.5}
+\begin{xltabular}{\textwidth}{@{}p{0.1\textwidth}X@{\hspace{0.5cm}}r@{}}
+\toprule
+\midrule
+\textbf{2026} & \textbf{ICSA-Canada Chapter} | Student/Postdoc Travel Scholarship Award \newline
+\small This award supports travel expenses for the International Chinese Statistical Association -- Canada Chapter 2026 Symposium in Montreal. & \textit{600 CAD} \\
+% \textbf{2026} & \textbf{Enactus Canada} | Student Entrepreneur National Competition \newline
+% \small Placed in the \textbf{top 30} teams nationwide for Chimera. & \textit{|} \\
+\addlinespace
+\textbf{2025} & \textbf{Labs4} | Technology Readiness Level-Up (TRL\^{}) Fellowship \newline
+\small Lab-to-market grant; ChimeraML, combinatorial nanobody design with an ensemble of protein ML models for immune checkpoint inhibitor therapy. Funded by Mitacs, New Ventures BC, and BCIT. Labs4 TRL\^{} Pitch Competition, BC Region, \textit{2nd place}. & \textit{15,000 CAD} \\
+\addlinespace
+\textbf{2025} & \textbf{University of Victoria} | Betty \& Gilbert Kennedy Graduate Scholarship in Math. \& Stats. \newline
+\small Awarded to academically outstanding students in the Department of Mathematics and Statistics upon the recommendation by the department (\textit{Donor Award}). & \textit{5,130 CAD} \\
+\addlinespace
+\textbf{2025} & \textbf{Maud Menten Institute/PIMS} | Research Accelerator Award \newline
+\small This award supports a collaboration with the MGH Photobiomodulation Lab on Bayesian analysis of the TransPhoM-DS clinical trial. & \textit{5,000 CAD} \\
+\addlinespace
+\textbf{2025} & \textbf{University of Victoria} | FGS Graduate Fellowship (Master's) \newline
+\small This fellowship is awarded to students of high academic standing upon recommendation by their department. \href{https://www.uvic.ca/science/math-statistics/assets/docs/graduate/graduate-student-handbook-2024-25.pdf}{\textit{The typical M\&S FGS Master's Fellowship is 2,500 CAD.}} & \textit{5,000 CAD} \\
+\addlinespace
+\textbf{2025} & \textbf{University of Victoria} | FGS Travel Award \& CUPE Conference Award \newline
+\small These awards supported travel expenses for CNS 2025. & \textit{1,050 CAD} \\
+\addlinespace
+\textbf{2025} & \textbf{3MC--PIMS--IDMS--ICMS} | Summer School Supported Participant \newline
+\small This recognition supported travel expenses + room and board for the two-week 2025 3MC--PIMS--IDMS--ICMS Summer School. & \textit{|} \\
+\addlinespace
+\textbf{2025} & \textbf{Maud Menten Institute/PIMS} | MMI HQP Summit Supported Participant \newline
+\small This recognition supported travel expenses + room and board for the 2025 MMI HQP Summit. & \textit{|}\\
+\bottomrule
+\end{xltabular}
+
+%-----------COMPETITIONS-----------
+\section{Competitions}
+\small
+\renewcommand{\arraystretch}{1.5}
+\begin{xltabular}{\textwidth}{@{}p{0.1\textwidth}X@{\hspace{0.5cm}}r@{}}
+\toprule
+\midrule
+\textbf{2026} & \textbf{Y Combinator (P26)} \newline
+\small Selected for an in-person interview in San Francisco out of 80k applications (approx. top 2.5\%). & \textit{|} \\
+\addlinespace
+\textbf{2026} & \textbf{Critical Ops: A DC National Security Hackathon} (spon. OpenAI, Meta, Squadra Ventures) \newline
+\small \textbf{1st place out of 166 participants}, ENEL (drone swarm 3D Gaussian Splat). Won demo opportunities with \textbf{OpenAI} and \textbf{Meta}. & \textit{|} \\
+\addlinespace
+\textbf{2026} & \textbf{SCSP AI+ Expo Hackathon} \newline
+\small \textbf{2nd place out of 200+ participants}, 1st place DC region, Electrical Grid Track. Franklin, IoT grid sound anomaly detection \& agent-to-agent load negotiation. & \textit{5,000 USD} \\
+\addlinespace
+\textbf{2026} & \textbf{Stanford University RNA 3D Folding Competition} \newline
+\small Placed in the top 3\% of 1{,}867 teams; \textbf{Silver Medal}. & \textit{|} \\
+\bottomrule
+\end{xltabular}
+
+%-----------PRESENTATIONS-----------
+\section{Presentations}
+\textbf{\small \textit{Oral Presentations}}
+\vspace{-5pt}
+\begin{cvlist}
+\item \textit{Brain Fingerprinting of Principal-component derived fMRI BOLD functional connectivity.}
+The 7th ICSA-Canada Chapter Symposium, August \textbf{2026}. Montreal, QC.
+Invited Talk, \textbf{Invited Session Chair}. 
+
+\item \textit{A Bayesian Semiparametric Model for Survival Analysis with a Right Censored Covariate.}
+9th International Conference on Econometrics and Statistics, August \textbf{2026}. Kyoto, JP.
+Co-author of invited talk.
+
+\item \textit{A Bayesian Semiparametric Model for Survival Analysis with a Right Censored Covariate.}
+2026 Statistical Society of Canada Annual Meeting, May \textbf{2026}. Hamilton, ON. Contributed Talk.
+
+\item ``Applications of Protein Folding Models uin Immunotherapeutic Research.''
+UBC Math Bio Seminar, January \textbf{2026}. Invited Seminar.
+
+\item ``70,000 Leagues Under the Sea of $p$-Values.''
+Maud Menten Institute / Mathematical and Statistical Biology Seminar, October \textbf{2025}. Invited Seminar.
+
+\item ``70,000 Leagues Under the Sea of $p$-Values.''
+UBC Stats Seminar, October \textbf{2025}. Invited Seminar.
+
+\item \textit{Statistical methods for censored covariates.}
+2025 WNAR/IMS Annual Meeting, June \textbf{2025}. Whistler, BC.
+Co-author of discussant remarks for invited session.
+
+\item ``Network Control Theory in Neuroscience: Characterizing the Brain's Energy Landscape.''
+Cognition and Brain Sciences Seminar, University of Victoria, March \textbf{2025}. Invited Seminar.
+
+\item ``Network Control Theory in Neuroscience: Characterizing the Brain's Energy Landscape.''
+Maud Menten Institute / Mathematical and Statistical Biology Seminar, University of Victoria, February \textbf{2025}.
+\end{cvlist}
+
+\textbf{\small \textit{Poster Presentations}}
+\vspace{-5pt}
+\begin{cvlist}
+\item \textit{A Bayesian Semiparametric Model for Survival Analysis with a Right Censored Covariate.}
+The 7th ICSA-Canada Chapter Symposium, August \textbf{2026}. Montreal, QC.
+
+\item \textit{Bayesian Analysis of the TransPhoM-DS Clinical Trial.}
+Organization for Human Brain Mapping 2026 Annual Meeting, June \textbf{2026}. Bordeaux, FR.
+
+\item \textit{Ahab's Harpoon: Calibrated irreplicability detection with approximate objective Bayes factors.}
+2026 Statistical Society of Canada Annual Meeting, May \textbf{2026}. Hamilton, ON.
+
+\item \textit{Reassessing the Statistical Evidence in Clinical Trials with Extended Approximate Objective Bayes Factors.}
+Maud Menten Institute 2025 HQP Summit and Working Group Meetings, July \textbf{2025}. Edmonton, AB.
+
+\item \textit{Photobiomodulation therapy-induced volumetric brain changes on patients with depression.}
+Cognitive Neuroscience Society 2025 Annual Meeting, March \textbf{2025}. Boston, MA.
+
+\item \textit{Altered structural connectivity and functional brain dynamics in individuals with heavy alcohol use elucidated via network control theory.}
+Organization for Human Brain Mapping 2024 Annual Meeting, June \textbf{2024}. Seoul, SK.
+
+\item \textit{Network control analysis of individuals with substance use disorder.}
+Organization for Human Brain Mapping 2023 Annual Meeting, July \textbf{2023}. Montreal, QC.
+\end{cvlist}
+
+%-----------RESEARCH EXPERIENCE-----------
+\section{Research Experience}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Graduate Researcher}{Victoria, BC}
+      {University of Victoria | Department of Mathematics and Statistics}{Jan. 2025 -- Present}
+      \item \href{https://nathoogroup.ca/}{\underline{Nathoo Lab}}, PI: Prof. Farouk Nathoo \& Prof. Michelle Miranda
+
+    \resumeSubheading
+      {Visiting Researcher}{Birmingham, UK}
+      {University of Birmingham | School of Mathematics}{Aug. 2025}
+      \item \href{https://amicolab.org/}{\underline{AMICO Lab}}, PI: Prof. Enrico Amico
+
+    \resumeSubheading
+      {Postbacc Researcher}{Boston, MA}
+      {Harvard Medical School \& MGH | Division of Neuropsychiatry and Neuromodulation}{May 2024 -- Dec. 2024}
+      \item \href{https://dnn.mgh.harvard.edu/}{\underline{MGH Photobiomodulation Laboratory}}, PI: Prof. Paolo Cassano
+      \resumeItemListStart
+        \resumeItem{Statistical analysis of TransPhoM-DS, TRIADE, TPEB, TRAP-AD clinical trials.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Undergraduate Researcher}{Ithaca, NY}
+      {Weill Cornell Medicine | Department of Radiology}{Jan. 2022 -- Dec. 2022}
+      \item \href{https://www.cocolaboratory.com/}{\underline{Computational Connectomics Laboratory}}, PI: Prof. Amy Kuceyeski
+  \resumeSubHeadingListEnd
+
+%-----------PROFESSIONAL EXPERIENCE-----------
+\section{Professional Experience}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Founder}{Vancouver, BC \& Washington, DC}
+      {ChimeraML | TRL Level-Up (Labs4) Fall 2025 Cohort}{Sept. 2025 -- Present}
+      \resumeItemListStart
+        \resumeItem{Combinatorial nanobody design using an ensemble of protein ML models for immune checkpoint inhibitor therapy. White paper available upon request.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Software Engineer II}{Bentonville, AR}
+      {Walmart Global Tech | EBS}{Feb. 2023 -- May 2024}
+       \resumeItemListStart
+         \resumeItem{\textit{Early Career Recognition}, awarded to $<$10\% of 2023 Walmart Global Tech Development Program.}
+        \resumeItemListEnd
+
+    \resumeSubheading
+      {AI/ML \& NextGen Analytics Intern}{New York, NY}
+      {Memorial Sloan Kettering Cancer Center | DigITs}{June 2022 -- Aug. 2022}
+  \resumeSubHeadingListEnd
+
+%-----------TEACHING-----------
+\section{Teaching Experience}
+  \resumeSubHeadingListStart
+   \resumeSubheading
+      {Teaching Assistant}{Victoria, BC}
+      {University of Victoria | Department of Mathematics and Statistics}{Jan. 2025 -- April 2025}
+   \resumeSubheading
+      {Math Support Center Tutor}{Ithaca, NY}
+      {Cornell University | Department of Mathematics}{Sep. 2021 -- Dec. 2022}
+  \resumeSubHeadingListEnd
+
+%-----------WORKSHOPS-----------
+\section{Workshops and Short Courses}
+\begin{cvlist}
+\item \textbf{BIRS Workshop: A Roadmap towards Developing Mechanobiochemical Models for Single and Collective Cell Migration through Complex Non-Isotropic Environments.}
+\textit{Banff International Research Station (BIRS), Banff, AB.} May 10--15, \textbf{2026}. \\
+Five-day invited workshop on 2- and 3-D mechanobiochemical models of single and collective cell migration.
+
+\item \textbf{eScience JASP Hackathon.}
+\textit{Netherlands eScience Center, Amsterdam, NL.} February 16--17, \textbf{2026}. \\
+Developed a JASP module alongside the core JASP programming team.
+
+\item \textbf{3MC--PIMS--IDMS--ICMS Summer School on Quantitative Molecular and Cellular Biology.}
+\textit{University of Manitoba, Winnipeg, MB.} June 16--27, \textbf{2025}. \\
+Two-week school on quantitative methods for structural, molecular, and cellular biology, using cancer as an integrative example.
+\end{cvlist}
+
+%-----------TECHNICAL REPORTS-----------
+\section{Technical Reports}
+\begin{cvlist}
+\item \textit{Computational Design of Cross-Reactive Nanobodies Targeting the Human Chemokine Receptor Family.}
+ChimeraML, \textbf{2026}. \textit{Available upon request.}
+
+\item \textit{Immunodynamic Modeling in Melanoma and Gastric Cancer.}
+Supervised by Kang-Ling Liao and Michael Chan.
+3MC--PIMS--IDMS--ICMS Summer School on Quantitative Molecular and Cellular Biology, \textbf{2025}.
+\end{cvlist}
+
+%-----------SERVICE-----------
+\section{Professional Service}
+\begin{cvlist}
+\item \textbf{Network Neuroscience}, Reviewer
+\item \textbf{Human Brain Mapping}, Reviewer (with Supervisor)
+\item \textbf{JASA Applications and Case Studies}, Reviewer (with Supervisor)
+\end{cvlist}
+
+\end{document}

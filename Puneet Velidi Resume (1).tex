@@ -1,0 +1,154 @@
+\documentclass[9pt]{extarticle}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[top=0.35in,bottom=0.3in,left=0.4in,right=0.4in]{geometry}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{mathpazo} % readable Palatino serif
+\usepackage{microtype}
+
+\definecolor{accent}{HTML}{1A3A6B}
+\definecolor{rulegray}{HTML}{8A8A8A}
+
+\hypersetup{colorlinks=true, urlcolor=accent}
+
+% ---- spacing ----
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\linespread{0.99}
+
+% ---- section headers ----
+\titleformat{\section}
+  {\color{accent}\bfseries\scshape\normalsize}
+  {}{0em}{}[\vspace{1pt}{\color{rulegray}\titlerule[0.8pt]}\vspace{0.5pt}]
+\titlespacing{\section}{0pt}{3pt}{1.5pt}
+
+% ---- entry helpers ----
+\newcommand{\heading}[4]{%
+  \textbf{#1}\hfill\textbf{#2}\\[0.5pt]
+  \null\textit{#3}\hfill\textit{#4}\par\vspace{0.5pt}}
+
+\newcommand{\award}[2]{\textbf{#1}\,#2\par\vspace{0.5pt}}
+
+% one-line sub-detail under a heading, replaces single-item itemize
+\newcommand{\detail}[1]{\hangindent=1.4em\hangafter=1%
+  \hspace*{0.6em}\textperiodcentered\hspace{0.5em}{\footnotesize #1}\par\vspace{0.5pt}}
+
+\setlist[itemize]{leftmargin=1.4em, topsep=0pt, itemsep=0pt, parsep=0pt, label=\textperiodcentered}
+
+\begin{document}
+
+% ============ HEADER ============
+\begin{center}
+  {\LARGE\bfseries\color{accent} Puneet Velidi}\\[2pt]
+  {\small M.Sc.\ Statistics \textperiodcentered\ Bayesian Statistics \& Machine Learning \textperiodcentered\ Computational Biology \& Neuroimaging}\\[2pt]
+  {\small
+  +1 (703) 606 7213 \quad\textperiodcentered\quad
+  \href{mailto:puneet.velidi@gmail.com}{puneet.velidi@gmail.com} \quad\textperiodcentered\quad
+  \href{https://linkedin.com/in/puneet-velidi}{linkedin.com/in/puneet-velidi} \quad\textperiodcentered\quad
+  \href{https://punnettsquare9331.github.io}{punnettsquare9331.github.io}}
+\end{center}
+\vspace{1pt}
+
+% ============ EDUCATION ============
+\section{Education}
+\heading{University of Victoria}{Victoria, BC}
+  {M.Sc.\ in Statistics (thesis-based, fully funded)}{Jan.\ 2025 -- Dec.\ 2026 (anticipated)}
+{\small Co-supervisors: Prof.\ Farouk Nathoo \& Prof.\ Michelle Miranda. Thesis: \textit{Methods for Censored Covariates, Spatial Transcriptomic Data and Neural Manifolds}.}\par
+\vspace{1.5pt}
+\heading{Cornell University}{Ithaca, NY}
+  {B.A.\ in Statistics \& Economics}{Sep.\ 2018 -- Dec.\ 2022}
+
+% ============ PUBLICATIONS ============
+\section{Publications \textnormal{\small ($^\dagger$ joint first authorship)}}
+{\small
+\textbf{P.\ Velidi}, M.\ Miranda, F.\ Nathoo, A.\ Mbilinyi, and C.\ Beaulac.
+\textit{Shape Analysis as an Inductive Bias for Glioma Grading from Tumor Contours}.
+\textit{Submitted for publication}. \textbf{2026}.
+\href{https://arxiv.org/abs/2607.26090}{arXiv}\par\vspace{1pt}
+
+\textbf{P.\ Velidi}, E.\ Amico, F.\ Nathoo, and M.\ Miranda.
+\textit{Neural manifold connectomics reveals multiregime functional connectivity}.
+\textbf{Under review}. \textbf{2026}. \href{https://www.biorxiv.org/content/10.64898/2026.07.24.740595v1}{bioRxiv}\par\vspace{1pt}
+
+\textbf{P.\ Velidi}, M.\ Griffin, J.\ Liu, et al., F.\ Nathoo.
+\textit{SPARTACCUS: Semiparametric Bayesian Proportional Hazards Model with a Censored Covariate in Huntington's Disease}.
+\textit{In preparation}. \textbf{2026}.\par\vspace{1pt}
+
+\textbf{P.\ Velidi}, Z.\ Wei, and F.\ Nathoo.
+\textit{Covariance Nonstationarity is Evident in Spatial Transcriptomics and Provides a New Categorization of Spatially Varying Genes}.
+\textit{Submitted for publication}. \textbf{2026}. \href{https://www.biorxiv.org/content/10.64898/2026.08.10.743911v1}{bioRxiv}\par\vspace{1pt}
+
+F.\ Luchese, \textbf{P.\ Velidi}, et al., P.\ Cassano.
+\textit{Transcranial Photobiomodulation on Language and Cognitive Performance in Down Syndrome: A Pilot Randomized Sham-Controlled Trial}.
+\textbf{Under review}. \textbf{2026}. \href{https://www.medrxiv.org/content/10.64898/2026.07.03.26357051v1}{medRxiv}\par\vspace{1pt}
+
+B.\ Ferreras ... \textbf{P.\ Velidi}, et al., P.\ Cassano.
+\textit{Transcranial Photobiomodulation in Bipolar Disorder: A Case Series on Executive Skills and fMRI BOLD Signal}.
+\textbf{Submitted for publication}. \textbf{2026}. %\href{https://www.medrxiv.org/content/10.64898/2026.07.03.26357051v1}{medRxiv}
+\par\vspace{1pt}
+
+G.\ Gonzalez-Garibay, \textbf{P.\ Velidi}, et al., P.\ Cassano.
+\textit{Volumetric Changes Induced by Transcranial Photobiomodulation Therapy in Major Depressive Disorder: An Exploratory Neuroimaging Study}.
+\textit{Submitted for publication}, 2026. \textit{Available upon request.}
+
+
+\textbf{P.\ Velidi}$^\dagger$, Z.\ Wei$^\dagger$, et al., F.\ S.\ Nathoo.
+\textit{Generalized Jeffreys's Approximate Objective Bayes Factor: Model Selection Consistency, Finite-Sample Accuracy, and the Bayesian Evidence in 71{,}126 Clinical Trial Findings}.
+\textbf{Under revision}. \textbf{2025}. \href{https://arxiv.org/abs/2510.10358}{arXiv}.\par\vspace{1pt}
+
+S.\ P.\ Singleton$^\dagger$, \textbf{P.\ Velidi}$^\dagger$, et al., A.\ Kuceyeski. \href{https://www.biologicalpsychiatrycnni.org/article/S2451-9022(24)00139-3/abstract}{\textit{Altered structural connectivity and functional brain dynamics in individuals with heavy alcohol use elucidated via network control theory}.}
+\textit{Biological Psychiatry: Cognitive Neuroscience and Neuroimaging}, \textbf{2024}.
+}
+
+% ============ ACADEMIC AWARDS ============
+\section{Academic Awards \& Scholarships}
+\award{Labs4 Technology Readiness Level-Up Fellowship --- 15{,}000 CAD (2025).}{Lab-to-market grant; 2nd place, BC-region pitch competition.\textit{ Funded by Mitacs, New Ventures BC \& BCIT.}}
+\award{UVic Betty \& Gilbert Kennedy Graduate Scholarship in Mathematics \& Statistics --- 5{,}130 CAD (2025-2026).}{Awarded to academically outstanding students on the recommendation of the department (Donor Award).}
+\award{Maud Menten Institute / PIMS Research Accelerator Award --- 5{,}000 CAD (2025).}{Supports a collaboration with the MGH Photobiomodulation Lab on Bayesian analysis of the TransPhoM-DS clinical trial.}
+\award{UVic FGS Graduate Fellowship, Master's --- 5{,}000 CAD (2025-2026).}{Awarded to students of high academic standing on the recommendation of their department.}
+
+% ============ EXPERIENCE ============
+\section{Selected Industry Experience}
+\heading{Founder --- ChimeraML}{Vancouver, BC}
+  {TRL Level-up (Labs4) Fall 2025 Cohort}{Sept.\ 2025 -- Present}
+\detail{Combinatorial nanobody design using an ensemble of protein ML models for immune checkpoint inhibitor therapy (GPCRs). White paper available upon request.}
+\vspace{1.5pt}
+\heading{Software Engineer II --- Walmart Global Tech}{Bentonville, AR}
+  {Enterprise Business Services -- Associate Digital Experience}{Feb.\ 2023 -- May 2024}
+\detail{Early Career Recognition, awarded to $<$10\% of the 2023 Walmart Global Tech Development Program.}
+
+%\heading{AI/ML \& NextGen Analytics Intern --- Memorial Sloan Kettering Cancer Center}{New York, NY}
+  %{Digital Informatics \& Technology Solutions (DigITs)}{June 2022 -- Aug.\ 2022}
+
+\section{Research Experience}
+\heading{Graduate Researcher --- University of Victoria, Dept.\ of Mathematics \& Statistics}{Victoria, BC}
+  {Nathoo Lab, PIs: Prof.\ Farouk Nathoo \& Prof.\ Michelle Miranda}{Jan.\ 2025 -- Present}
+\vspace{1.5pt}
+\heading{Visiting Researcher --- University of Birmingham, School of Mathematics}{Birmingham, UK}
+  {AMICO Lab, PI: Prof.\ Enrico Amico}{Aug.\ 2025}
+\vspace{1.5pt}
+\heading{Postbacc Researcher --- Harvard Medical School \& MGH, Neuropsychiatry \& Neuromodulation}{Boston, MA}
+  {MGH Photobiomodulation Laboratory, PI: Prof.\ Paolo Cassano}{May 2024 -- Dec.\ 2024}
+\detail{Statistical analysis of the TransPhoM-DS, TRIADE, TPEB, and TRAP-AD clinical trials.}
+\vspace{1.5pt}
+\heading{Undergraduate Researcher --- Weill Cornell Medicine, Dept.\ of Radiology}{Ithaca, NY}
+  {Computational Connectomics Laboratory, PI: Prof.\ Amy Kuceyeski}{Jan.\ 2022 -- Dec.\ 2022}
+
+% ============ TALKS ============
+\section{Selected Invited Talks \& Sessions}
+{\small
+\textbf{Invited Session Chair \& speaker}, 7th ICSA-Canada Chapter Symposium (2026) --- Neural manifold connectomics reveals multiregime functional connectivity.\par\vspace{1pt}
+%\textbf{Invited talk}, 9th Intl.\ Conference on Econometrics \& Statistics, Kyoto (2026) --- SPARTACCUS: A Bayesian semiparametric model for survival analysis with a right-censored covariate.\par\vspace{1pt}
+%\textbf{Invited discussant} (co-author), 2025 WNAR/IMS Annual Meeting, Whistler --- Statistical methods for censored covariates.\par\vspace{1pt}
+\textbf{Invited Seminars}: ``Applications of Protein Folding Models in Immunotherapeutic Research,'' UBC Math Bio (2026); ``70{,}000 Leagues Under the Sea of $p$-Values,'' UBC Statistics \& Maud Menten Institute (2025); ``Network Control Theory in Neuroscience,'' UVic Cognition \& Brain Sciences and Maud Menten Institute (2025).
+}
+
+% ============ SERVICE ============
+%\section{Peer Review \& Service}
+%{\small Reviewer --- \textit{Network Neuroscience}; \textit{Human Brain Mapping}; \textit{JASA Applications \& Case Studies}.}
+
+\end{document}
