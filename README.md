@@ -4,6 +4,10 @@ This repository contains a [Hugo](https://github.com/gohugoio/hugo) template to 
 
 ## Documentation
 
+### Maintaining Puneet's website and documents
+
+The website and its downloadable CV and resume are the authoritative public versions. Keep shared facts and publication links aligned when updating them. Edit the homepage in `layouts/index.html` and the documents in `cv.tex` and `Puneet Velidi Resume (1).tex`. Rebuild the PDFs and place the current copies in `static/documents/` and `output/pdf/`, then run Hugo to refresh `public/`. Word files in `output/docx/` are derivative exports. Publishing changes to `main` triggers the GitHub Pages workflow.
+
 The template is documented at https://pascalmichaillat.org/d5/.
 
 ## Illustration
