@@ -56,9 +56,7 @@
     { name: "Banff, AB", lat: 51.1784, lon: -115.5708, note: "BIRS mechanobiochemical modeling workshop" },
     { name: "Birmingham, UK", lat: 52.4862, lon: -1.8904, note: "Visiting researcher · AMICO Lab" },
     { name: "Amsterdam, NL", lat: 52.3676, lon: 4.9041, note: "Netherlands eScience JASP Hackathon" },
-    { name: "Bordeaux, FR", lat: 44.8378, lon: -0.5792, note: "OHBM Annual Meeting · 2026" },
-    { name: "Kyoto, JP", lat: 35.0116, lon: 135.7681, note: "Econometrics & Statistics · 2026" },
-    { name: "Seoul, KR", lat: 37.5665, lon: 126.978, note: "OHBM Annual Meeting · 2024" }
+    { name: "Bordeaux, FR", lat: 44.8378, lon: -0.5792, note: "OHBM Annual Meeting · 2026" }
   ];
 
   const d3 = window.d3;
