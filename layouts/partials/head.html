@@ -3,7 +3,7 @@
 <meta name="theme-color" content="#ffffff">
 <meta name="color-scheme" content="light">
 
-{{- $title := cond .IsHome "Puneet Velidi | Statistical Research & ChimeraML" (printf "%s | Puneet Velidi" .Title) -}}
+{{- $title := cond .IsHome "Puneet Velidi | Statistical AI/ML Researcher" (printf "%s | Puneet Velidi" .Title) -}}
 {{- $description := .Description | default site.Params.description -}}
 <title>{{ $title }}</title>
 <meta name="description" content="{{ $description }}">
@@ -15,7 +15,7 @@
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:site_name" content="Puneet Velidi">
 <meta property="og:image" content="{{ "images/puneet-velidi.jpg" | absURL }}">
-<meta property="og:image:alt" content="Puneet Velidi — statistical researcher and founder at ChimeraML">
+<meta property="og:image:alt" content="Puneet Velidi — Statistical AI/ML Researcher and founder at ChimeraML">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@velidictorian">

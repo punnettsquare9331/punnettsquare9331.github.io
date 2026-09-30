@@ -8,7 +8,7 @@ disableKinds:
   - term
 
 params:
-  description: "Puneet Velidi — statistical researcher and founder at ChimeraML. Bayesian inference, model selection, nonstationary covariance, and machine learning."
+  description: "Puneet Velidi — Statistical AI/ML Researcher and founder at ChimeraML. Bayesian inference, model selection, nonstationary covariance, and machine learning."
   author: "Puneet Velidi"
 
 markup:
