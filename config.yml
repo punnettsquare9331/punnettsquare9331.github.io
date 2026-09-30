@@ -8,7 +8,7 @@ disableKinds:
   - term
 
 params:
-  description: "Puneet Velidi — MSc in Statistics, University of Victoria. Thesis: Methods for Censored Covariates, Spatial Transcriptomic Data and Neural Manifolds."
+  description: "Puneet Velidi — statistical researcher and founder at ChimeraML. Bayesian inference, model selection, nonstationary covariance, and machine learning."
   author: "Puneet Velidi"
 
 markup:
