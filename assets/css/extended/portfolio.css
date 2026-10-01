@@ -583,6 +583,38 @@ img {
   font-size: 11px;
 }
 
+.poster-preview {
+  grid-column: 1 / -1;
+  min-width: 0;
+  margin: 12px 0 0;
+}
+
+.poster-preview > a {
+  display: block;
+  padding: 8px;
+  border: 1px solid var(--line);
+  background: var(--wash);
+  cursor: zoom-in;
+}
+
+.poster-preview img {
+  width: 100%;
+  height: auto;
+  background: white;
+}
+
+.poster-preview figcaption {
+  margin-top: 10px;
+  color: var(--navy);
+  font-family: var(--sans);
+  font-size: 12px;
+}
+
+.poster-preview figcaption a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .software-table {
   border-top: 1px solid var(--navy-deep);
 }
