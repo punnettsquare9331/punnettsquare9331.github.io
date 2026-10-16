@@ -1,16 +1,16 @@
 :root {
-  --paper: #ffffff;
-  --surface: #ffffff;
+  --paper: #fbfaf7;
+  --surface: #fffefa;
   --ink: #172033;
   --navy: #17385f;
   --navy-deep: #102842;
-  --oxblood: #354c62;
-  --gold: #7b8995;
+  --oxblood: #3e666b;
+  --gold: #8b8b75;
   --muted: #626978;
   --quiet: #858b96;
-  --line: #d8d7d1;
-  --line-dark: #b8bac0;
-  --wash: #f5f6f7;
+  --line: #d6dcd8;
+  --line-dark: #b3bebc;
+  --wash: #f1f3f2;
   --serif: "Source Serif 4", Georgia, serif;
   --sans: "IBM Plex Sans", Arial, sans-serif;
   --mono: "IBM Plex Mono", monospace;
@@ -27,6 +27,7 @@ html {
 }
 
 body {
+  isolation: isolate;
   margin: 0;
   color: var(--ink);
   background: var(--paper);
@@ -35,6 +36,60 @@ body {
   line-height: 1.62;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+.site-topography {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.48;
+  transition: opacity 700ms ease;
+  mask-image: linear-gradient(90deg, #000, rgba(0, 0, 0, 0.45) 18%, rgba(0, 0, 0, 0.08) 38%, rgba(0, 0, 0, 0.08) 62%, rgba(0, 0, 0, 0.7) 86%, #000);
+}
+
+html.has-visible-hero .site-topography {
+  opacity: 1;
+}
+
+.terrain {
+  position: absolute;
+  max-width: none;
+  opacity: 0.66;
+  animation-play-state: paused;
+}
+
+.terrain-east {
+  top: -210px;
+  right: -420px;
+  width: 1120px;
+  height: 1120px;
+  animation: terrain-east 42s ease-in-out infinite alternate paused;
+}
+
+.terrain-west {
+  bottom: -410px;
+  left: -480px;
+  width: 960px;
+  height: 960px;
+  opacity: 0.48;
+  animation: terrain-west 54s ease-in-out infinite alternate paused;
+}
+
+html[data-background-motion="running"] .terrain {
+  animation-play-state: running;
+}
+
+@keyframes terrain-east {
+  from { transform: translate3d(0, 0, 0) rotate(-14deg) scale(1); }
+  to { transform: translate3d(-28px, 24px, 0) rotate(-4deg) scale(1.06); }
+}
+
+@keyframes terrain-west {
+  from { transform: translate3d(0, 0, 0) rotate(32deg) scale(1.06); }
+  to { transform: translate3d(24px, -22px, 0) rotate(22deg) scale(1); }
 }
 
 a {
@@ -106,7 +161,7 @@ img {
   min-height: 76px;
   padding-inline: max(32px, calc((100vw - 1160px) / 2));
   border-bottom: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(251, 250, 247, 0.94);
   backdrop-filter: blur(12px);
 }
 
@@ -182,6 +237,34 @@ img {
 .header-cv:hover {
   color: white;
   background: var(--navy);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.motion-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 0;
+  border: 0;
+  color: var(--muted);
+  background: transparent;
+  font-family: var(--sans);
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.motion-toggle:hover {
+  color: var(--navy);
+}
+
+.motion-toggle[hidden] {
+  display: none;
 }
 
 .nav-toggle {
@@ -267,6 +350,7 @@ img {
   font-family: var(--sans);
   font-size: 12px;
   font-weight: 550;
+  transition: color 180ms ease, background 180ms ease, border-color 180ms ease;
 }
 
 .profile-links a span {
@@ -357,7 +441,7 @@ img {
 
 .research-strip {
   border-block: 1px solid var(--line-dark);
-  background: var(--wash);
+  background: rgba(241, 243, 242, 0.9);
 }
 
 .research-strip .page-shell {
@@ -415,6 +499,16 @@ img {
 
 .section-rail {
   align-self: start;
+}
+
+.section-rail::after {
+  display: block;
+  width: 104px;
+  height: 48px;
+  margin-top: 22px;
+  background: url("/images/contour-mark.svg") center / contain no-repeat;
+  opacity: 0.6;
+  content: "";
 }
 
 .section-rail p {
@@ -953,11 +1047,27 @@ img {
 }
 
 .contact-note {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   margin-top: 100px;
   margin-bottom: 100px;
   padding: 54px 58px;
   border-top: 4px solid var(--navy);
   background: var(--wash);
+}
+
+.contact-note::after {
+  position: absolute;
+  z-index: -1;
+  top: -200px;
+  right: -220px;
+  width: 740px;
+  height: 740px;
+  background: url("/images/topography.svg") center / contain no-repeat;
+  opacity: 0.3;
+  content: "";
+  transform: rotate(-25deg);
 }
 
 .contact-note h2 {
@@ -986,7 +1096,7 @@ img {
 
 .site-footer {
   border-top: 1px solid var(--line-dark);
-  background: var(--surface);
+  background: rgba(251, 250, 247, 0.88);
 }
 
 .footer-inner {
@@ -1081,6 +1191,10 @@ img {
     font-size: 11px;
   }
 
+  .motion-toggle span {
+    display: none;
+  }
+
   .profile-hero {
     grid-template-columns: minmax(0, 1fr) 280px;
     gap: 58px;
@@ -1111,9 +1225,40 @@ img {
   }
 
   .site-header {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
+    gap: 14px;
     min-height: 66px;
     padding-inline: 17px;
+  }
+
+  .header-actions {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .motion-toggle {
+    justify-content: center;
+    min-width: 38px;
+  }
+
+  .site-topography {
+    opacity: 0.34;
+    mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.18) 65%, #000);
+  }
+
+  html.has-visible-hero .site-topography {
+    opacity: 0.6;
+  }
+
+  .terrain-east {
+    top: -170px;
+    right: -610px;
+    width: 960px;
+    height: 960px;
+  }
+
+  .terrain-west {
+    left: -700px;
   }
 
   .wordmark span,
@@ -1122,6 +1267,8 @@ img {
   }
 
   .nav-toggle {
+    grid-column: 3;
+    grid-row: 1;
     display: grid;
     gap: 5px;
     place-content: center;
@@ -1229,6 +1376,14 @@ img {
 
   .section-rail p {
     margin: 0;
+  }
+
+  .section-rail::after {
+    flex: none;
+    align-self: center;
+    width: 48px;
+    height: 24px;
+    margin: 0 0 0 auto;
   }
 
   .section-intro {
@@ -1386,9 +1541,16 @@ img {
     opacity: 1;
     transform: none;
   }
+
+  .terrain {
+    animation: none;
+  }
 }
 
 @media print {
+  .site-topography,
+  .section-rail::after,
+  .contact-note::after,
   .site-header,
   .site-footer,
   .contact-note,

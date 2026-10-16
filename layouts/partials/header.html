@@ -17,5 +17,13 @@
     <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#contact">Contact</a>
   </nav>
 
-  <a class="header-cv" href="{{ "documents/puneet-velidi-cv.pdf" | relURL }}" target="_blank">CV · PDF</a>
+  <div class="header-actions">
+    <button class="motion-toggle" type="button" data-motion-toggle aria-label="Pause background animation" hidden>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+        <path d="M2 15c2-7 5-11 10-11s8 4 10 11M4 17C6 10 8 7 12 7s6 3 8 10M7 19c1-6 2-9 5-9s4 3 5 9M10 20c0-5 0-7 2-7s2 2 2 7" />
+      </svg>
+      <span data-motion-label>Pause motion</span>
+    </button>
+    <a class="header-cv" href="{{ "documents/puneet-velidi-cv.pdf" | relURL }}" target="_blank">CV · PDF</a>
+  </div>
 </header>
