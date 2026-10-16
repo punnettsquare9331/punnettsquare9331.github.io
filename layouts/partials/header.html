@@ -1,7 +1,7 @@
 <header class="site-header" data-header>
   <a class="wordmark" href="{{ "" | relURL }}" aria-label="Puneet Velidi, home">
-    <strong>Puneet Velidi</strong>
-    <span>Statistical AI/ML Researcher</span>
+    <span class="wordmark-symbol" aria-hidden="true">pv.</span>
+    <span class="wordmark-name">Puneet Velidi</span>
   </a>
 
   <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
@@ -14,13 +14,15 @@
     <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#software">Software</a>
     <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#vitae">Experience</a>
     <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#publications">Papers</a>
+    <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#travel">Travel</a>
     <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#contact">Contact</a>
   </nav>
 
   <div class="header-actions">
-    <button class="motion-toggle" type="button" data-motion-toggle aria-label="Pause background animation" hidden>
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
-        <path d="M2 15c2-7 5-11 10-11s8 4 10 11M4 17C6 10 8 7 12 7s6 3 8 10M7 19c1-6 2-9 5-9s4 3 5 9M10 20c0-5 0-7 2-7s2 2 2 7" />
+    <button class="motion-toggle" type="button" data-motion-toggle aria-label="Pause theme animation" hidden>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <path class="motion-pause" d="M8 5v14M16 5v14" />
+        <path class="motion-play" d="m8 5 11 7-11 7Z" />
       </svg>
       <span data-motion-label>Pause motion</span>
     </button>

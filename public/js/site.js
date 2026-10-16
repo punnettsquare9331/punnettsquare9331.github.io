@@ -1,5 +1,6 @@
 (async () => {
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const reducedMotion = motionPreference.matches;
 
   const reveals = document.querySelectorAll(".reveal");
   if (reducedMotion || !("IntersectionObserver" in window)) {
@@ -156,11 +157,11 @@
     projection.rotate(rotation);
     context.clearRect(0, 0, width, height);
 
-    fillGeometry(sphere, "#f9faf9");
-    strokeGeometry(graticule, "rgba(23,56,95,.16)", 0.65);
-    fillGeometry(land, "#dce4e8");
-    strokeGeometry(land, "rgba(23,56,95,.72)", 0.85);
-    strokeGeometry(borders, "rgba(23,56,95,.29)", 0.45);
+    fillGeometry(sphere, "#0c1517");
+    strokeGeometry(graticule, "rgba(124,190,162,.22)", 0.65);
+    fillGeometry(land, "#1b302b");
+    strokeGeometry(land, "rgba(151,196,169,.7)", 0.85);
+    strokeGeometry(borders, "rgba(151,196,169,.3)", 0.45);
 
     places.forEach((place, index) => {
       if (!visible(place)) return;
@@ -170,20 +171,20 @@
       if (active) {
         context.beginPath();
         context.arc(point[0], point[1], 10, 0, Math.PI * 2);
-        context.strokeStyle = "rgba(53,76,98,.42)";
+        context.strokeStyle = "rgba(197,255,67,.7)";
         context.lineWidth = 1.2;
         context.stroke();
       }
       context.beginPath();
       context.arc(point[0], point[1], active ? 4.3 : 2.6, 0, Math.PI * 2);
-      context.fillStyle = active ? "#354c62" : "#7b8995";
+      context.fillStyle = active ? "#c5ff43" : "#a2c4b2";
       context.fill();
-      context.strokeStyle = "#ffffff";
+      context.strokeStyle = "#0c1517";
       context.lineWidth = 1;
       context.stroke();
     });
 
-    strokeGeometry(sphere, "#17385f", 1.1);
+    strokeGeometry(sphere, "#59736b", 1.1);
     requestAnimationFrame(draw);
   };
 
@@ -193,16 +194,27 @@
     if (count) count.textContent = `${String(activePlace + 1).padStart(2, "0")} / ${places.length}`;
     if (placeName) placeName.textContent = place.name;
     if (placeNote) placeNote.textContent = place.note;
-    if (shouldRotate) targetRotation = [-place.lon, -Math.max(-55, Math.min(55, place.lat)), 0];
+    if (shouldRotate) {
+      const destination = [-place.lon, -Math.max(-55, Math.min(55, place.lat)), 0];
+      if (motionPreference.matches) { rotation = destination; targetRotation = null; }
+      else targetRotation = destination;
+    }
   };
 
   prevButton?.addEventListener("click", () => setActivePlace(activePlace - 1));
   nextButton?.addEventListener("click", () => setActivePlace(activePlace + 1));
+  const updatePauseButton = () => {
+    pauseButton?.setAttribute("aria-pressed", String(paused));
+    if (pauseButton) pauseButton.textContent = paused ? "Resume" : "Pause";
+  };
   pauseButton?.addEventListener("click", () => {
     paused = !paused;
-    pauseButton.setAttribute("aria-pressed", String(paused));
-    pauseButton.textContent = paused ? "Resume" : "Pause";
+    updatePauseButton();
   });
+  motionPreference.addEventListener("change", event => {
+    if (event.matches) { paused = true; targetRotation = null; updatePauseButton(); }
+  });
+  updatePauseButton();
 
   canvas.addEventListener("keydown", (event) => {
     if (event.key === "ArrowLeft") {

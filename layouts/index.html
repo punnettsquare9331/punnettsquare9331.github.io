@@ -3,14 +3,14 @@
 
 <section class="profile-hero page-shell" aria-labelledby="hero-title">
   <div class="profile-copy reveal">
-    <p class="kicker">Researcher–founder</p>
-    <h1 id="hero-title">Puneet Velidi</h1>
-    <p class="academic-role">Statistical AI/ML Researcher<br>Founder at ChimeraML</p>
+    <p class="kicker"><span class="status-dot" aria-hidden="true"></span> Researcher &amp; founder · Washington, DC</p>
+    <h1 id="hero-title">Puneet <span>Velidi<span class="name-period">.</span></span></h1>
+    <p class="academic-role">Statistical AI/ML Researcher <span> / </span> Founder at ChimeraML</p>
     <p class="profile-summary">I develop statistical methods for evaluating evidence in clinical trials and analyzing brain imaging and spatial gene-expression data.</p>
-    <p class="profile-note">I founded ChimeraML, a deeptech research studio backed by NVIDIA Inception, Labs4, and Mitacs. We use machine learning to design nanobodies.</p>
 
     <nav class="profile-links" aria-label="Profile links">
-      <a class="primary-link" href="{{ "documents/puneet-velidi-resume.pdf" | relURL }}" target="_blank">Résumé <span>PDF</span></a>
+      <a class="primary-link" href="#research">Explore my work <span>↓</span></a>
+      <a href="{{ "documents/puneet-velidi-resume.pdf" | relURL }}" target="_blank">Résumé <span>↗</span></a>
       <a href="https://github.com/punnettsquare9331" target="_blank" rel="noopener">GitHub <span>↗</span></a>
       <a href="{{ "documents/puneet-velidi-cv.pdf" | relURL }}" target="_blank">Full CV <span>PDF</span></a>
       <a href="https://scholar.google.com/citations?user=P8T43OMAAAAJ" target="_blank" rel="noopener">Google Scholar <span>↗</span></a>
@@ -19,19 +19,23 @@
   </div>
 
   <aside class="profile-aside reveal" data-delay="1">
+    {{ partial "topography.html" . }}
+    <div class="identity-strip">
     <figure class="profile-photo">
       <div class="profile-photo-frame">
         <img src="{{ "images/puneet-velidi.jpg" | relURL }}" alt="Puneet Velidi" width="2048" height="1536">
       </div>
-      <figcaption>Puneet Velidi · Washington, DC</figcaption>
     </figure>
-    <dl class="profile-facts">
-      <div><dt>Current</dt><dd>Founder · ChimeraML</dd></div>
-      <div><dt>Based in</dt><dd>Washington, DC</dd></div>
-      <div><dt>Links</dt><dd><a href="https://github.com/punnettsquare9331" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/puneet-velidi" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://x.com/velidictorian" target="_blank" rel="noopener">X</a></dd></div>
-    </dl>
+    <div><strong>Working where disciplines meet.</strong><p>Statistics, machine learning &amp; biology.</p></div>
+    <a href="https://www.linkedin.com/in/puneet-velidi" target="_blank" rel="noopener" aria-label="Puneet Velidi on LinkedIn">↗</a>
+    </div>
   </aside>
 </section>
+
+<div class="founder-note page-shell reveal">
+  <span>Currently building <strong>ChimeraML</strong></span>
+  <p>I founded ChimeraML, a deeptech research studio backed by NVIDIA Inception, Labs4, and Mitacs.</p>
+</div>
 
 <div class="research-strip" aria-label="Research methods">
   <div class="page-shell">
@@ -52,29 +56,32 @@
   </header>
   <div class="section-body reveal">
     <p class="section-intro">My research studies model evidence and changing dependence structures through statistical theory, computation, and applications in clinical and biological data.</p>
-    <div class="research-list">
-      <article>
-        <span class="research-number">01</span>
-        <div>
-          <h3>Model selection &amp; statistical evidence</h3>
+    <div class="research-deck" data-research-deck>
+      <article class="research-card" data-research-card>
+        <div class="research-card-top"><span>01 / Evidence</span><span aria-hidden="true">↗</span></div>
+        {{ partial "research-art.html" "evidence" }}
+        <h3><button type="button" data-research-select aria-expanded="true" aria-controls="research-panel-evidence">Model selection &amp; statistical evidence</button></h3>
+        <div class="research-panel" id="research-panel-evidence">
           <p>Generalized approximate objective Bayes factors: model selection consistency, finite-sample accuracy, and an analysis of 71,126 clinical trial findings.</p>
           <p class="method-line">Bayesian inference · Evidence assessment</p>
           <p><a class="text-link" href="https://arxiv.org/abs/2510.10358" target="_blank" rel="noopener">Read preprint ↗</a></p>
         </div>
       </article>
-      <article>
-        <span class="research-number">02</span>
-        <div>
-          <h3>Nonstationary covariance</h3>
+      <article class="research-card" data-research-card>
+        <div class="research-card-top"><span>02 / Space</span><span aria-hidden="true">↗</span></div>
+        {{ partial "research-art.html" "space" }}
+        <h3><button type="button" data-research-select aria-expanded="true" aria-controls="research-panel-space">Nonstationary covariance</button></h3>
+        <div class="research-panel" id="research-panel-space">
           <p>Studying how covariance varies across spatial transcriptomic data, and what those changes reveal about spatially varying genes.</p>
           <p class="method-line">Dependence modeling · Spatial statistics</p>
           <p><a class="text-link" href="https://www.biorxiv.org/content/10.64898/2026.08.10.743911v1" target="_blank" rel="noopener">Read preprint ↗</a></p>
         </div>
       </article>
-      <article>
-        <span class="research-number">03</span>
-        <div>
-          <h3>Latent structure &amp; multiregime connectivity</h3>
+      <article class="research-card" data-research-card>
+        <div class="research-card-top"><span>03 / Connection</span><span aria-hidden="true">↗</span></div>
+        {{ partial "research-art.html" "connection" }}
+        <h3><button type="button" data-research-select aria-expanded="true" aria-controls="research-panel-connection">Latent structure &amp; multiregime connectivity</button></h3>
+        <div class="research-panel" id="research-panel-connection">
           <p>Using neural manifolds to study multiple regimes of functional connectivity in brain data.</p>
           <p class="method-line">Neural manifolds · Multivariate analysis</p>
           <p><a class="text-link" href="https://www.biorxiv.org/content/10.64898/2026.07.24.740595v1" target="_blank" rel="noopener">Read preprint ↗</a></p>
@@ -157,8 +164,15 @@
   </header>
   <div class="section-body reveal">
     <div class="section-lead-row bibliography-lead">
+      <div class="publication-filters" aria-label="Filter publications by year" data-publication-filters hidden>
+        <button type="button" data-year="all" aria-pressed="true">All</button>
+        <button type="button" data-year="2026" aria-pressed="false">2026</button>
+        <button type="button" data-year="2025" aria-pressed="false">2025</button>
+        <button type="button" data-year="2024" aria-pressed="false">2024</button>
+      </div>
       <a class="text-link" href="https://scholar.google.com/citations?user=P8T43OMAAAAJ" target="_blank" rel="noopener">Scholar profile ↗</a>
     </div>
+    <p class="sr-only" data-publication-status aria-live="polite"></p>
     <ol class="bibliography">
       <li>
         <span class="pub-year">2026</span>
@@ -258,7 +272,7 @@
       <li><span class="pub-year">2026</span><div><a href="https://dcr.massgeneral.org/clinical-research-day-3/" target="_blank" rel="noopener"><cite>Acute Effects of Transcranial Photobiomodulation On Glymphatic CSF Dynamics in Two Patients with Amnestic Mild Cognitive Impairment or Early Alzheimer Disease</cite></a><p>Clinical Research Day, Mass General Brigham, October 30, 2026. Virtual poster presentation (upcoming).</p></div>
         <figure class="poster-preview">
           <a href="{{ "posters/clinical-research-day-2026.pdf" | relURL }}?v=20261002" target="_blank" rel="noopener" aria-label="Open full-size PDF: Acute Effects of Transcranial Photobiomodulation On Glymphatic CSF Dynamics in Two Patients with Amnestic Mild Cognitive Impairment or Early Alzheimer Disease">
-            <img src="{{ "posters/clinical-research-day-2026.webp" | relURL }}?v=20261002" srcset="{{ "posters/clinical-research-day-2026.webp" | relURL }}?v=20261002 900w, {{ "posters/clinical-research-day-2026-large.webp" | relURL }}?v=20261002 2100w" sizes="(max-width: 760px) calc(100vw - 48px), (max-width: 1040px) calc(100vw - 246px), 892px" width="2100" height="2800" loading="lazy" decoding="async" alt="Acute Effects of Transcranial Photobiomodulation On Glymphatic CSF Dynamics in Two Patients with Amnestic Mild Cognitive Impairment or Early Alzheimer Disease — poster for Clinical Research Day 2026">
+            <img src="{{ "posters/clinical-research-day-2026.webp" | relURL }}?v=20261002" srcset="{{ "posters/clinical-research-day-2026.webp" | relURL }}?v=20261002 900w, {{ "posters/clinical-research-day-2026-large.webp" | relURL }}?v=20261002 2100w" sizes="(max-width: 600px) calc(100vw - 88px), (max-width: 1150px) calc((100vw - 138px) / 2), 596px" width="2100" height="2800" loading="lazy" decoding="async" alt="Acute Effects of Transcranial Photobiomodulation On Glymphatic CSF Dynamics in Two Patients with Amnestic Mild Cognitive Impairment or Early Alzheimer Disease — poster for Clinical Research Day 2026">
           </a>
           <figcaption><a href="{{ "posters/clinical-research-day-2026.pdf" | relURL }}?v=20261002" target="_blank" rel="noopener">Open full-size PDF ↗</a></figcaption>
         </figure>
@@ -266,7 +280,7 @@
       <li><span class="pub-year">2026</span><div><cite>A Bayesian Semiparametric Model for Survival Analysis with a Right Censored Covariate</cite><p>The 7th ICSA-Canada Chapter Symposium, August 2026. Montreal, QC.</p></div>
         <figure class="poster-preview">
           <a href="{{ "posters/spartaccus-icsa-2026.pdf" | relURL }}" target="_blank" rel="noopener" aria-label="Open full-size PDF: A Bayesian Semiparametric Model for Survival Analysis with a Right Censored Covariate">
-            <img src="{{ "posters/spartaccus-icsa-2026.webp" | relURL }}" srcset="{{ "posters/spartaccus-icsa-2026.webp" | relURL }} 900w, {{ "posters/spartaccus-icsa-2026-large.webp" | relURL }} 2100w" sizes="(max-width: 760px) calc(100vw - 48px), (max-width: 1040px) calc(100vw - 246px), 892px" width="2100" height="2800" loading="lazy" decoding="async" alt="A Bayesian Semiparametric Model for Survival Analysis with a Right Censored Covariate — poster for ICSA–Canada 2026">
+            <img src="{{ "posters/spartaccus-icsa-2026.webp" | relURL }}" srcset="{{ "posters/spartaccus-icsa-2026.webp" | relURL }} 900w, {{ "posters/spartaccus-icsa-2026-large.webp" | relURL }} 2100w" sizes="(max-width: 600px) calc(100vw - 88px), (max-width: 1150px) calc((100vw - 138px) / 2), 596px" width="2100" height="2800" loading="lazy" decoding="async" alt="A Bayesian Semiparametric Model for Survival Analysis with a Right Censored Covariate — poster for ICSA–Canada 2026">
           </a>
           <figcaption><a href="{{ "posters/spartaccus-icsa-2026.pdf" | relURL }}" target="_blank" rel="noopener">Open full-size PDF ↗</a></figcaption>
         </figure>
@@ -274,7 +288,7 @@
       <li><span class="pub-year">2026</span><div><cite>Bayesian Analysis of the TransPhoM-DS Clinical Trial</cite><p>Organization for Human Brain Mapping 2026 Annual Meeting, June 2026. Bordeaux, FR.</p></div>
         <figure class="poster-preview">
           <a href="{{ "posters/transphom-ds-ohbm-2026.pdf" | relURL }}" target="_blank" rel="noopener" aria-label="Open full-size PDF: Bayesian Analysis of the TransPhoM-DS Clinical Trial">
-            <img src="{{ "posters/transphom-ds-ohbm-2026.webp" | relURL }}" srcset="{{ "posters/transphom-ds-ohbm-2026.webp" | relURL }} 1200w, {{ "posters/transphom-ds-ohbm-2026-large.webp" | relURL }} 2800w" sizes="(max-width: 760px) calc(100vw - 48px), (max-width: 1040px) calc(100vw - 246px), 892px" width="2800" height="2100" loading="lazy" decoding="async" alt="Bayesian Analysis of the TransPhoM-DS Clinical Trial — poster for OHBM 2026">
+            <img src="{{ "posters/transphom-ds-ohbm-2026.webp" | relURL }}" srcset="{{ "posters/transphom-ds-ohbm-2026.webp" | relURL }} 1200w, {{ "posters/transphom-ds-ohbm-2026-large.webp" | relURL }} 2800w" sizes="(max-width: 600px) calc(100vw - 88px), (max-width: 1150px) calc((100vw - 138px) / 2), 596px" width="2800" height="2100" loading="lazy" decoding="async" alt="Bayesian Analysis of the TransPhoM-DS Clinical Trial — poster for OHBM 2026">
           </a>
           <figcaption><a href="{{ "posters/transphom-ds-ohbm-2026.pdf" | relURL }}" target="_blank" rel="noopener">Open full-size PDF ↗</a></figcaption>
         </figure>
@@ -284,7 +298,7 @@
       <li><span class="pub-year">2025</span><div><cite>Photobiomodulation therapy-induced volumetric brain changes on patients with depression</cite><p>Cognitive Neuroscience Society 2025 Annual Meeting, March 2025. Boston, MA.</p></div>
         <figure class="poster-preview">
           <a href="{{ "posters/volumetric-changes-cns-2025.pdf" | relURL }}" target="_blank" rel="noopener" aria-label="Open full-size PDF: Photobiomodulation therapy-induced volumetric brain changes on patients with depression">
-            <img src="{{ "posters/volumetric-changes-cns-2025.webp" | relURL }}" srcset="{{ "posters/volumetric-changes-cns-2025.webp" | relURL }} 1200w, {{ "posters/volumetric-changes-cns-2025-large.webp" | relURL }} 2800w" sizes="(max-width: 760px) calc(100vw - 48px), (max-width: 1040px) calc(100vw - 246px), 892px" width="2800" height="2100" loading="lazy" decoding="async" alt="Photobiomodulation therapy-induced volumetric brain changes on patients with depression — poster for CNS 2025">
+            <img src="{{ "posters/volumetric-changes-cns-2025.webp" | relURL }}" srcset="{{ "posters/volumetric-changes-cns-2025.webp" | relURL }} 1200w, {{ "posters/volumetric-changes-cns-2025-large.webp" | relURL }} 2800w" sizes="(max-width: 600px) calc(100vw - 88px), (max-width: 1150px) calc((100vw - 138px) / 2), 596px" width="2800" height="2100" loading="lazy" decoding="async" alt="Photobiomodulation therapy-induced volumetric brain changes on patients with depression — poster for CNS 2025">
           </a>
           <figcaption><a href="{{ "posters/volumetric-changes-cns-2025.pdf" | relURL }}" target="_blank" rel="noopener">Open full-size PDF ↗</a></figcaption>
         </figure>
@@ -327,7 +341,7 @@
 
 <section class="contact-note page-shell reveal" id="contact" aria-labelledby="contact-title">
   <p class="kicker">Contact</p>
-  <h2 id="contact-title">Let’s talk research.</h2>
+  <h2 id="contact-title">Let’s talk <span>research.</span></h2>
   <p>I welcome conversations about quantitative research, statistical modeling, and machine learning.</p>
   <p>Email <a href="mailto:puneet.velidi@gmail.com">puneet.velidi@gmail.com</a> or <a href="https://calendar.app.google/6fDTDmGb97Tt79xQ9" target="_blank" rel="noopener">schedule a conversation</a>.</p>
 </section>

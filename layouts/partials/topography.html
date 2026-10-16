@@ -1,4 +1,8 @@
-<div class="site-topography" aria-hidden="true">
-  <img class="terrain terrain-east" src="{{ "images/topography.svg" | relURL }}" alt="" width="1000" height="1000" decoding="async">
-  <img class="terrain terrain-west" src="{{ "images/topography.svg" | relURL }}" alt="" width="1000" height="1000" decoding="async">
-</div>
+<figure class="landscape" aria-label="Animated abstract topographic landscape">
+  <div class="landscape-heading"><span class="status-dot" aria-hidden="true"></span>Structure in motion<span aria-hidden="true">↗</span></div>
+  <div class="landscape-surface">
+    <img class="landscape-fallback" src="{{ "images/topography.svg" | relURL }}" alt="" width="1000" height="1000" aria-hidden="true">
+    <canvas id="landscape-canvas" width="800" height="800" aria-hidden="true"></canvas>
+  </div>
+  <figcaption><span>An abstract statistical landscape</span><span class="landscape-hint">Move to explore ↔</span></figcaption>
+</figure>
