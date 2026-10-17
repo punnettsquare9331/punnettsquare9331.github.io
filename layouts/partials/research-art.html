@@ -1,19 +1,29 @@
-<svg class="research-art" viewBox="0 0 320 150" fill="none" aria-hidden="true">
-  {{ if eq . "evidence" }}
-  <path class="art-axis" d="M10 130H310M30 140V10"/>
-  <path class="art-line" d="M10 126C40 126 54 125 72 110S95 23 128 23S158 109 193 119S270 126 310 126"/>
-  <path class="art-line secondary" d="M10 128C60 128 89 120 114 104S155 45 187 45S219 109 252 120S289 127 310 127"/>
-  <path class="art-guide" d="M128 23V130M187 45V130"/>
-  <circle cx="128" cy="23" r="4"/><circle cx="187" cy="45" r="4"/>
-  {{ else if eq . "space" }}
-  <g class="art-contours" transform="translate(160 75) rotate(-18)">
-    <ellipse rx="137" ry="60"/><ellipse rx="116" ry="51"/><ellipse rx="95" ry="41"/><ellipse rx="74" ry="32"/><ellipse rx="52" ry="23"/><ellipse rx="30" ry="13"/>
-    <path d="M-145 0H145M0-66V66" class="art-guide"/>
-  </g>
-  {{ else }}
-  <g class="art-network">
-    <path d="M35 79L83 27L144 48L212 21L278 72L240 127L177 104L113 135L35 79L144 48L177 104L278 72M83 27L113 135M35 79L177 104L212 21L240 127M144 48L278 72M83 27L212 21M113 135L240 127"/>
-    <circle cx="35" cy="79" r="6"/><circle cx="83" cy="27" r="4"/><circle cx="144" cy="48" r="7"/><circle cx="212" cy="21" r="4"/><circle cx="278" cy="72" r="6"/><circle cx="240" cy="127" r="5"/><circle cx="177" cy="104" r="7"/><circle cx="113" cy="135" r="4"/>
-  </g>
-  {{ end }}
-</svg>
+<div class="research-art" aria-hidden="true">
+{{ if eq . "evidence" }}
+<pre>       .-<span class="ascii-accent">o</span>-.          .
+      /     \       .   .
+     /       \    .       .
+    /         \ .           .
+ __/           '-.           .__
++-------------------------------
+          p(data | model)</pre>
+{{ else if eq . "space" }}
+<pre>       . : + + + : .
+    . +             + .
+  : +     . : : .     + :
+ : +    : +     + :    + :
+ : +    : +  <span class="ascii-accent">*</span>  + :   + :
+  : +     ' : : '    + :
+    ' + .         . + '
+        ' : + + : '</pre>
+{{ else }}
+<pre>          <span class="ascii-accent">o</span>-----------o
+         / \         / \
+        /   \       /   \
+       o-----<span class="ascii-accent">o</span>-----o     o
+        \   / \   / \   /
+         \ /   \ /   \ /
+          o-----<span class="ascii-accent">o</span>-----o
+           . connectivity .</pre>
+{{ end }}
+</div>
