@@ -15,63 +15,6 @@
   try { paused = localStorage.getItem(storageKey) === 'paused'; } catch {}
   const canMove = () => !paused && !preference.matches && !document.hidden;
 
-  const drawHandSurface = (view, project) => {
-    // A suspended field continues the background geometry beneath the palms.
-    // Its near edge uses the photo's contact line and shares the relief camera.
-    const columns = 28, rows = 7;
-    const surface = (column, row) => {
-      const u = -.035 + column / columns * 1.07;
-      const depth = row / rows;
-      const contact = .402 + (u - .047) * .0231;
-      const bend = Math.pow(Math.sin(clamp(u, 0, 1) * Math.PI), 2) * .018;
-      return project(.5 + (u - .5) * (1 - depth * .12) + depth * .018,
-        contact - depth * .145 + bend * (1 - depth), .043 - depth * .29);
-    };
-    const path = (points) => {
-      context.beginPath();
-      points.forEach((point, index) => {
-        if (index === 0) context.moveTo(point.x, point.y);
-        else context.lineTo(point.x, point.y);
-      });
-    };
-    context.save();
-    context.globalAlpha = view.visibility;
-    const perimeter = [];
-    for (let col = 0; col <= columns; col++) perimeter.push(surface(col, 0));
-    for (let row = 1; row <= rows; row++) perimeter.push(surface(columns, row));
-    for (let col = columns - 1; col >= 0; col--) perimeter.push(surface(col, rows));
-    for (let row = rows - 1; row > 0; row--) perimeter.push(surface(0, row));
-    path(perimeter);
-    context.closePath();
-    context.fillStyle = 'rgba(16,26,20,.38)';
-    context.fill();
-
-    for (let row = 0; row <= rows; row++) {
-      path(Array.from({length: columns + 1}, (_, col) => surface(col, row)));
-      context.strokeStyle = row === 0 ? 'rgba(202,229,146,.72)' : `rgba(154,184,119,${.3 - row / rows * .2})`;
-      context.lineWidth = row === 0 ? 1.1 : .7;
-      context.stroke();
-    }
-    for (let col = 0; col <= columns; col++) {
-      path(Array.from({length: rows + 1}, (_, row) => surface(col, row)));
-      context.strokeStyle = col === 0 || col === columns ? 'rgba(192,214,154,.46)' : 'rgba(154,184,119,.23)';
-      context.lineWidth = .7;
-      context.stroke();
-    }
-    // Sparse ASCII nodes make the contact plane read as part of the same field.
-    context.font = '9px "IBM Plex Mono", monospace';
-    context.textAlign = 'center';
-    context.textBaseline = 'middle';
-    context.fillStyle = 'rgba(208,237,157,.5)';
-    for (let col = 2; col < columns; col += 3) {
-      for (let row = 1; row < rows; row += 2) {
-        const p = surface(col, row);
-        context.fillText((col + row) % 3 ? '+' : '.', p.x, p.y);
-      }
-    }
-    context.restore();
-  };
-
   const render = () => {
     const mobile = width <= 600;
     const progress = clamp(scrollPosition, 0, 1.6);
@@ -156,7 +99,6 @@
         context.fillText(glyphs[(column * 7 + row * 3) % glyphs.length], p.x, p.y);
       }
     }
-    drawHandSurface(view, project);
     document.dispatchEvent(new CustomEvent('portfolio-view', {detail: view}));
   };
 
