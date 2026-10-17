@@ -3,289 +3,168 @@
   const toggle = document.querySelector('[data-motion-toggle]');
   if (!(canvas instanceof HTMLCanvasElement) || !toggle) return;
   const context = canvas.getContext('2d');
-  const terrainCanvas = document.createElement('canvas');
-  const terrain = terrainCanvas.getContext('2d');
-  if (!context || !terrain) return;
-
-  const landscape = canvas.closest('.landscape');
+  if (!context) return;
   const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const label = toggle.querySelector('[data-motion-label]');
-  const lossLabel = document.querySelector('[data-loss-value]');
-  const stepLabel = document.querySelector('[data-loss-step]');
-  const stateLabel = document.querySelector('[data-loss-state]');
-  const restart = document.querySelector('[data-loss-restart]');
   const storageKey = 'puneet-background-motion';
-  const accent = '#d5ff70';
-  let paused = false;
-  let frame = 0;
-  let lastTime = 0;
-  let elapsed = 2.2;
-  let width = 600;
-  let height = 540;
-  let pointerX = 0;
-  let pointerY = 0;
-  let targetX = 0;
-  let targetY = 0;
-  let seed = 0;
-  let scrollPosition = 0;
-  let targetScroll = window.scrollY / Math.max(window.innerHeight, 1);
-  let terrainDirty = true;
-  let previousCamera = [];
-  let cells, depths, columns, rows, cellWidth, cellHeight;
-
+  const clamp = (value, low, high) => Math.max(low, Math.min(high, value));
+  let paused = false, frame = 0, previousTime = 0;
+  let width = 1, height = 1, dpr = 1;
+  let pointerX = 0, pointerY = 0, targetX = 0, targetY = 0;
+  let scrollPosition = window.scrollY / Math.max(window.innerHeight, 1);
+  let targetScroll = scrollPosition;
   try { paused = localStorage.getItem(storageKey) === 'paused'; } catch {}
   const canMove = () => !paused && !preference.matches && !document.hidden;
-  const clamp = (value, low, high) => Math.max(low, Math.min(high, value));
-
-  // A synthetic, nonconvex objective. Both the surface and the descent use this
-  // function; the readout describes this illustration, not research results.
-  const loss = (x, z) => 0.12 * (x * x + 1.6 * z * z)
-    + 0.32 * Math.sin(1.8 * x) * Math.cos(1.3 * z) + 0.65;
-  const gradient = (x, z) => [
-    0.24 * x + 0.576 * Math.cos(1.8 * x) * Math.cos(1.3 * z),
-    0.384 * z - 0.416 * Math.sin(1.8 * x) * Math.sin(1.3 * z)
-  ];
-  const elevation = (value) => (value - 0.7) * 1.1;
-  const starts = [[2.7, -2.5], [-2.7, 2.4], [2.6, 2.5], [-2.6, -2.5]];
-  const makeRun = () => {
-    let [x, z] = starts[seed % starts.length];
-    const points = [{x, z, loss: loss(x, z), distance: 0}];
-    for (let step = 0; step < 180; step++) {
-      const [dx, dz] = gradient(x, z);
-      if (Math.hypot(dx, dz) < 0.001) break;
-      const previous = points[points.length - 1];
-      // Backtracking keeps every accepted step downhill, including near saddles.
-      let rate = 0.18;
-      while (loss(x - rate * dx, z - rate * dz) > previous.loss && rate > 0.0001) rate *= 0.5;
-      x -= rate * dx;
-      z -= rate * dz;
-      points.push({x, z, loss: loss(x, z), distance: previous.distance + Math.hypot(x - previous.x, z - previous.z)});
-    }
-    return points;
-  };
-  let route = makeRun();
-  const mesh = [];
-  const divisions = 112;
-  for (let row = 0; row <= divisions; row++) {
-    for (let col = 0; col <= divisions; col++) {
-      const x = -4.5 + col * 9 / divisions;
-      const z = -4.5 + row * 9 / divisions;
-      const value = loss(x, z);
-      const [dx, dz] = gradient(x, z);
-      const light = clamp((0.7 - dx * 0.3 - dz * 0.5) / Math.hypot(dx, 1, dz), -0.3, 1);
-      mesh.push({x, z, y: elevation(value), shade: clamp(Math.round((light + 0.3) * 4.5), 0, 5)});
-    }
-  }
 
   const render = () => {
-    if (!cells) return;
-    context.clearRect(0, 0, width, height);
-    const scale = width <= 600 ? width / 6.8 : Math.max(width / 10, height / 7);
-    const yaw = -0.48 + pointerX * 0.14 + scrollPosition * 0.13;
-    const pitch = 0.76 + pointerY * 0.06 + Math.sin(scrollPosition * 0.28) * 0.06;
-    const centerX = width * (width <= 600 ? 0.54 : 0.66) + Math.sin(scrollPosition * 0.4) * width * 0.055;
-    const centerY = height * 0.8 - Math.sin(scrollPosition * 0.24) * height * 0.035;
-    const cy = Math.cos(yaw), sy = Math.sin(yaw);
-    const cp = Math.cos(pitch), sp = Math.sin(pitch);
-    const project = (x, y, z) => {
-      const depth = x * sy + z * cy;
-      return {x: centerX + (x * cy - z * sy) * scale,
-        y: centerY + (depth * sp - y * cp) * scale,
-        depth: depth * cp + y * sp};
+    const mobile = width <= 600;
+    const progress = clamp(scrollPosition, 0, 1.6);
+    const movement = canMove() ? progress : 0;
+    const portraitHeight = mobile ? Math.min(width * .9, height * .52) : Math.min(height * .8, 860, width * .7);
+    const view = {
+      width, height, dpr, portraitHeight,
+      centerX: width * (mobile ? .67 : .76) + pointerX * (mobile ? 3 : 8),
+      centerY: mobile ? 117 + portraitHeight / 2 - movement * 32 : height * .54 - movement * 30,
+      yaw: pointerX * .14 - movement * .11,
+      pitch: pointerY * .045 + movement * .025,
+      visibility: (mobile ? .72 : .9) * (1 - clamp(progress / 1.05, 0, 1) * .84),
+      asciiMix: .14 + clamp(progress / 1.1, 0, 1) * .63,
+      pointerX, pointerY
     };
-    const surfacePoint = (point, lift = 0) => project(point.x, elevation(point.loss) + lift, point.z);
-
-    // Cache the ASCII surface between camera changes. The moving ball only
-    // requires one image composite, keeping the page-wide animation lightweight.
-    const camera = [yaw, pitch, centerX, centerY, scale];
-    if (terrainDirty || camera.some((value, index) => Math.abs(value - (previousCamera[index] ?? Infinity)) > 0.001)) {
-      terrain.clearRect(0, 0, width, height);
-      // Quantize the surface into a screen-space character grid with depth testing.
-      // This is actual ASCII geometry, not a texture over a bitmap.
-      cells.fill(-1);
-      depths.fill(-Infinity);
-      mesh.forEach((point, index) => {
-        const screen = project(point.x, point.y, point.z);
-        const col = Math.round(screen.x / cellWidth);
-        const row = Math.round(screen.y / cellHeight);
-        if (col < 0 || col >= columns || row < 0 || row >= rows) return;
-        const cell = row * columns + col;
-        if (screen.depth > depths[cell]) { depths[cell] = screen.depth; cells[cell] = index; }
-      });
-      terrain.lineWidth = 0.65;
-      terrain.strokeStyle = 'rgba(155,184,158,.13)';
-      for (let row = 0; row <= divisions; row += 16) {
-        terrain.beginPath();
-        for (let col = 0; col <= divisions; col++) {
-          const point = mesh[row * (divisions + 1) + col];
-          const screen = project(point.x, point.y, point.z);
-          if (col === 0) terrain.moveTo(screen.x, screen.y);
-          else terrain.lineTo(screen.x, screen.y);
-        }
-        terrain.stroke();
+    // The two hands anchor a continuous sheet. It bends with the same camera as
+    // the portrait, so the photograph appears to pull the screen around it.
+    const project = (u, v, z = .04) => {
+      const x = (u - .5) * 701 / 1043, y = .5 - v;
+      const cp = Math.cos(view.pitch), sp = Math.sin(view.pitch);
+      const cy = Math.cos(view.yaw), sy = Math.sin(view.yaw);
+      const py = y * cp - z * sp, pz = y * sp + z * cp;
+      const px = x * cy + pz * sy, depth = -x * sy + pz * cy;
+      const scale = portraitHeight / (1 - depth * .35);
+      return {x: view.centerX + px * scale, y: view.centerY - py * scale};
+    };
+    const leftHand = project(.057, .397), rightHand = project(.961, .419);
+    const spacing = mobile ? 25 : 32;
+    const columns = Math.ceil(width / spacing) + 8;
+    const rows = Math.ceil(height / spacing) + 8;
+    const radius = portraitHeight * .34;
+    const strength = portraitHeight * (.12 + movement * .025);
+    const warp = (column, row) => {
+      let x = (column - 4) * spacing;
+      let y = (row - 4) * spacing;
+      let displacement = 0;
+      for (const hand of [leftHand, rightHand]) {
+        const dx = x - hand.x, dy = y - hand.y;
+        const influence = Math.exp(-(dx * dx + dy * dy * 1.6) / (radius * radius));
+        displacement -= influence * strength;
+        x += dx / radius * influence * 17;
       }
-      for (let col = 0; col <= divisions; col += 16) {
-        terrain.beginPath();
-        for (let row = 0; row <= divisions; row++) {
-          const point = mesh[row * (divisions + 1) + col];
-          const screen = project(point.x, point.y, point.z);
-          if (row === 0) terrain.moveTo(screen.x, screen.y);
-          else terrain.lineTo(screen.x, screen.y);
-        }
-        terrain.stroke();
+      const body = Math.exp(-Math.pow((x - view.centerX) / (radius * .9), 2));
+      y += displacement + body * 38 * Math.sin((y - view.centerY) / height * Math.PI);
+      x += (y / height - .5) * (pointerX * 16 - movement * 17);
+      return {x, y};
+    };
+    context.clearRect(0, 0, width, height);
+    context.lineWidth = .65;
+    const fade = context.createLinearGradient(0, 0, width, 0);
+    fade.addColorStop(0, 'rgba(125,151,127,.025)');
+    fade.addColorStop(.4, 'rgba(125,151,127,.09)');
+    fade.addColorStop(1, 'rgba(151,174,135,.22)');
+    context.strokeStyle = fade;
+    for (let row = 0; row <= rows; row++) {
+      context.beginPath();
+      for (let column = 0; column <= columns * 2; column++) {
+        const p = warp(column / 2, row);
+        if (!column) context.moveTo(p.x, p.y); else context.lineTo(p.x, p.y);
       }
-      const glyphs = ['.', ':', '-', '+', '*', '#'];
-      const colors = ['#25332d', '#34463a', '#435342', '#53654e', '#65765b', '#7b8868'];
-      terrain.font = `${Math.round(cellHeight * 0.87)}px "IBM Plex Mono", monospace`;
-      terrain.textAlign = 'center';
-      terrain.textBaseline = 'middle';
-      for (let cell = 0; cell < cells.length; cell++) {
-        if (cells[cell] < 0) continue;
-        const shade = mesh[cells[cell]].shade;
-        terrain.fillStyle = colors[shade];
-        terrain.fillText(glyphs[shade], (cell % columns) * cellWidth, Math.floor(cell / columns) * cellHeight);
-      }
-      previousCamera = camera;
-      terrainDirty = false;
+      context.stroke();
     }
-    context.globalAlpha = width <= 600 ? 0.3 : 0.5;
-    context.drawImage(terrainCanvas, 0, 0, width, height);
-    context.globalAlpha = 1;
-
-    const progress = 1 - Math.pow(1 - Math.min(1, elapsed / 14), 1.8);
-    const distance = route[route.length - 1].distance * progress;
-    let index = 0;
-    while (index < route.length - 2 && route[index + 1].distance < distance) index++;
-    const a = route[index], b = route[index + 1];
-    const fraction = clamp((distance - a.distance) / (b.distance - a.distance || 1), 0, 1);
-    const point = {x: a.x + (b.x - a.x) * fraction, z: a.z + (b.z - a.z) * fraction};
-    point.loss = loss(point.x, point.z);
-    const fade = elapsed > 16 ? Math.max(0, 1 - (elapsed - 16) / 0.8) : Math.min(1, elapsed / 0.6);
-    context.globalAlpha = fade;
-
-    // The trail follows the same objective as the terrain. The sphere's height
-    // is evaluated on that surface, so it stays in contact while it rolls.
-    context.beginPath();
-    route.slice(0, index + 1).forEach((point, i) => {
-      const screen = surfacePoint(point, 0.025);
-      if (i === 0) context.moveTo(screen.x, screen.y);
-      else context.lineTo(screen.x, screen.y);
-    });
-    const ground = surfacePoint(point);
-    context.lineTo(ground.x, ground.y);
-    context.strokeStyle = '#0a100b';
-    context.lineWidth = 4;
-    context.stroke();
-    context.strokeStyle = accent;
-    context.lineWidth = 1.8;
-    context.setLineDash([3, 3]);
-    context.stroke();
-    context.setLineDash([]);
-    const start = surfacePoint(route[0]);
-    context.strokeStyle = '#a8b79c';
-    context.lineWidth = 1;
-    context.strokeRect(start.x - 3, start.y - 3, 6, 6);
-    const end = surfacePoint(route[route.length - 1]);
-    context.beginPath();
-    context.moveTo(end.x - 5, end.y); context.lineTo(end.x + 5, end.y);
-    context.moveTo(end.x, end.y - 5); context.lineTo(end.x, end.y + 5);
-    context.stroke();
-
-    const radius = clamp(width * 0.017, 10, 25);
-    const ball = surfacePoint(point, radius / (scale * cp));
-    context.fillStyle = 'rgba(0,0,0,.65)';
-    context.beginPath(); context.ellipse(ground.x + 2, ground.y + 3, radius * 1.2, radius * 0.36, 0, 0, Math.PI * 2); context.fill();
-    const shading = context.createRadialGradient(ball.x - radius * 0.4, ball.y - radius * 0.5, radius * 0.1, ball.x, ball.y, radius);
-    shading.addColorStop(0, '#f7ffdb'); shading.addColorStop(0.35, accent);
-    shading.addColorStop(0.75, '#8da842'); shading.addColorStop(1, '#35431d');
-    context.fillStyle = shading;
-    context.beginPath(); context.arc(ball.x, ball.y, radius, 0, Math.PI * 2); context.fill();
-    context.save();
-    context.translate(ball.x, ball.y);
-    context.rotate(distance * 2.5);
-    context.strokeStyle = 'rgba(32,49,12,.6)';
-    context.beginPath(); context.ellipse(0, 0, radius * 0.4, radius * 0.92, 0, 0, Math.PI * 2); context.stroke();
-    context.restore();
-    context.globalAlpha = 1;
-
-    const formattedLoss = point.loss.toFixed(3);
-    const formattedStep = String(Math.round(index + fraction)).padStart(3, '0');
-    if (lossLabel.textContent !== formattedLoss) lossLabel.textContent = formattedLoss;
-    if (stepLabel.textContent !== formattedStep) stepLabel.textContent = formattedStep;
-    stateLabel.textContent = !canMove() ? '[ paused ]' : elapsed >= 14 ? '[ settled ]' : '[ descending ]';
-    landscape.classList.add('is-rendered');
+    for (let column = 0; column <= columns; column++) {
+      context.beginPath();
+      for (let row = 0; row <= rows * 2; row++) {
+        const p = warp(column, row / 2);
+        if (!row) context.moveTo(p.x, p.y); else context.lineTo(p.x, p.y);
+      }
+      context.stroke();
+    }
+    context.font = '10px "IBM Plex Mono", monospace';
+    context.textAlign = 'center';
+    context.textBaseline = 'middle';
+    const glyphs = ['+', '.', ':', ':', '+', '·'];
+    for (let row = 0; row <= rows; row++) {
+      for (let column = 0; column <= columns; column++) {
+        if ((column + row) % 2) continue;
+        const p = warp(column, row);
+        if (p.x < 0 || p.x > width || p.y < 70 || p.y > height) continue;
+        const opacity = .06 + clamp(p.x / width, 0, 1) * .26;
+        context.fillStyle = `rgba(175,193,154,${opacity})`;
+        context.fillText(glyphs[(column * 7 + row * 3) % glyphs.length], p.x, p.y);
+      }
+    }
+    document.dispatchEvent(new CustomEvent('portfolio-view', {detail: view}));
   };
 
   const tick = (now) => {
     frame = 0;
-    if (!canMove()) return;
-    const delta = now - lastTime;
-    // Limit the frame rate and stop all work while the document is hidden.
-    if (delta >= 1000 / 30) {
-      elapsed += Math.min(delta, 80) / 1000;
-      if (elapsed >= 16.8) { seed++; route = makeRun(); elapsed = 0; }
-      pointerX += (targetX - pointerX) * 0.08;
-      pointerY += (targetY - pointerY) * 0.08;
-      scrollPosition += (targetScroll - scrollPosition) * 0.075;
-      lastTime = now;
-      render();
-    }
-    frame = requestAnimationFrame(tick);
-  };
-  const updateAnimation = () => {
-    if (frame) cancelAnimationFrame(frame);
-    frame = 0;
-    document.documentElement.dataset.backgroundMotion = canMove() ? 'running' : 'paused';
-    toggle.hidden = preference.matches;
-    toggle.setAttribute('aria-label', paused ? 'Resume theme animation' : 'Pause theme animation');
-    label.textContent = paused ? 'Resume motion' : 'Pause motion';
-    document.dispatchEvent(new CustomEvent('theme-motion-change'));
+    const easing = 1 - Math.exp(-Math.min(50, now - (previousTime || now - 16)) / 95);
+    previousTime = now;
+    pointerX += (targetX - pointerX) * easing;
+    pointerY += (targetY - pointerY) * easing;
+    scrollPosition += (targetScroll - scrollPosition) * easing;
     render();
-    if (canMove()) { lastTime = performance.now(); frame = requestAnimationFrame(tick); }
+    if (canMove() && (Math.abs(targetX - pointerX) + Math.abs(targetY - pointerY) + Math.abs(targetScroll - scrollPosition) > .001)) {
+      frame = requestAnimationFrame(tick);
+    } else previousTime = 0;
+  };
+  const schedule = () => {
+    if (document.hidden) return;
+    if (!canMove()) {
+      // Reduced-motion and paused views still follow page position for contrast,
+      // but camera movement and interpolation remain off.
+      pointerX = pointerY = 0;
+      scrollPosition = targetScroll;
+      render();
+    } else if (!frame) frame = requestAnimationFrame(tick);
+  };
+  const updateMotion = () => {
+    if (frame) cancelAnimationFrame(frame);
+    frame = previousTime = 0;
+    const running = canMove();
+    document.documentElement.dataset.backgroundMotion = running ? 'running' : 'paused';
+    toggle.hidden = false;
+    toggle.disabled = preference.matches;
+    toggle.setAttribute('aria-pressed', String(!running));
+    toggle.setAttribute('aria-label', preference.matches ? 'Reduced motion enabled' : paused ? 'Resume theme animation' : 'Pause theme animation');
+    const label = toggle.querySelector('[data-motion-label]');
+    if (label) label.textContent = running ? 'Pause motion' : 'Motion paused';
+    document.dispatchEvent(new CustomEvent('theme-motion-change'));
+    schedule();
   };
   const resize = () => {
-    const rect = canvas.getBoundingClientRect();
-    width = rect.width; height = rect.height;
-    if (!width || !height) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-    canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr);
-    terrainCanvas.width = canvas.width; terrainCanvas.height = canvas.height;
+    width = window.innerWidth;
+    height = window.innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
     context.setTransform(dpr, 0, 0, dpr, 0, 0);
-    terrain.setTransform(dpr, 0, 0, dpr, 0, 0);
-    terrainDirty = true;
-    cellHeight = width <= 600 ? 10 : 12;
-    cellWidth = cellHeight * 0.63;
-    columns = Math.ceil(width / cellWidth) + 1;
-    rows = Math.ceil(height / cellHeight) + 1;
-    cells = new Int32Array(columns * rows);
-    depths = new Float32Array(columns * rows);
-    render();
+    targetScroll = window.scrollY / Math.max(height, 1);
+    schedule();
   };
-
   toggle.addEventListener('click', () => {
     paused = !paused;
     try { localStorage.setItem(storageKey, paused ? 'paused' : 'running'); } catch {}
-    updateAnimation();
+    updateMotion();
   });
-  restart.hidden = false;
-  restart.addEventListener('click', () => {
-    seed++; route = makeRun(); elapsed = canMove() ? 0.6 : 3.5;
-    render();
-  });
-  window.addEventListener('pointermove', event => {
+  window.addEventListener('pointermove', (event) => {
     if (!canMove() || event.pointerType === 'touch') return;
-    targetX = (event.clientX / width - 0.5) * 2;
-    targetY = (event.clientY / height - 0.5) * 2;
+    targetX = clamp(event.clientX / width * 2 - 1, -1, 1);
+    targetY = clamp(event.clientY / height * 2 - 1, -1, 1);
+    schedule();
   }, {passive: true});
-  document.documentElement.addEventListener('pointerleave', () => { targetX = 0; targetY = 0; });
-  preference.addEventListener('change', updateAnimation);
-  document.addEventListener('visibilitychange', updateAnimation);
-  if ('ResizeObserver' in window) new ResizeObserver(resize).observe(canvas);
-  else window.addEventListener('resize', resize, {passive: true});
-  window.addEventListener('scroll', () => {
-    targetScroll = window.scrollY / Math.max(window.innerHeight, 1);
-  }, {passive: true});
-  document.fonts?.ready.then(() => { terrainDirty = true; render(); });
+  document.addEventListener('pointerleave', () => { targetX = targetY = 0; schedule(); });
+  window.addEventListener('scroll', () => { targetScroll = window.scrollY / Math.max(height, 1); schedule(); }, {passive: true});
+  window.addEventListener('resize', resize, {passive: true});
+  document.addEventListener('visibilitychange', updateMotion);
+  preference.addEventListener('change', updateMotion);
+  document.fonts?.ready.then(schedule);
   resize();
-  updateAnimation();
+  updateMotion();
 })();

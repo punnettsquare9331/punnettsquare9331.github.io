@@ -57,7 +57,7 @@ html[data-background-motion="paused"] .motion-pause { display: none; }
 .motion-toggle:hover { color: var(--ink); }
 .nav-toggle { display: none; }
 
-/* Open typography sits directly in the full-page optimization landscape. */
+/* Open typography sits in front of a photo-derived portrait and responsive grid. */
 .profile-hero { position: relative; display: grid; grid-template-columns: 1.4fr 1fr; gap: 60px; align-items: center; min-height: min(940px,calc(100svh - 84px)); padding-block: 80px 64px; }
 .kicker { display: flex; align-items: center; gap: 10px; margin: 0 0 30px; color: var(--muted); font: 500 10px/1.5 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
 .status-dot { display: inline-block; flex: none; width: 7px; height: 7px; background: var(--accent);  }
@@ -78,32 +78,22 @@ html[data-background-motion="paused"] .motion-pause { display: none; }
 .profile-links a:hover { border-color: var(--accent); color: var(--accent); }
 .profile-links .primary-link:hover { background: var(--accent); color: var(--page); }
 .profile-links .primary-link:hover span { transform: translateX(3px); }
-.profile-aside { min-width: 0; max-width: 390px; width: 100%; justify-self: end; align-self: end; }
+.profile-aside { min-width: 0; position: relative; max-width: 300px; width: 100%; justify-self: end; align-self: end; }
 .scroll-cue { display: flex; justify-content: space-between; align-items: center; margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--line-dark); color: var(--muted); font: 10px/1.5 var(--mono); text-transform: uppercase; }
 .scroll-cue span { color: var(--accent); font-size: 23px; transition: transform 200ms; }
 .scroll-cue:hover { color: var(--ink); }
 .scroll-cue:hover span { transform: translateY(4px); }
 /* The canvas is a fixed world, with content scrolling above it. */
 .landscape { position: fixed; z-index: -1; inset: 0; overflow: hidden; pointer-events: none; }
-.landscape::after { position: absolute; inset: 0; content: ""; background: linear-gradient(90deg,rgba(8,10,11,.75),rgba(8,10,11,.38) 38%,rgba(8,10,11,.05) 75%),linear-gradient(0deg,rgba(8,10,11,.15),transparent 40%,rgba(8,10,11,.12)); }
-#landscape-canvas { display: block; width: 100%; height: 100%; }
-.landscape-fallback { position: absolute; top: 15%; right: -5%; margin: 0; color: #455049; font: clamp(25px,5vw,80px)/1.3 var(--mono); transform: rotate(-12deg); }
-.landscape.is-rendered .landscape-fallback { visibility: hidden; }
-.landscape-console { position: fixed; z-index: 45; bottom: 18px; right: 24px; width: 280px; padding: 12px 16px 8px; border: 1px solid #374039; background: rgba(8,12,11,.9); backdrop-filter: blur(14px); box-shadow: 0 4px 24px #0003; }
-.landscape-heading { display: flex; justify-content: space-between; gap: 15px; color: var(--muted); font: 9px/1.5 var(--mono); }
-.landscape-heading > span:last-child { color: var(--accent); }
-.landscape-readout { display: flex; align-items: center; gap: 16px; color: var(--quiet); font: 9px/1.5 var(--mono); }
-.landscape-readout b { margin-left: 3px; color: var(--ink); font-weight: 400; font-variant-numeric: tabular-nums; }
-.landscape-readout button { min-height: 32px; margin-left: auto; padding: 6px 0 6px 8px; border: 0; color: var(--ink); background: transparent; font: inherit; }
-.landscape-readout button:hover { color: var(--accent); }
-.identity-strip { display: flex; align-items: center; gap: 17px; padding-top: 21px; }
-.profile-photo { flex: none; width: 62px; margin: 0; }
-.profile-photo-frame { height: 62px; overflow: hidden; border: 1px solid var(--line-dark); background: var(--wash); }
-.profile-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 11% 52%; filter: grayscale(1); transform: scale(2.8); transform-origin: 30% 59%; }
-.identity-strip strong { font-size: 12px; font-weight: 500; }
-.identity-strip p { margin: 2px 0 0; font-size: 11px; color: var(--muted); }
-.identity-strip > a { display: grid; place-items: center; flex: none; width: 37px; height: 37px; margin-left: auto; border: 1px solid var(--line-dark); transition: background 180ms, color 180ms; }
-.identity-strip > a:hover { background: var(--accent); color: var(--page); }
+.landscape::after { position: absolute; inset: 0; content: ""; background: linear-gradient(90deg,rgba(8,10,11,.54),rgba(8,10,11,.22) 40%,transparent 65%),linear-gradient(0deg,rgba(8,10,11,.45),transparent 22%); }
+#landscape-canvas, #portrait-canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+#portrait-canvas[data-rendered="false"] { visibility: hidden; }
+#portrait-fallback { position: absolute; top: 0; left: 0; width: min(53.77vh,578px); height: min(80vh,860px); max-width: none; object-fit: contain; transform: translate(calc(76vw - min(26.88vh,289px)),14vh); transform-origin: center; opacity: .9; filter: grayscale(1); }
+.hero-fellowship { position: relative; display: block; width: fit-content; max-width: 350px; margin-top: 26px; padding: 11px 46px 11px 16px; border-left: 2px solid var(--accent); background: rgba(8,10,11,.8); backdrop-filter: blur(12px); }
+.hero-fellowship > span:first-child { color: var(--accent); font: 10px/1.6 var(--mono); text-transform: uppercase; letter-spacing: .04em; }
+.hero-fellowship strong { display: block; margin-top: 5px; font: 400 13px/1.4 var(--display); }
+.fellowship-arrow { position: absolute; top: 17px; right: 17px; color: var(--accent); font-size: 21px; }
+.hero-fellowship:hover { border-color: var(--ink); }
 .founder-note { display: grid; grid-template-columns: 1fr 2.7fr; gap: 50px; padding: 27px 0; border-block: 1px solid var(--line-dark); }
 .founder-note > span { align-self: center; color: var(--muted); font: 10px/1.6 var(--mono); }
 .founder-note strong { display: block; margin-top: 3px; color: var(--ink); font: 600 24px/1.3 var(--display); }
@@ -177,6 +167,12 @@ html[data-background-motion="running"] .research-card[data-active] .ascii-accent
 .recognition-index { display: inline-flex; align-items: center; gap: 22px; margin-top: 35px; padding-bottom: 8px; border-bottom: 1px solid var(--line-dark); color: var(--muted); font: 10px/1.5 var(--mono); }
 .recognition-index:hover { color: var(--accent); }
 .recognition-index span { color: var(--accent); font-size: 20px; }
+.fellowship-highlight { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 32px; margin-bottom: 36px; padding: 30px; border: 1px solid #526044; background: linear-gradient(120deg,rgba(31,39,26,.96),rgba(13,18,16,.96)); }
+.fellowship-eyebrow { margin: 0 0 17px; color: var(--accent); font: 500 11px/1.5 var(--mono); text-transform: uppercase; letter-spacing: .06em; }
+.fellowship-copy h3 { max-width: 370px; margin: 0; font: 500 clamp(24px,2.5vw,35px)/1.15 var(--display); letter-spacing: -.035em; }
+.fellowship-result { margin: 18px 0 0; color: var(--muted); font: 10px/1.7 var(--mono); }
+.fellowship-amount { margin: 0; color: var(--accent); font: 500 clamp(30px,3.4vw,48px)/1 var(--display); letter-spacing: -.045em; white-space: nowrap; }
+.fellowship-amount small { display: block; margin-top: 10px; font: 10px/1 var(--mono); letter-spacing: .1em; text-align: right; }
 .achievement-stack { position: relative; padding-bottom: 10px; }
 .achievement-card { position: sticky; top: calc(112px + var(--card-index) * 20px); margin-bottom: 24px; padding: 25px 30px 20px; border: 1px solid #4b5753; background: rgba(16,22,21,.96); box-shadow: 0 14px 45px #0004; transform-origin: center top; transform: scale(var(--stack-scale,1)); }
 .achievement-card::before, .achievement-card::after { position: absolute; width: 7px; height: 7px; border-color: var(--ink); border-style: solid; content: ""; }
@@ -345,7 +341,6 @@ html[data-background-motion="running"] .research-card[data-active] .ascii-accent
   .achievement-card { top: calc(94px + var(--card-index) * 16px); }
   .achievement-rank { font-size: 140px; }
   .achievement-copy h3 { font-size: 26px; }
-  .landscape-console { right: 16px; bottom: 12px; }
 
   :root { --shell: calc(100% - 40px); }
   html { scroll-padding-top: 90px; }
@@ -367,12 +362,6 @@ html[data-background-motion="running"] .research-card[data-active] .ascii-accent
   .profile-links { gap: 6px 13px; margin-top: 23px; }
   .profile-links a { font-size: 10px; }
   .profile-links .primary-link { gap: 15px; padding: 10px 12px; }
-  .identity-strip { gap: 10px; }
-  .identity-strip strong { font-size: 10px; }
-  .identity-strip p { font-size: 9px; }
-  .identity-strip > a { display: none; }
-  .profile-photo { width: 48px; }
-  .profile-photo-frame { height: 48px; }
   .founder-note { grid-template-columns: 1fr 2fr; gap: 28px; }
   .founder-note p { font-size: 12px; }
   .research-strip .page-shell { display: block; padding-block: 20px; }
@@ -402,10 +391,6 @@ html[data-background-motion="running"] .research-card[data-active] .ascii-accent
   .profile-aside { max-width: none; }
   .scroll-cue { margin-top: 22px; }
   .landscape::after { background: linear-gradient(90deg,rgba(8,10,11,.68),rgba(8,10,11,.28)),linear-gradient(0deg,rgba(8,10,11,.2),transparent 50%); }
-  .landscape-console { width: 242px; padding: 0 12px; }
-  .landscape-heading { display: none; }
-  .landscape-readout { font-size: 9px; gap: 12px; }
-  .landscape-readout button { min-height: 40px; }
   .recognition-section .section-rail h2, .career-section .section-rail h2 { font-size: clamp(38px,10.5vw,54px); }
   .achievement-card { padding: 22px 23px 16px; margin-bottom: 18px; }
   .achievement-meta { gap: 10px; font-size: 8px; }
@@ -431,20 +416,24 @@ html[data-background-motion="running"] .research-card[data-active] .ascii-accent
   .degree-mark span { display: block; margin-top: 20px; }
 
   .wordmark-name { display: none; }
-  .profile-hero { grid-template-columns: 1fr; gap: 60px; padding-block: 55px 40px; min-height: calc(100svh - 70px); }
-  .profile-copy h1 { font-size: clamp(76px,22vw,128px); margin-bottom: 27px; }
-  .kicker { font-size: 9px; }
-  .academic-role { max-width: none; font-size: 11px; }
-  .profile-summary { max-width: 450px; font-size: 18px; margin-top: 20px; }
+  .profile-hero { grid-template-columns: 1fr; gap: 35px; padding-block: 45px 35px; min-height: calc(100svh - 70px); }
+  .profile-aside { max-width: none; }
+  .hero-fellowship { padding: 12px 35px 12px 14px; }
+  .hero-fellowship strong { font-size: 12px; }
+  .hero-fellowship > span:first-child { font-size: 9px; }
+  .scroll-cue { max-width: none; margin-top: 0; padding-top: 14px; gap: 15px; font-size: 9px; }
+  .landscape::after { background: linear-gradient(90deg,rgba(8,10,11,.35),transparent 72%),linear-gradient(0deg,var(--page),transparent 55%); }
+  #portrait-fallback { width: 60.49vw; height: 90vw; transform: translate(36.75vw,117px); }
+  .fellowship-highlight { grid-template-columns: 1fr; gap: 24px; padding: 25px; margin-bottom: 24px; }
+  .fellowship-amount { font-size: 46px; }
+  .fellowship-amount small { display: inline; margin-left: 10px; text-align: left; }
+  .profile-copy h1 { font-size: clamp(56px,16vw,96px); margin-bottom: 27px; }
+  .kicker { max-width: 210px; font-size: 8px; }
+  .academic-role { max-width: 220px; font-size: 10px; }
+  .profile-summary { max-width: 210px; font-size: 16px; margin-top: 20px; }
   .profile-links { margin-top: 25px; gap: 7px 18px; }
   .profile-links a { font-size: 11px; }
   .profile-links .primary-link { gap: 20px; padding: 12px 16px; }
-  .identity-strip { gap: 14px; }
-  .identity-strip strong { font-size: 12px; }
-  .identity-strip p { font-size: 10px; }
-  .identity-strip > a { display: grid; }
-  .profile-photo { width: 54px; }
-  .profile-photo-frame { height: 54px; }
   .founder-note { grid-template-columns: 1fr; gap: 17px; }
   .founder-note > span { font-size: 9px; }
   .founder-note p { font-size: 12px; }
@@ -509,7 +498,7 @@ html[data-background-motion="paused"] .reveal { transition: none; }
 @media print {
   :root { color-scheme: light; --page: #fff; --surface: #fff; --ink: #111; --muted: #444; --quiet: #555; --wash: #fff; --line: #ccc; --line-dark: #aaa; --accent: #333; }
   .profile-copy h1 > span { color: #111; -webkit-text-stroke: 0; }
-  .site-header, .site-footer, .landscape, .landscape-console, .globe-controls, .publication-filters, .contact-note { display: none; }
+  .site-header, .site-footer, .landscape, .globe-controls, .publication-filters, .contact-note { display: none; }
   body { color: #000; background: #fff; }
   .reveal { opacity: 1; transform: none; }
   .academic-section, .profile-hero { display: block; padding-block: 25px; }
