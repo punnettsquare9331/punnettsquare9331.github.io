@@ -32,4 +32,4 @@
 
 {{- $styles := resources.Get "css/extended/portfolio.css" | minify | fingerprint -}}
 <link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}">
-<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+<noscript><style>.reveal{opacity:1!important;transform:none!important;translate:none!important}</style></noscript>

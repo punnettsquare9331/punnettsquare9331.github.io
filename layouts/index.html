@@ -1,14 +1,14 @@
 {{ define "main" }}
 <div id="top"></div>
 
-<section class="profile-hero page-shell" aria-labelledby="hero-title">
-  <div class="profile-copy reveal">
-    <p class="kicker"><span class="status-dot" aria-hidden="true"></span> Researcher &amp; founder · Washington, DC</p>
-    <h1 id="hero-title"><span class="name-first">Puneet</span> <span class="name-last">Velidi<span class="name-period" aria-hidden="true">_</span></span></h1>
-    <p class="academic-role">Statistical AI/ML Researcher <span> / </span> Founder at ChimeraML</p>
-    <p class="profile-summary">I develop statistical methods for evaluating evidence in clinical trials and analyzing brain imaging and spatial gene-expression data.</p>
+<section data-reveal-group class="profile-hero page-shell" aria-labelledby="hero-title">
+  <div class="profile-copy">
+    <p class="kicker reveal"><span class="status-dot" aria-hidden="true"></span> Researcher &amp; founder · Washington, DC</p>
+    <h1 class="reveal" id="hero-title"><span class="name-first">Puneet</span> <span class="name-last">Velidi<span class="name-period" aria-hidden="true">_</span></span></h1>
+    <p class="academic-role reveal">Statistical AI/ML Researcher <span> / </span> Founder at ChimeraML</p>
+    <p class="profile-summary reveal">I develop statistical methods for evaluating evidence in clinical trials and analyzing brain imaging and spatial gene-expression data.</p>
 
-    <nav class="profile-links" aria-label="Profile links">
+    <nav class="profile-links reveal" aria-label="Profile links">
       <a class="primary-link" href="#research">Explore my work <span aria-hidden="true">-&gt;</span></a>
       <a href="{{ "documents/puneet-velidi-resume.pdf" | relURL }}" target="_blank">Résumé <span>↗</span></a>
       <a href="https://github.com/punnettsquare9331" target="_blank" rel="noopener">GitHub <span>↗</span></a>
@@ -17,42 +17,41 @@
       <a href="https://www.linkedin.com/in/puneet-velidi" target="_blank" rel="noopener">LinkedIn <span>↗</span></a>
       <a href="mailto:puneet.velidi@gmail.com">Email <span>↗</span></a>
     </nav>
-    <a class="hero-fellowship" href="#honors"><span>[ Labs4 Fellow ]</span><strong>TRL^ Fellowship · 2025</strong><span class="fellowship-arrow" aria-hidden="true">↗</span></a>
   </div>
 
-  <aside class="profile-aside reveal" data-delay="1">
+  <aside class="profile-aside reveal">
     <a class="scroll-cue" href="#honors">Scroll to explore <span aria-hidden="true">↓</span></a>
   </aside>
 </section>
 
-<div class="founder-note page-shell reveal">
-  <span>Currently building <strong>ChimeraML</strong></span>
-  <p>I founded ChimeraML, a deeptech research studio backed by NVIDIA Inception, Labs4, and Mitacs.</p>
+<div class="founder-note page-shell" data-reveal-group>
+  <span class="reveal">Currently building <strong>ChimeraML</strong></span>
+  <p class="reveal">I founded ChimeraML, a deeptech research studio backed by NVIDIA Inception, Labs4, and Mitacs.</p>
 </div>
 
-<div class="research-strip" aria-label="Research methods">
+<div class="research-strip" data-reveal-group aria-label="Research methods">
   <div class="page-shell">
-    <span>Research methods</span>
+    <span class="reveal">Research methods</span>
     <ul>
-      <li>Bayesian inference</li>
-      <li>Model selection</li>
-      <li>Nonstationary covariance</li>
-      <li>Machine learning</li>
+      <li class="reveal">Bayesian inference</li>
+      <li class="reveal">Model selection</li>
+      <li class="reveal">Nonstationary covariance</li>
+      <li class="reveal">Machine learning</li>
     </ul>
   </div>
 </div>
 
 {{ partial "recognition.html" . }}
 
-<section class="academic-section page-shell" id="research" aria-labelledby="research-title">
+<section data-reveal-group class="academic-section page-shell" id="research" aria-labelledby="research-title">
   <header class="section-rail reveal">
     <p>02</p>
     <h2 id="research-title">Selected research</h2>
   </header>
-  <div class="section-body reveal">
-    <p class="section-intro">My research studies model evidence and changing dependence structures through statistical theory, computation, and applications in clinical and biological data.</p>
+  <div class="section-body">
+    <p class="section-intro reveal">My research studies model evidence and changing dependence structures through statistical theory, computation, and applications in clinical and biological data.</p>
     <div class="research-deck" data-research-deck>
-      <article class="research-card" data-research-card>
+      <article class="research-card reveal" data-research-card>
         <div class="research-card-top"><span>01 / Evidence</span><span aria-hidden="true">↗</span></div>
         {{ partial "research-art.html" "evidence" }}
         <h3><button type="button" data-research-select aria-expanded="true" aria-controls="research-panel-evidence">Model selection &amp; statistical evidence</button></h3>
@@ -62,7 +61,7 @@
           <p><a class="text-link" href="https://arxiv.org/abs/2510.10358" target="_blank" rel="noopener">Read preprint ↗</a></p>
         </div>
       </article>
-      <article class="research-card" data-research-card>
+      <article class="research-card reveal" data-research-card>
         <div class="research-card-top"><span>02 / Space</span><span aria-hidden="true">↗</span></div>
         {{ partial "research-art.html" "space" }}
         <h3><button type="button" data-research-select aria-expanded="true" aria-controls="research-panel-space">Nonstationary covariance</button></h3>
@@ -72,7 +71,7 @@
           <p><a class="text-link" href="https://www.biorxiv.org/content/10.64898/2026.08.10.743911v1" target="_blank" rel="noopener">Read preprint ↗</a></p>
         </div>
       </article>
-      <article class="research-card" data-research-card>
+      <article class="research-card reveal" data-research-card>
         <div class="research-card-top"><span>03 / Connection</span><span aria-hidden="true">↗</span></div>
         {{ partial "research-art.html" "connection" }}
         <h3><button type="button" data-research-select aria-expanded="true" aria-controls="research-panel-connection">Latent structure &amp; multiregime connectivity</button></h3>
@@ -86,31 +85,31 @@
   </div>
 </section>
 
-<section class="academic-section page-shell" id="software" aria-labelledby="software-title">
+<section data-reveal-group class="academic-section page-shell" id="software" aria-labelledby="software-title">
   <header class="section-rail reveal">
     <p>03</p>
     <h2 id="software-title">Software</h2>
   </header>
-  <div class="section-body reveal">
+  <div class="section-body">
     <div class="software-table" role="list">
-      <a role="listitem" href="https://github.com/punnettsquare9331/fingerprintrv" target="_blank" rel="noopener"><strong>FingerprintRV</strong><span>PCA/SVD-based connectivity analysis</span><small>Python ↗</small></a>
-      <a role="listitem" href="https://github.com/punnettsquare9331/leo" target="_blank" rel="noopener"><strong>Leo</strong><span>Python &amp; SQL data notebook for DuckDB</span><small>TypeScript ↗</small></a>
-      <a role="listitem" href="https://github.com/punnettsquare9331/tracer" target="_blank" rel="noopener"><strong>Tracer</strong><span>Contact tracing API and live dashboard</span><small>Python ↗</small></a>
-      <div role="listitem"><strong>ShapeTransformers</strong><span>Private research code</span><small>2026</small></div>
-      <div role="listitem"><strong>FDAFill</strong><span>Private project</span><small>2026</small></div>
+      <a role="listitem" class="reveal" href="https://github.com/punnettsquare9331/fingerprintrv" target="_blank" rel="noopener"><strong>FingerprintRV</strong><span>PCA/SVD-based connectivity analysis</span><small>Python ↗</small></a>
+      <a role="listitem" class="reveal" href="https://github.com/punnettsquare9331/leo" target="_blank" rel="noopener"><strong>Leo</strong><span>Python &amp; SQL data notebook for DuckDB</span><small>TypeScript ↗</small></a>
+      <a role="listitem" class="reveal" href="https://github.com/punnettsquare9331/tracer" target="_blank" rel="noopener"><strong>Tracer</strong><span>Contact tracing API and live dashboard</span><small>Python ↗</small></a>
+      <div role="listitem" class="reveal"><strong>ShapeTransformers</strong><span>Private research code</span><small>2026</small></div>
+      <div role="listitem" class="reveal"><strong>FDAFill</strong><span>Private project</span><small>2026</small></div>
     </div>
   </div>
 </section>
 
 {{ partial "experience.html" . }}
 
-<section class="academic-section page-shell" id="publications" aria-labelledby="publications-title">
+<section data-reveal-group class="academic-section page-shell" id="publications" aria-labelledby="publications-title">
   <header class="section-rail reveal">
     <p>05</p>
     <h2 id="publications-title">Papers &amp; preprints</h2>
   </header>
-  <div class="section-body reveal">
-    <div class="section-lead-row bibliography-lead">
+  <div class="section-body">
+    <div class="section-lead-row bibliography-lead reveal">
       <div class="publication-filters" aria-label="Filter publications by year" data-publication-filters hidden>
         <button type="button" data-year="all" aria-pressed="true">All</button>
         <button type="button" data-year="2026" aria-pressed="false">2026</button>
@@ -121,43 +120,43 @@
     </div>
     <p class="sr-only" data-publication-status aria-live="polite"></p>
     <ol class="bibliography">
-      <li>
+      <li class="reveal">
         <span class="pub-year">2026</span>
         <div><a href="https://www.biorxiv.org/content/10.64898/2026.08.10.743911v1" target="_blank" rel="noopener"><cite>Covariance Nonstationarity is Evident in Spatial Transcriptomics and Provides a New Categorization of Spatially Varying Genes</cite></a><p>Submitted · bioRxiv preprint</p></div>
       </li>
-      <li>
+      <li class="reveal">
         <span class="pub-year">2026</span>
         <div><a href="https://arxiv.org/abs/2607.26090" target="_blank" rel="noopener"><cite>Shape Analysis as an Inductive Bias for Glioma Grading from Tumor Contours</cite></a><p>Submitted · arXiv preprint</p></div>
       </li>
-      <li>
+      <li class="reveal">
         <span class="pub-year">2026</span>
         <div><a href="https://www.biorxiv.org/content/10.64898/2026.07.24.740595v1" target="_blank" rel="noopener"><cite>Neural manifold connectomics reveals multiregime functional connectivity</cite></a><p>Under review · bioRxiv preprint</p></div>
       </li>
-      <li>
+      <li class="reveal">
         <span class="pub-year">2026</span>
         <div><a href="https://www.medrxiv.org/content/10.64898/2026.07.03.26357051v1" target="_blank" rel="noopener"><cite>Transcranial Photobiomodulation on Language and Cognitive Performance in Down Syndrome: A Pilot Randomized Sham-Controlled Trial</cite></a><p>Under review · medRxiv preprint</p></div>
       </li>
-      <li>
+      <li class="reveal">
         <span class="pub-year">2026</span>
         <div><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7457979" target="_blank" rel="noopener"><cite>Transcranial Photobiomodulation in Bipolar Disorder: A Case Series on Executive Skills and fMRI BOLD Signal</cite></a><p>Submitted · SSRN preprint</p></div>
       </li>
-      <li>
+      <li class="reveal">
         <span class="pub-year">2026</span>
         <div><cite>SPARTACCUS: Semiparametric Bayesian Proportional Hazards Model with a Censored Covariate in Huntington’s Disease</cite><p>Manuscript in preparation</p></div>
       </li>
-      <li>
+      <li class="reveal">
         <span class="pub-year">2026</span>
         <div><a href="https://papers.ssrn.com/abstract=7480518" target="_blank" rel="noopener"><cite>Volumetric Changes Induced by Transcranial Photobiomodulation Therapy in Major Depressive Disorder: An Exploratory Neuroimaging Study</cite></a><p>Submitted · SSRN preprint</p></div>
       </li>
-      <li>
+      <li class="reveal">
         <span class="pub-year">2025</span>
         <div><a href="https://arxiv.org/abs/2510.10358" target="_blank" rel="noopener"><cite>Generalized Jeffreys’s Approximate Objective Bayes Factor: Model Selection Consistency, Finite Sample Accuracy, and the Statistical Evidence in 71,126 Clinical Trial Findings</cite></a><p>Under revision · arXiv preprint</p></div>
       </li>
-      <li>
+      <li class="reveal">
         <span class="pub-year">2024</span>
         <div><a href="https://www.biologicalpsychiatrycnni.org/article/S2451-9022(24)00139-3/abstract" target="_blank" rel="noopener"><cite>Altered structural connectivity and functional brain dynamics in individuals with heavy alcohol use elucidated via network control theory</cite></a><p>Biological Psychiatry: Cognitive Neuroscience and Neuroimaging</p></div>
       </li>
-          <li>
+          <li class="reveal">
         <span class="pub-year">2025</span>
         <div><a href="{{ "documents/immunodynamic-modeling-melanoma-gastric-cancer.pdf" | relURL }}" target="_blank" rel="noopener"><cite>Immunodynamic Modeling in Melanoma and Gastric Cancer</cite></a><p>Technical report · Rim Adenane, Joshua Beaudin, Lihini Kankanamge, and Puneet Velidi · 3MC–PIMS–IDMS–ICMS Summer School</p></div>
       </li>
@@ -165,14 +164,14 @@
   </div>
 </section>
 
-<section class="academic-section page-shell" id="thesis" aria-labelledby="thesis-title">
+<section data-reveal-group class="academic-section page-shell" id="thesis" aria-labelledby="thesis-title">
   <header class="section-rail reveal">
     <p>06</p>
     <h2 id="thesis-title">MSc thesis</h2>
   </header>
-  <div class="section-body reveal">
+  <div class="section-body">
     <div class="research-list">
-      <article>
+      <article class="reveal">
         <span class="research-number">2025—2026</span>
         <div>
           <h3><a href="https://dspace.library.uvic.ca/items/512a9f35-5f31-42f1-9f30-50feaaaf1158" target="_blank" rel="noopener">Methods for Censored Covariates, Spatial Transcriptomic Data and Neural Manifolds</a></h3>
@@ -186,37 +185,37 @@
   </div>
 </section>
 
-<section class="academic-section page-shell" id="talks" aria-labelledby="talks-title">
+<section data-reveal-group class="academic-section page-shell" id="talks" aria-labelledby="talks-title">
   <header class="section-rail reveal">
     <p>07</p>
     <h2 id="talks-title">Invited talks</h2>
   </header>
-  <div class="section-body reveal">
-    <div class="featured-recording">
+  <div class="section-body">
+    <div class="featured-recording reveal">
       <p>Recorded lecture</p>
       <div><h3>Applications of Protein Folding Models in Immunotherapeutic Research</h3><span>UBC Mathematics Biology Seminar · January 2026</span></div>
       <a href="https://moore.pims.math.ca/lecture/video/applications-protein-folding-models-immunotherapeutic-research" target="_blank" rel="noopener">Watch recording ↗</a>
     </div>
     <div class="talk-table">
-      <a href="https://www.icsa.org/wp-content/uploads/2025/08/2025-ICSA-Bulletin-July-Issue-Final.pdf" target="_blank" rel="noopener"><time>Aug 2026</time><span><strong>Brain Fingerprinting of Principal-component derived fMRI BOLD functional connectivity</strong><small>ICSA–Canada · Invited chair and speaker</small></span><b>↗</b></a>
-      <a href="https://www.cmstatistics.org/EcoSta2026/" target="_blank" rel="noopener"><time>Aug 2026</time><span><strong>A Bayesian Semiparametric Model for Survival Analysis with a Right Censored Covariate</strong><small>EcoSta, Kyoto · Co-author of invited talk</small></span><b>↗</b></a>
-      <a href="https://www.stat.ubc.ca/events/reassessing-statistical-evidence-clinical-trials-extended-approximate-objective-bayes" target="_blank" rel="noopener"><time>Oct 2025</time><span><strong>70,000 Leagues Under the Sea of p-Values</strong><small>UBC Statistics · Invited seminar</small></span><b>↗</b></a>
-      <a href="https://maudmenteninstitute.org/" target="_blank" rel="noopener"><time>Oct 2025</time><span><strong>70,000 Leagues Under the Sea of p-Values</strong><small>Maud Menten Institute · Invited seminar</small></span><b>↗</b></a>
-      <a href="https://www.wnar.org/meetings" target="_blank" rel="noopener"><time>Jun 2025</time><span><strong>Statistical methods for censored covariates</strong><small>WNAR / IMS · Co-author and discussant</small></span><b>↗</b></a>
-      <a href="https://onlineacademiccommunity.uvic.ca/cabssem/event/puneet-validi/" target="_blank" rel="noopener"><time>Mar 2025</time><span><strong>Network Control Theory in Neuroscience: Characterizing the Brain’s Energy Landscape</strong><small>UVic Cognition & Brain Sciences · Invited seminar</small></span><b>↗</b></a>
-      <a href="https://maudmenteninstitute.org/" target="_blank" rel="noopener"><time>Feb 2025</time><span><strong>Network Control Theory in Neuroscience: Characterizing the Brain’s Energy Landscape</strong><small>Maud Menten Institute · Seminar</small></span><b>↗</b></a>
+      <a class="reveal" href="https://www.icsa.org/wp-content/uploads/2025/08/2025-ICSA-Bulletin-July-Issue-Final.pdf" target="_blank" rel="noopener"><time>Aug 2026</time><span><strong>Brain Fingerprinting of Principal-component derived fMRI BOLD functional connectivity</strong><small>ICSA–Canada · Invited chair and speaker</small></span><b>↗</b></a>
+      <a class="reveal" href="https://www.cmstatistics.org/EcoSta2026/" target="_blank" rel="noopener"><time>Aug 2026</time><span><strong>A Bayesian Semiparametric Model for Survival Analysis with a Right Censored Covariate</strong><small>EcoSta, Kyoto · Co-author of invited talk</small></span><b>↗</b></a>
+      <a class="reveal" href="https://www.stat.ubc.ca/events/reassessing-statistical-evidence-clinical-trials-extended-approximate-objective-bayes" target="_blank" rel="noopener"><time>Oct 2025</time><span><strong>70,000 Leagues Under the Sea of p-Values</strong><small>UBC Statistics · Invited seminar</small></span><b>↗</b></a>
+      <a class="reveal" href="https://maudmenteninstitute.org/" target="_blank" rel="noopener"><time>Oct 2025</time><span><strong>70,000 Leagues Under the Sea of p-Values</strong><small>Maud Menten Institute · Invited seminar</small></span><b>↗</b></a>
+      <a class="reveal" href="https://www.wnar.org/meetings" target="_blank" rel="noopener"><time>Jun 2025</time><span><strong>Statistical methods for censored covariates</strong><small>WNAR / IMS · Co-author and discussant</small></span><b>↗</b></a>
+      <a class="reveal" href="https://onlineacademiccommunity.uvic.ca/cabssem/event/puneet-validi/" target="_blank" rel="noopener"><time>Mar 2025</time><span><strong>Network Control Theory in Neuroscience: Characterizing the Brain’s Energy Landscape</strong><small>UVic Cognition & Brain Sciences · Invited seminar</small></span><b>↗</b></a>
+      <a class="reveal" href="https://maudmenteninstitute.org/" target="_blank" rel="noopener"><time>Feb 2025</time><span><strong>Network Control Theory in Neuroscience: Characterizing the Brain’s Energy Landscape</strong><small>Maud Menten Institute · Seminar</small></span><b>↗</b></a>
     </div>
   </div>
 </section>
 
-<section class="academic-section page-shell" id="posters" aria-labelledby="posters-title">
+<section data-reveal-group class="academic-section page-shell" id="posters" aria-labelledby="posters-title">
   <header class="section-rail reveal">
     <p>08</p>
     <h2 id="posters-title">Poster presentations</h2>
   </header>
-  <div class="section-body reveal">
+  <div class="section-body">
     <ol class="bibliography">
-      <li><span class="pub-year">2026</span><div><a href="https://dcr.massgeneral.org/clinical-research-day-3/" target="_blank" rel="noopener"><cite>Acute Effects of Transcranial Photobiomodulation On Glymphatic CSF Dynamics in Two Patients with Amnestic Mild Cognitive Impairment or Early Alzheimer Disease</cite></a><p>Clinical Research Day, Mass General Brigham, October 30, 2026. Virtual poster presentation (upcoming).</p></div>
+      <li class="reveal"><span class="pub-year">2026</span><div><a href="https://dcr.massgeneral.org/clinical-research-day-3/" target="_blank" rel="noopener"><cite>Acute Effects of Transcranial Photobiomodulation On Glymphatic CSF Dynamics in Two Patients with Amnestic Mild Cognitive Impairment or Early Alzheimer Disease</cite></a><p>Clinical Research Day, Mass General Brigham, October 30, 2026. Virtual poster presentation (upcoming).</p></div>
         <figure class="poster-preview">
           <a href="{{ "posters/clinical-research-day-2026.pdf" | relURL }}?v=20261002" target="_blank" rel="noopener" aria-label="Open full-size PDF: Acute Effects of Transcranial Photobiomodulation On Glymphatic CSF Dynamics in Two Patients with Amnestic Mild Cognitive Impairment or Early Alzheimer Disease">
             <img src="{{ "posters/clinical-research-day-2026.webp" | relURL }}?v=20261002" srcset="{{ "posters/clinical-research-day-2026.webp" | relURL }}?v=20261002 900w, {{ "posters/clinical-research-day-2026-large.webp" | relURL }}?v=20261002 2100w" sizes="(max-width: 600px) calc(100vw - 88px), (max-width: 1150px) calc((100vw - 138px) / 2), 596px" width="2100" height="2800" loading="lazy" decoding="async" alt="Acute Effects of Transcranial Photobiomodulation On Glymphatic CSF Dynamics in Two Patients with Amnestic Mild Cognitive Impairment or Early Alzheimer Disease — poster for Clinical Research Day 2026">
@@ -224,7 +223,7 @@
           <figcaption><a href="{{ "posters/clinical-research-day-2026.pdf" | relURL }}?v=20261002" target="_blank" rel="noopener">Open full-size PDF ↗</a></figcaption>
         </figure>
       </li>
-      <li><span class="pub-year">2026</span><div><cite>A Bayesian Semiparametric Model for Survival Analysis with a Right Censored Covariate</cite><p>The 7th ICSA-Canada Chapter Symposium, August 2026. Montreal, QC.</p></div>
+      <li class="reveal"><span class="pub-year">2026</span><div><cite>A Bayesian Semiparametric Model for Survival Analysis with a Right Censored Covariate</cite><p>The 7th ICSA-Canada Chapter Symposium, August 2026. Montreal, QC.</p></div>
         <figure class="poster-preview">
           <a href="{{ "posters/spartaccus-icsa-2026.pdf" | relURL }}" target="_blank" rel="noopener" aria-label="Open full-size PDF: A Bayesian Semiparametric Model for Survival Analysis with a Right Censored Covariate">
             <img src="{{ "posters/spartaccus-icsa-2026.webp" | relURL }}" srcset="{{ "posters/spartaccus-icsa-2026.webp" | relURL }} 900w, {{ "posters/spartaccus-icsa-2026-large.webp" | relURL }} 2100w" sizes="(max-width: 600px) calc(100vw - 88px), (max-width: 1150px) calc((100vw - 138px) / 2), 596px" width="2100" height="2800" loading="lazy" decoding="async" alt="A Bayesian Semiparametric Model for Survival Analysis with a Right Censored Covariate — poster for ICSA–Canada 2026">
@@ -232,7 +231,7 @@
           <figcaption><a href="{{ "posters/spartaccus-icsa-2026.pdf" | relURL }}" target="_blank" rel="noopener">Open full-size PDF ↗</a></figcaption>
         </figure>
       </li>
-      <li><span class="pub-year">2026</span><div><cite>Bayesian Analysis of the TransPhoM-DS Clinical Trial</cite><p>Organization for Human Brain Mapping 2026 Annual Meeting, June 2026. Bordeaux, FR.</p></div>
+      <li class="reveal"><span class="pub-year">2026</span><div><cite>Bayesian Analysis of the TransPhoM-DS Clinical Trial</cite><p>Organization for Human Brain Mapping 2026 Annual Meeting, June 2026. Bordeaux, FR.</p></div>
         <figure class="poster-preview">
           <a href="{{ "posters/transphom-ds-ohbm-2026.pdf" | relURL }}" target="_blank" rel="noopener" aria-label="Open full-size PDF: Bayesian Analysis of the TransPhoM-DS Clinical Trial">
             <img src="{{ "posters/transphom-ds-ohbm-2026.webp" | relURL }}" srcset="{{ "posters/transphom-ds-ohbm-2026.webp" | relURL }} 1200w, {{ "posters/transphom-ds-ohbm-2026-large.webp" | relURL }} 2800w" sizes="(max-width: 600px) calc(100vw - 88px), (max-width: 1150px) calc((100vw - 138px) / 2), 596px" width="2800" height="2100" loading="lazy" decoding="async" alt="Bayesian Analysis of the TransPhoM-DS Clinical Trial — poster for OHBM 2026">
@@ -240,9 +239,9 @@
           <figcaption><a href="{{ "posters/transphom-ds-ohbm-2026.pdf" | relURL }}" target="_blank" rel="noopener">Open full-size PDF ↗</a></figcaption>
         </figure>
       </li>
-      <li><span class="pub-year">2026</span><div><cite>Ahab&#x27;s Harpoon: Calibrated irreplicability detection with approximate objective Bayes factors</cite><p>2026 Statistical Society of Canada Annual Meeting, May 2026. Hamilton, ON.</p></div></li>
-      <li><span class="pub-year">2025</span><div><cite>Reassessing the Statistical Evidence in Clinical Trials with Extended Approximate Objective Bayes Factors</cite><p>Maud Menten Institute 2025 HQP Summit and Working Group Meetings, July 2025. Edmonton, AB.</p></div></li>
-      <li><span class="pub-year">2025</span><div><cite>Photobiomodulation therapy-induced volumetric brain changes on patients with depression</cite><p>Cognitive Neuroscience Society 2025 Annual Meeting, March 2025. Boston, MA.</p></div>
+      <li class="reveal"><span class="pub-year">2026</span><div><cite>Ahab&#x27;s Harpoon: Calibrated irreplicability detection with approximate objective Bayes factors</cite><p>2026 Statistical Society of Canada Annual Meeting, May 2026. Hamilton, ON.</p></div></li>
+      <li class="reveal"><span class="pub-year">2025</span><div><cite>Reassessing the Statistical Evidence in Clinical Trials with Extended Approximate Objective Bayes Factors</cite><p>Maud Menten Institute 2025 HQP Summit and Working Group Meetings, July 2025. Edmonton, AB.</p></div></li>
+      <li class="reveal"><span class="pub-year">2025</span><div><cite>Photobiomodulation therapy-induced volumetric brain changes on patients with depression</cite><p>Cognitive Neuroscience Society 2025 Annual Meeting, March 2025. Boston, MA.</p></div>
         <figure class="poster-preview">
           <a href="{{ "posters/volumetric-changes-cns-2025.pdf" | relURL }}" target="_blank" rel="noopener" aria-label="Open full-size PDF: Photobiomodulation therapy-induced volumetric brain changes on patients with depression">
             <img src="{{ "posters/volumetric-changes-cns-2025.webp" | relURL }}" srcset="{{ "posters/volumetric-changes-cns-2025.webp" | relURL }} 1200w, {{ "posters/volumetric-changes-cns-2025-large.webp" | relURL }} 2800w" sizes="(max-width: 600px) calc(100vw - 88px), (max-width: 1150px) calc((100vw - 138px) / 2), 596px" width="2800" height="2100" loading="lazy" decoding="async" alt="Photobiomodulation therapy-induced volumetric brain changes on patients with depression — poster for CNS 2025">
@@ -250,20 +249,20 @@
           <figcaption><a href="{{ "posters/volumetric-changes-cns-2025.pdf" | relURL }}" target="_blank" rel="noopener">Open full-size PDF ↗</a></figcaption>
         </figure>
       </li>
-      <li><span class="pub-year">2024</span><div><cite>Altered structural connectivity and functional brain dynamics in individuals with heavy alcohol use elucidated via network control theory</cite><p>Organization for Human Brain Mapping 2024 Annual Meeting, June 2024. Seoul, SK.</p></div></li>
-      <li><span class="pub-year">2023</span><div><cite>Network control analysis of individuals with substance use disorder</cite><p>Organization for Human Brain Mapping 2023 Annual Meeting, July 2023. Montreal, QC.</p></div></li>
+      <li class="reveal"><span class="pub-year">2024</span><div><cite>Altered structural connectivity and functional brain dynamics in individuals with heavy alcohol use elucidated via network control theory</cite><p>Organization for Human Brain Mapping 2024 Annual Meeting, June 2024. Seoul, SK.</p></div></li>
+      <li class="reveal"><span class="pub-year">2023</span><div><cite>Network control analysis of individuals with substance use disorder</cite><p>Organization for Human Brain Mapping 2023 Annual Meeting, July 2023. Montreal, QC.</p></div></li>
     </ol>
   </div>
 </section>
 
-<section class="academic-section page-shell" id="travel" aria-labelledby="travel-title">
+<section data-reveal-group class="academic-section page-shell" id="travel" aria-labelledby="travel-title">
   <header class="section-rail reveal">
     <p>09</p>
     <h2 id="travel-title">Travel</h2>
   </header>
-  <div class="section-body reveal">
-    <p class="section-intro">A growing collection of places I’ve been. Photos and notes to come.</p>
-    <div class="atlas">
+  <div class="section-body">
+    <p class="section-intro reveal">A growing collection of places I’ve been. Photos and notes to come.</p>
+    <div class="atlas reveal">
       <div class="atlas-copy">
         <p class="atlas-label">Interactive travel atlas · 17 locations</p>
         <div class="place-focus" aria-live="polite">
@@ -286,10 +285,10 @@
   </div>
 </section>
 
-<section class="contact-note page-shell reveal" id="contact" aria-labelledby="contact-title">
-  <p class="kicker">Contact</p>
-  <h2 id="contact-title">Let’s talk <span>research.</span></h2>
-  <p>I welcome conversations about quantitative research, statistical modeling, and machine learning.</p>
-  <p>Email <a href="mailto:puneet.velidi@gmail.com">puneet.velidi@gmail.com</a> or <a href="https://calendar.app.google/6fDTDmGb97Tt79xQ9" target="_blank" rel="noopener">schedule a conversation</a>.</p>
+<section data-reveal-group class="contact-note page-shell" id="contact" aria-labelledby="contact-title">
+  <p class="kicker reveal">Contact</p>
+  <h2 class="reveal" id="contact-title">Let’s talk <span>research.</span></h2>
+  <p class="reveal">I welcome conversations about quantitative research, statistical modeling, and machine learning.</p>
+  <p class="reveal">Email <a href="mailto:puneet.velidi@gmail.com">puneet.velidi@gmail.com</a> or <a href="https://calendar.app.google/6fDTDmGb97Tt79xQ9" target="_blank" rel="noopener">schedule a conversation</a>.</p>
 </section>
 {{ end }}
