@@ -20,6 +20,7 @@
     groups.get(group).push(element);
   });
   const pending = new Map();
+  const stagger = 200, maxDelay = 750;
   let frame = 0;
   let finished = false;
   const inView = (element) => {
@@ -50,8 +51,8 @@
       if (!ready.length) return;
       const lastDue = members.reduce((latest, element) =>
         Math.max(latest, pending.get(element)?.due || 0), 0);
-      const start = lastDue ? Math.min(450, Math.max(0, lastDue - now + 120)) : 0;
-      const step = Math.min(120, (450 - start) / Math.max(1, ready.length - 1));
+      const start = lastDue ? Math.min(maxDelay, Math.max(0, lastDue - now + stagger)) : 0;
+      const step = Math.min(stagger, (maxDelay - start) / Math.max(1, ready.length - 1));
       ready.forEach((element, index) => {
         const delay = start + index * step;
         if (!delay) { show(element); return; }

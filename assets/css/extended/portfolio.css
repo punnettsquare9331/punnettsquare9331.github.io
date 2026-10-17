@@ -308,7 +308,7 @@ html[data-background-motion="running"] .research-card[data-active] .ascii-accent
 .footer-meta { grid-column: 1/-1; display: flex; justify-content: space-between; gap: 20px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--quiet); font: 8px/1.5 var(--mono); text-transform: uppercase; }
 .interior main { width: var(--shell); min-height: 65vh; margin-inline: auto; padding: 80px 0; }
 .reveal { opacity: 1; translate: none; }
-html[data-reveals="active"] .reveal { transition: opacity 540ms ease, translate 540ms cubic-bezier(.2,.7,.2,1), var(--reveal-interaction, color 350ms, background 350ms, border-color 350ms); }
+html[data-reveals="active"] .reveal { transition: opacity 1000ms ease, translate 1000ms cubic-bezier(.2,.7,.2,1), var(--reveal-interaction, color 350ms, background 350ms, border-color 350ms); }
 .software-table > .reveal { --reveal-interaction: transform 250ms, border-color 250ms; }
 .bibliography .reveal { --reveal-interaction: background 180ms; }
 html[data-reveals="active"] .reveal:not(.is-visible) { opacity: 0; translate: 0 18px; }

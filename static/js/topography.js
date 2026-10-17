@@ -104,11 +104,13 @@
 
   const tick = (now) => {
     frame = 0;
-    const easing = 1 - Math.exp(-Math.min(50, now - (previousTime || now - 16)) / 95);
+    const elapsed = Math.min(50, now - (previousTime || now - 16));
+    const easing = 1 - Math.exp(-elapsed / 95);
+    const scrollEasing = 1 - Math.exp(-elapsed / 240);
     previousTime = now;
     pointerX += (targetX - pointerX) * easing;
     pointerY += (targetY - pointerY) * easing;
-    scrollPosition += (targetScroll - scrollPosition) * easing;
+    scrollPosition += (targetScroll - scrollPosition) * scrollEasing;
     render();
     if (canMove() && (Math.abs(targetX - pointerX) + Math.abs(targetY - pointerY) + Math.abs(targetScroll - scrollPosition) > .001)) {
       frame = requestAnimationFrame(tick);
