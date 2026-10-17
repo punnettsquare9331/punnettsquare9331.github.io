@@ -46,6 +46,12 @@
 
   const links = [...document.querySelectorAll('.home .site-nav a')];
   const sections = links.map(link => document.querySelector(new URL(link.href).hash));
+  const hero = document.querySelector('.profile-hero');
+  const achievementCards = [...document.querySelectorAll('.achievement-card')];
+  const archive = document.querySelector('#award-archive');
+  document.querySelector('.recognition-index')?.addEventListener('click', () => {
+    if (archive) archive.open = true;
+  });
   if (!links.length) return;
   let queued = false;
   const updateNavigation = () => {
@@ -61,6 +67,17 @@
     });
     const distance = document.documentElement.scrollHeight - innerHeight;
     document.documentElement.style.setProperty('--reading-progress', distance > 0 ? Math.min(1, scrollY / distance) : 0);
+    const motion = !reducedMotion.matches && document.documentElement.dataset.backgroundMotion !== 'paused';
+    if (hero) {
+      const drift = motion ? Math.min(innerWidth <= 800 ? 12 : 30, Math.max(0, scrollY) * 0.045) : 0;
+      hero.style.setProperty('--hero-drift', `${drift.toFixed(1)}px`);
+    }
+    achievementCards.forEach((card, index) => {
+      const next = achievementCards[index + 1];
+      const top = parseFloat(getComputedStyle(card).top) || 0;
+      const progress = motion && next ? Math.max(0, Math.min(1, (innerHeight * 0.7 - next.getBoundingClientRect().top + top) / (innerHeight * 0.7))) : 0;
+      card.style.setProperty('--stack-scale', (1 - progress * 0.045).toFixed(4));
+    });
   };
   const scheduleNavigation = () => {
     if (queued) return;
@@ -69,5 +86,8 @@
   };
   window.addEventListener('scroll', scheduleNavigation, {passive: true});
   window.addEventListener('resize', scheduleNavigation, {passive: true});
+  document.addEventListener('theme-motion-change', scheduleNavigation);
+  reducedMotion.addEventListener('change', scheduleNavigation);
+  archive?.addEventListener('toggle', scheduleNavigation);
   updateNavigation();
 })();

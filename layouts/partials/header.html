@@ -10,6 +10,7 @@
   </button>
 
   <nav class="site-nav" id="site-nav" aria-label="Primary" data-nav>
+    <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#honors" aria-label="Recognition">Recognition</a>
     <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#research" aria-label="Research">Research</a>
     <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#software" aria-label="Software">Software</a>
     <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#vitae" aria-label="Experience">Experience</a>

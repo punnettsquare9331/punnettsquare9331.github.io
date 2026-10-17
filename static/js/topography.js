@@ -3,19 +3,20 @@
   const toggle = document.querySelector('[data-motion-toggle]');
   if (!(canvas instanceof HTMLCanvasElement) || !toggle) return;
   const context = canvas.getContext('2d');
-  if (!context) return;
+  const terrainCanvas = document.createElement('canvas');
+  const terrain = terrainCanvas.getContext('2d');
+  if (!context || !terrain) return;
 
   const landscape = canvas.closest('.landscape');
   const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
   const label = toggle.querySelector('[data-motion-label]');
-  const lossLabel = landscape.querySelector('[data-loss-value]');
-  const stepLabel = landscape.querySelector('[data-loss-step]');
-  const stateLabel = landscape.querySelector('[data-loss-state]');
-  const restart = landscape.querySelector('[data-loss-restart]');
+  const lossLabel = document.querySelector('[data-loss-value]');
+  const stepLabel = document.querySelector('[data-loss-step]');
+  const stateLabel = document.querySelector('[data-loss-state]');
+  const restart = document.querySelector('[data-loss-restart]');
   const storageKey = 'puneet-background-motion';
   const accent = '#d5ff70';
   let paused = false;
-  let inView = false;
   let frame = 0;
   let lastTime = 0;
   let elapsed = 2.2;
@@ -26,6 +27,10 @@
   let targetX = 0;
   let targetY = 0;
   let seed = 0;
+  let scrollPosition = 0;
+  let targetScroll = window.scrollY / Math.max(window.innerHeight, 1);
+  let terrainDirty = true;
+  let previousCamera = [];
   let cells, depths, columns, rows, cellWidth, cellHeight;
 
   try { paused = localStorage.getItem(storageKey) === 'paused'; } catch {}
@@ -60,11 +65,11 @@
   };
   let route = makeRun();
   const mesh = [];
-  const divisions = 72;
+  const divisions = 112;
   for (let row = 0; row <= divisions; row++) {
     for (let col = 0; col <= divisions; col++) {
-      const x = -3 + col * 6 / divisions;
-      const z = -3 + row * 6 / divisions;
+      const x = -4.5 + col * 9 / divisions;
+      const z = -4.5 + row * 9 / divisions;
       const value = loss(x, z);
       const [dx, dz] = gradient(x, z);
       const light = clamp((0.7 - dx * 0.3 - dz * 0.5) / Math.hypot(dx, 1, dz), -0.3, 1);
@@ -75,54 +80,77 @@
   const render = () => {
     if (!cells) return;
     context.clearRect(0, 0, width, height);
-    const scale = Math.min(width / 9.8, height / 7.5);
-    const yaw = -0.48 + pointerX * 0.2;
-    const pitch = 0.74 + pointerY * 0.08;
+    const scale = width <= 600 ? width / 6.8 : Math.max(width / 10, height / 7);
+    const yaw = -0.48 + pointerX * 0.14 + scrollPosition * 0.13;
+    const pitch = 0.76 + pointerY * 0.06 + Math.sin(scrollPosition * 0.28) * 0.06;
+    const centerX = width * (width <= 600 ? 0.54 : 0.66) + Math.sin(scrollPosition * 0.4) * width * 0.055;
+    const centerY = height * 0.8 - Math.sin(scrollPosition * 0.24) * height * 0.035;
     const cy = Math.cos(yaw), sy = Math.sin(yaw);
     const cp = Math.cos(pitch), sp = Math.sin(pitch);
     const project = (x, y, z) => {
       const depth = x * sy + z * cy;
-      return {x: width * 0.5 + (x * cy - z * sy) * scale,
-        y: height * 0.69 + (depth * sp - y * cp) * scale,
+      return {x: centerX + (x * cy - z * sy) * scale,
+        y: centerY + (depth * sp - y * cp) * scale,
         depth: depth * cp + y * sp};
     };
     const surfacePoint = (point, lift = 0) => project(point.x, elevation(point.loss) + lift, point.z);
 
-    // Quantize the surface into a screen-space character grid with depth testing.
-    // This is actual ASCII geometry, not a texture over a bitmap.
-    cells.fill(-1);
-    depths.fill(-Infinity);
-    mesh.forEach((point, index) => {
-      const screen = project(point.x, point.y, point.z);
-      const col = Math.round(screen.x / cellWidth);
-      const row = Math.round(screen.y / cellHeight);
-      if (col < 0 || col >= columns || row < 0 || row >= rows) return;
-      const cell = row * columns + col;
-      if (screen.depth > depths[cell]) { depths[cell] = screen.depth; cells[cell] = index; }
-    });
-    context.lineWidth = 0.65;
-    context.strokeStyle = 'rgba(200,211,204,.11)';
-    for (let row = 0; row <= divisions; row += 12) {
-      context.beginPath();
-      for (let col = 0; col <= divisions; col++) {
-        const point = mesh[row * (divisions + 1) + col];
+    // Cache the ASCII surface between camera changes. The moving ball only
+    // requires one image composite, keeping the page-wide animation lightweight.
+    const camera = [yaw, pitch, centerX, centerY, scale];
+    if (terrainDirty || camera.some((value, index) => Math.abs(value - (previousCamera[index] ?? Infinity)) > 0.001)) {
+      terrain.clearRect(0, 0, width, height);
+      // Quantize the surface into a screen-space character grid with depth testing.
+      // This is actual ASCII geometry, not a texture over a bitmap.
+      cells.fill(-1);
+      depths.fill(-Infinity);
+      mesh.forEach((point, index) => {
         const screen = project(point.x, point.y, point.z);
-        if (col === 0) context.moveTo(screen.x, screen.y);
-        else context.lineTo(screen.x, screen.y);
+        const col = Math.round(screen.x / cellWidth);
+        const row = Math.round(screen.y / cellHeight);
+        if (col < 0 || col >= columns || row < 0 || row >= rows) return;
+        const cell = row * columns + col;
+        if (screen.depth > depths[cell]) { depths[cell] = screen.depth; cells[cell] = index; }
+      });
+      terrain.lineWidth = 0.65;
+      terrain.strokeStyle = 'rgba(155,184,158,.13)';
+      for (let row = 0; row <= divisions; row += 16) {
+        terrain.beginPath();
+        for (let col = 0; col <= divisions; col++) {
+          const point = mesh[row * (divisions + 1) + col];
+          const screen = project(point.x, point.y, point.z);
+          if (col === 0) terrain.moveTo(screen.x, screen.y);
+          else terrain.lineTo(screen.x, screen.y);
+        }
+        terrain.stroke();
       }
-      context.stroke();
+      for (let col = 0; col <= divisions; col += 16) {
+        terrain.beginPath();
+        for (let row = 0; row <= divisions; row++) {
+          const point = mesh[row * (divisions + 1) + col];
+          const screen = project(point.x, point.y, point.z);
+          if (row === 0) terrain.moveTo(screen.x, screen.y);
+          else terrain.lineTo(screen.x, screen.y);
+        }
+        terrain.stroke();
+      }
+      const glyphs = ['.', ':', '-', '+', '*', '#'];
+      const colors = ['#25332d', '#34463a', '#435342', '#53654e', '#65765b', '#7b8868'];
+      terrain.font = `${Math.round(cellHeight * 0.87)}px "IBM Plex Mono", monospace`;
+      terrain.textAlign = 'center';
+      terrain.textBaseline = 'middle';
+      for (let cell = 0; cell < cells.length; cell++) {
+        if (cells[cell] < 0) continue;
+        const shade = mesh[cells[cell]].shade;
+        terrain.fillStyle = colors[shade];
+        terrain.fillText(glyphs[shade], (cell % columns) * cellWidth, Math.floor(cell / columns) * cellHeight);
+      }
+      previousCamera = camera;
+      terrainDirty = false;
     }
-    const glyphs = ['.', ':', '-', '+', '*', '#'];
-    const colors = ['#3e4847', '#56615d', '#717c74', '#8b9489', '#a2aa9b', '#bfc7b4'];
-    context.font = `${Math.round(cellHeight * 0.87)}px "IBM Plex Mono", monospace`;
-    context.textAlign = 'center';
-    context.textBaseline = 'middle';
-    for (let cell = 0; cell < cells.length; cell++) {
-      if (cells[cell] < 0) continue;
-      const shade = mesh[cells[cell]].shade;
-      context.fillStyle = colors[shade];
-      context.fillText(glyphs[shade], (cell % columns) * cellWidth, Math.floor(cell / columns) * cellHeight);
-    }
+    context.globalAlpha = width <= 600 ? 0.3 : 0.5;
+    context.drawImage(terrainCanvas, 0, 0, width, height);
+    context.globalAlpha = 1;
 
     const progress = 1 - Math.pow(1 - Math.min(1, elapsed / 14), 1.8);
     const distance = route[route.length - 1].distance * progress;
@@ -163,7 +191,7 @@
     context.moveTo(end.x, end.y - 5); context.lineTo(end.x, end.y + 5);
     context.stroke();
 
-    const radius = clamp(width * 0.023, 8, 16);
+    const radius = clamp(width * 0.017, 10, 25);
     const ball = surfacePoint(point, radius / (scale * cp));
     context.fillStyle = 'rgba(0,0,0,.65)';
     context.beginPath(); context.ellipse(ground.x + 2, ground.y + 3, radius * 1.2, radius * 0.36, 0, 0, Math.PI * 2); context.fill();
@@ -190,14 +218,15 @@
 
   const tick = (now) => {
     frame = 0;
-    if (!canMove() || !inView) return;
+    if (!canMove()) return;
     const delta = now - lastTime;
-    // A modest frame rate, bounded character count, and no offscreen animation.
+    // Limit the frame rate and stop all work while the document is hidden.
     if (delta >= 1000 / 30) {
       elapsed += Math.min(delta, 80) / 1000;
       if (elapsed >= 16.8) { seed++; route = makeRun(); elapsed = 0; }
       pointerX += (targetX - pointerX) * 0.08;
       pointerY += (targetY - pointerY) * 0.08;
+      scrollPosition += (targetScroll - scrollPosition) * 0.075;
       lastTime = now;
       render();
     }
@@ -210,17 +239,21 @@
     toggle.hidden = preference.matches;
     toggle.setAttribute('aria-label', paused ? 'Resume theme animation' : 'Pause theme animation');
     label.textContent = paused ? 'Resume motion' : 'Pause motion';
+    document.dispatchEvent(new CustomEvent('theme-motion-change'));
     render();
-    if (canMove() && inView) { lastTime = performance.now(); frame = requestAnimationFrame(tick); }
+    if (canMove()) { lastTime = performance.now(); frame = requestAnimationFrame(tick); }
   };
   const resize = () => {
     const rect = canvas.getBoundingClientRect();
     width = rect.width; height = rect.height;
     if (!width || !height) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr);
+    terrainCanvas.width = canvas.width; terrainCanvas.height = canvas.height;
     context.setTransform(dpr, 0, 0, dpr, 0, 0);
-    cellHeight = width < 400 ? 8 : 10;
+    terrain.setTransform(dpr, 0, 0, dpr, 0, 0);
+    terrainDirty = true;
+    cellHeight = width <= 600 ? 10 : 12;
     cellWidth = cellHeight * 0.63;
     columns = Math.ceil(width / cellWidth) + 1;
     rows = Math.ceil(height / cellHeight) + 1;
@@ -239,20 +272,20 @@
     seed++; route = makeRun(); elapsed = canMove() ? 0.6 : 3.5;
     render();
   });
-  landscape.addEventListener('pointermove', event => {
+  window.addEventListener('pointermove', event => {
     if (!canMove() || event.pointerType === 'touch') return;
-    const rect = landscape.getBoundingClientRect();
-    targetX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
-    targetY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+    targetX = (event.clientX / width - 0.5) * 2;
+    targetY = (event.clientY / height - 0.5) * 2;
   }, {passive: true});
-  landscape.addEventListener('pointerleave', () => { targetX = 0; targetY = 0; });
+  document.documentElement.addEventListener('pointerleave', () => { targetX = 0; targetY = 0; });
   preference.addEventListener('change', updateAnimation);
   document.addEventListener('visibilitychange', updateAnimation);
   if ('ResizeObserver' in window) new ResizeObserver(resize).observe(canvas);
   else window.addEventListener('resize', resize, {passive: true});
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(([entry]) => { inView = entry.isIntersecting; updateAnimation(); }, {threshold: 0}).observe(landscape);
-  } else { inView = true; }
+  window.addEventListener('scroll', () => {
+    targetScroll = window.scrollY / Math.max(window.innerHeight, 1);
+  }, {passive: true});
+  document.fonts?.ready.then(() => { terrainDirty = true; render(); });
   resize();
   updateAnimation();
 })();

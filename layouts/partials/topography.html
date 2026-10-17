@@ -1,6 +1,4 @@
-<figure class="landscape" aria-label="A ball descending an ASCII loss landscape" aria-describedby="landscape-caption">
-  <div class="landscape-heading"><span aria-hidden="true">[01]</span>loss_landscape<span data-loss-state>[ illustration ]</span></div>
-  <div class="landscape-surface">
+<div class="landscape" aria-hidden="true">
     <pre class="landscape-fallback" aria-hidden="true">
       . : + # # + : .
    . : + #       # + : .
@@ -13,11 +11,13 @@
         : : .
     </pre>
     <canvas id="landscape-canvas" width="800" height="800" aria-hidden="true"></canvas>
-  </div>
+</div>
+<aside class="landscape-console" aria-label="Illustrative gradient descent animation">
+  <div class="landscape-heading"><span>loss_landscape · demo</span><span data-loss-state>[ illustration ]</span></div>
   <div class="landscape-readout">
     <span>step <b data-loss-step>—</b></span>
     <span>loss <b data-loss-value>—</b></span>
     <button type="button" data-loss-restart aria-label="Restart loss landscape descent" hidden>[ restart ]</button>
   </div>
-  <figcaption id="landscape-caption"><span>Gradient descent / illustrative</span><span class="landscape-hint">Move to orbit</span></figcaption>
-</figure>
+  <span class="sr-only">A ball follows gradient descent on an illustrative loss landscape. Scroll to change the view.</span>
+</aside>
