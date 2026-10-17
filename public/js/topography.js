@@ -15,6 +15,85 @@
   try { paused = localStorage.getItem(storageKey) === 'paused'; } catch {}
   const canMove = () => !paused && !preference.matches && !document.hidden;
 
+  const drawRail = (view, project) => {
+    // A shallow architectural rail shares the portrait's camera. The top edge
+    // follows the photographed palms; the fingers overlap its front face.
+    const contact = (u) => .398 + (u - .047) * .0231;
+    const front = (u, v) => project(u, v, .043);
+    const rear = (u, v) => project(u + .018, v - .018, -.045);
+    const polygon = (points, fill, stroke) => {
+      context.beginPath();
+      points.forEach((point, index) => {
+        if (!index) context.moveTo(point.x, point.y);
+        else context.lineTo(point.x, point.y);
+      });
+      context.closePath();
+      context.fillStyle = fill;
+      context.fill();
+      context.strokeStyle = stroke;
+      context.stroke();
+    };
+    const line = (a, b, color, weight = .75) => {
+      context.beginPath();
+      context.moveTo(a.x, a.y);
+      context.lineTo(b.x, b.y);
+      context.strokeStyle = color;
+      context.lineWidth = weight;
+      context.stroke();
+    };
+    context.save();
+    context.globalAlpha = view.visibility;
+    context.lineWidth = .8;
+    context.lineJoin = 'round';
+
+    // Slim extruded uprights give the handrest a physical structure without
+    // filling the space around the figure with another opaque panel.
+    for (const u of [.085, .925]) {
+      const a = u - .014, b = u + .014;
+      const top = contact(u) + .022, bottom = .976;
+      polygon([rear(a, top), front(a, top), front(a, bottom), rear(a, bottom)], '#141e16', '#46563d');
+      polygon([front(b, top), rear(b, top), rear(b, bottom), front(b, bottom)], '#101914', '#3b4b39');
+      polygon([front(a, top), front(b, top), front(b, bottom), front(a, bottom)], '#1b251d', '#586951');
+      line(front(a + .006, top), front(a + .006, bottom), '#7d8e6e', .55);
+      const footA = a - .024, footB = b + .024;
+      polygon([rear(footA, bottom), rear(footB, bottom), front(footB, bottom + .005), front(footA, bottom + .005)], '#1b241b', '#53634a');
+    }
+
+    const left = -.025, right = 1.025;
+    const topLeft = contact(left) + .004, topRight = contact(right) + .004;
+    const a = front(left, topLeft), b = front(right, topRight);
+    const c = rear(right, topRight), d = rear(left, topLeft);
+    const thickness = .022;
+    polygon([d, a, front(left, topLeft + thickness), rear(left, topLeft + thickness)], '#263322', '#71815c');
+    polygon([b, c, rear(right, topRight + thickness), front(right, topRight + thickness)], '#202d20', '#71815c');
+    const topShade = context.createLinearGradient(d.x, d.y, a.x, a.y + 12);
+    topShade.addColorStop(0, '#202c22');
+    topShade.addColorStop(1, '#45513a');
+    polygon([d, c, b, a], topShade, '#8e9c73');
+    const faceShade = context.createLinearGradient(a.x, a.y, a.x, a.y + view.portraitHeight * thickness);
+    faceShade.addColorStop(0, '#293622');
+    faceShade.addColorStop(1, '#111a14');
+    polygon([a, b, front(right, topRight + thickness), front(left, topLeft + thickness)], faceShade, '#63734e');
+
+    // Visible depth divisions and a restrained lit edge keep the material
+    // consistent with the site's wireframe/ASCII palette.
+    for (let i = 1; i < 24; i++) {
+      const u = left + (right - left) * i / 24;
+      line(rear(u, contact(u) + .004), front(u, contact(u) + .004), '#82906755', .6);
+    }
+    line(a, b, '#c7de8e', 1.15);
+    line(front(left, topLeft + thickness), front(right, topRight + thickness), '#556448', .7);
+    // Contact shadows sit under the palms and are occluded by the cutout.
+    for (const u of [.047, .957]) {
+      const p = front(u, contact(u) + .001);
+      context.fillStyle = '#030703b8';
+      context.beginPath();
+      context.ellipse(p.x, p.y, view.portraitHeight * .022, view.portraitHeight * .004, .034, 0, Math.PI * 2);
+      context.fill();
+    }
+    context.restore();
+  };
+
   const render = () => {
     const mobile = width <= 600;
     const progress = clamp(scrollPosition, 0, 1.6);
@@ -99,6 +178,7 @@
         context.fillText(glyphs[(column * 7 + row * 3) % glyphs.length], p.x, p.y);
       }
     }
+    drawRail(view, project);
     document.dispatchEvent(new CustomEvent('portfolio-view', {detail: view}));
   };
 
