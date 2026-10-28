@@ -201,7 +201,7 @@ html[data-background-motion="running"] .research-card[data-active] .ascii-accent
 .archive-symbol { display: inline-block; color: var(--accent); font-size: 24px; transition: transform 200ms; }
 .award-archive[open] .archive-symbol { transform: rotate(45deg); }
 .award-ledger article { display: grid; grid-template-columns: 40px minmax(0,1fr) auto; align-items: baseline; gap: 20px; padding: 24px 4px; border-top: 1px solid var(--line); }
-.award-ledger time { color: var(--quiet); font: 10px/1.5 var(--mono); }
+.award-ledger time, .award-ledger .award-year { color: var(--quiet); font: 10px/1.5 var(--mono); }
 .award-ledger h3 { margin: 0; font: 500 17px/1.35 var(--sans); }
 .award-ledger p { margin: 8px 0 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
 .award-amount { color: var(--ink); font: 500 16px/1.5 var(--mono); white-space: nowrap; }
