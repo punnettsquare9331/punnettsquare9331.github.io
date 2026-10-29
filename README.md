@@ -8,6 +8,8 @@ This repository contains a [Hugo](https://github.com/gohugoio/hugo) template to 
 
 The website and its downloadable CV and resume are the authoritative public versions. Keep shared facts and publication links aligned when updating them. Edit the homepage in `layouts/index.html` and the documents in `cv.tex` and `Puneet Velidi Resume (1).tex`. Rebuild the PDFs and place the current copies in `static/documents/` and `output/pdf/`, then run Hugo to refresh `public/`. Word files in `output/docx/` are derivative exports. Publishing changes to `main` triggers the GitHub Pages workflow.
 
+The current homepage is a traditional academic page: semantic HTML, a small stylesheet in `assets/css/extended/portfolio.css`, system serif fonts, and no client-side JavaScript. Awards and experience live in `layouts/partials/recognition.html` and `layouts/partials/experience.html`. The portrait is a conventional crop of the existing photograph. Older animation assets remain in the repository but are not loaded by the page.
+
 The template is documented at https://pascalmichaillat.org/d5/.
 
 ## Illustration

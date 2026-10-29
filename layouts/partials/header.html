@@ -1,32 +1,10 @@
-<header class="site-header" data-header>
-  <a class="wordmark" href="{{ "" | relURL }}" aria-label="Puneet Velidi, home">
-    <span class="wordmark-symbol" aria-hidden="true">[pv]</span>
-    <span class="wordmark-name">Puneet Velidi</span>
-  </a>
-
-  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
-    <span class="sr-only">Toggle navigation</span>
-    <span></span><span></span>
-  </button>
-
-  <nav class="site-nav" id="site-nav" aria-label="Primary" data-nav>
-    <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#honors" aria-label="Recognition">Recognition</a>
-    <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#research" aria-label="Research">Research</a>
-    <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#software" aria-label="Software">Software</a>
-    <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#vitae" aria-label="Experience">Experience</a>
-    <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#publications" aria-label="Papers">Papers</a>
-    <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#travel" aria-label="Travel">Travel</a>
-    <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#contact" aria-label="Contact">Contact</a>
-  </nav>
-
-  <div class="header-actions">
-    <button class="motion-toggle" type="button" data-motion-toggle aria-label="Pause theme animation" hidden>
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-        <path class="motion-pause" d="M8 5v14M16 5v14" />
-        <path class="motion-play" d="m8 5 11 7-11 7Z" />
-      </svg>
-      <span data-motion-label>Pause motion</span>
-    </button>
-    <a class="header-cv" href="{{ "documents/puneet-velidi-cv.pdf" | relURL }}" target="_blank">CV · PDF</a>
-  </div>
-</header>
+<nav class="site-nav" aria-label="Sections">
+  {{ if not .IsHome }}<a href="{{ "" | relURL }}">Puneet Velidi</a>{{ end }}
+  <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#research">Research</a>
+  <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#publications">Publications</a>
+  <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#honors">Awards</a>
+  <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#vitae">Experience</a>
+  <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#talks">Talks</a>
+  <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#software">Software</a>
+  <a href="{{ if not .IsHome }}{{ "" | relURL }}{{ end }}#travel">Travel</a>
+</nav>
