@@ -8,7 +8,7 @@ disableKinds:
   - term
 
 params:
-  description: "Puneet Velidi — Statistical AI/ML Researcher and founder at ChimeraML. Spatial and functional data analysis with applications to neuroimaging and gene expression data."
+  description: "Puneet Velidi — Statistical neuroimaging, especially fMRI. Spatial and functional data analysis with applications to neuroimaging and gene expression data. Founder at ChimeraML."
   author: "Puneet Velidi"
 
 markup:
